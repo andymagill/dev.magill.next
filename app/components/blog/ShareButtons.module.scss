@@ -4,20 +4,27 @@
 	text-align: center;
 	margin: 2rem 0;
 	padding: 2rem 1.5rem;
-	background: var(--backgroundToo);
+	background: var(--backgroundFade);
 	border-radius: 0.75rem;
 	border: 1px solid var(--line-color);
 
 	// Viewport reveal animation
 	opacity: 0;
-	transform: translateY(20px);
+	transform: translateY(20px) scale(0.95);
 	transition:
-		opacity 0.6s ease-out,
-		transform 0.6s ease-out;
+		opacity 0.6s ease-out 0.3s,
+		transform 0.6s ease-out 0.3s,
+		box-shadow 0.6s ease;
 
 	&.visible {
 		opacity: 1;
-		transform: translateY(0);
+		transform: translateY(0) scale(1);
+	}
+
+	// Inner reflection/shadow bezel on hover
+	&:hover {
+		box-shadow: inset 1em 1em 1em 0 rgba(128, 128, 128, 0.1), 
+              inset -1em -1em 1em 0 rgba(0, 0, 0, 0.5);
 	}
 
 	// Respect reduced motion preferences
@@ -27,7 +34,8 @@
 		transform: none;
 	}
 
-	h3 {
+	> h3 {
+		margin-top: 0 !important;
 		margin-bottom: 0.75rem;
 		font-size: 1.25rem;
 		font-weight: 600;
@@ -68,15 +76,19 @@
 		white-space: nowrap;
 		cursor: pointer;
 
-		// Enhanced hover animations
-		transition: all 0.3s ease;
-		transform: translateY(0);
+		// Initial hidden state for reveal animation
+		opacity: 0;
+		transform: translateY(20px) scale(0.8);
+		transition: 
+			all 0.3s ease,
+			opacity 0.4s ease,
+			transform 0.4s ease;
 
 		&:hover {
-			background-color: var(--primary-color);
-			color: var(--alwaysWhite);
+			background-color: var(--foreground);
+			color: var(--background);
 			transform: translateY(-2px);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 			padding-right: 0.75rem;
 
 			span {
@@ -86,10 +98,11 @@
 
 		// Respect reduced motion preferences
 		@media (prefers-reduced-motion: reduce) {
+			opacity: 1;
+			transform: none;
 			transition:
 				background-color 0.3s ease,
 				color 0.3s ease;
-			transform: none;
 
 			&:hover {
 				transform: none;
@@ -107,8 +120,30 @@
 
 		// Focus styles for accessibility
 		&:focus {
-			outline: 2px solid var(--primary-color);
+			outline: 2px solid var(--foreground);
 			outline-offset: 2px;
 		}
 	}
+
+	// Sequential reveal when parent is visible
+	&.visible {
+		.shareButton {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+			
+			// Sequential delays using CSS custom properties
+			&:nth-child(1) { --reveal-delay: 0.4s; }
+			&:nth-child(2) { --reveal-delay: 0.5s; }
+			&:nth-child(3) { --reveal-delay: 0.6s; }
+			&:nth-child(4) { --reveal-delay: 0.7s; }
+			&:nth-child(5) { --reveal-delay: 0.8s; }
+			&:nth-child(6) { --reveal-delay: 0.9s; }
+			
+			transition: 
+				all 0.3s ease,
+				opacity 0.4s ease var(--reveal-delay, 0s),
+				transform 0.4s ease var(--reveal-delay, 0s);
+		}
+	}
 }
+

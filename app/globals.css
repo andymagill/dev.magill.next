@@ -2,9 +2,8 @@
 	--background: #fefefe;
 	--background-transparent: rgba(254, 254, 254, 0.5);
 	--backgroundToo: #eff2f5;
+	--backgroundFade: radial-gradient(circle at 50% 50%, transparent 0%, rgba(128, 128, 128, 0.1) 100%);
 	--foreground: #171717;
-	--primary-color: #3498db;
-	--secondary-color: #f1c40f;
 	--line-color: rgb(123 117 114 / 30%);
 	--alwaysWhite: #fefefe;
 	--alwaysBlack: #171717;
@@ -23,8 +22,6 @@
 		--background: #0c0c0c;
 		--backgroundToo: #25282b;
 		--foreground: #ededed;
-		--primary-color: #2ecc71;
-		--secondary-color: #e67e73;
 		--alwaysWhite: #fefefe;
 		--alwaysBlack: #171717;
 	}
