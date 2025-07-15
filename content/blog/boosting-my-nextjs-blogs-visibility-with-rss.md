@@ -96,33 +96,33 @@ import postService from '@/utils/PostService';
 import { getPostFeed } from '@/utils/feed';
 
 export const generateStaticParams = async (): Promise<{ type: string }[]> => {
-  const params = ['posts.xml', 'posts.json'].map((type) => ({ type }));
-  return params;
+	const params = ['posts.xml', 'posts.json'].map((type) => ({ type }));
+	return params;
 };
 
 export async function GET(
-  request: Request,
-  { params }: { params: { type: string } }
+	request: Request,
+	{ params }: { params: { type: string } }
 ) {
-  if (params.type === 'posts.xml') {
-    // Serve up the RSS feed
-    const feed = getPostFeed();
-    return new Response(feed.xml(), {
-      headers: {
-        'Content-Type': 'application/rss+xml; charset=utf-8',
-      },
-    });
-  } else if (params.type === 'posts.json') {
-    // Serve up posts as JSON
-    const posts = postService.getPosts();
-    return new Response(JSON.stringify(posts), {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    });
-  } else {
-    return new Response('Not Found', { status: 404 });
-  }
+	if (params.type === 'posts.xml') {
+		// Serve up the RSS feed
+		const feed = getPostFeed();
+		return new Response(feed.xml(), {
+			headers: {
+				'Content-Type': 'application/rss+xml; charset=utf-8',
+			},
+		});
+	} else if (params.type === 'posts.json') {
+		// Serve up posts as JSON
+		const posts = postService.getPosts();
+		return new Response(JSON.stringify(posts), {
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+			},
+		});
+	} else {
+		return new Response('Not Found', { status: 404 });
+	}
 }
 ```
 
@@ -130,7 +130,7 @@ This route handles requests for both `/feed/posts.xml` (RSS) and `/feed/posts.js
 
 ## The Closing Tag
 
-So, I’ve finally implemented RSS in my NextJS blog—because who doesn’t want to dive into the exciting world of content syndication, _am I right?_ Using the `rss` library to generate the feed at build-time was fairly straight-forward. As I publish fresh content, fingers crossed that this setup will help me reach an audience without resorting to begging or spamming. 
+So, I’ve finally implemented RSS in my NextJS blog—because who doesn’t want to dive into the exciting world of content syndication, _am I right?_ Using the `rss` library to generate the feed at build-time was fairly straight-forward. As I publish fresh content, fingers crossed that this setup will help me reach an audience without resorting to begging or spamming.
 
 ### Related Links
 
