@@ -25,6 +25,18 @@ vi.mock('./components/global/Footer', () => ({
 	default: () => <footer data-testid='footer'>Footer Component</footer>,
 }));
 
+vi.mock('./components/providers/LayoutProvider', () => ({
+	LayoutProvider: ({ children }: React.PropsWithChildren) => (
+		<div data-testid='layout-provider'>{children}</div>
+	),
+}));
+
+vi.mock('./components/providers/AuthProvider', () => ({
+	AuthProvider: ({ children }: React.PropsWithChildren) => (
+		<div data-testid='auth-provider'>{children}</div>
+	),
+}));
+
 // Mock the font
 vi.mock('next/font/google', () => ({
 	Outfit: () => ({ className: 'mock-outfit-font' }),
@@ -41,6 +53,8 @@ describe('RootLayout', () => {
 		// Check if all the layout components are rendered
 		expect(screen.getByTestId('analytics-wrapper')).toBeInTheDocument();
 		expect(screen.getByTestId('error-boundary')).toBeInTheDocument();
+		expect(screen.getByTestId('auth-provider')).toBeInTheDocument();
+		expect(screen.getByTestId('layout-provider')).toBeInTheDocument();
 		expect(screen.getByTestId('header')).toBeInTheDocument();
 		expect(screen.getByTestId('footer')).toBeInTheDocument();
 

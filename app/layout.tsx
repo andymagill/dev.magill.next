@@ -9,6 +9,8 @@ import AnalyticsWrapper from './components/global/AnalyticsWrapper';
 import ErrorBoundary from '@/app/components/global/ErrorBoundary';
 import Header from './components/global/Header';
 import Footer from './components/global/Footer';
+import { LayoutProvider } from './components/providers/LayoutProvider';
+import { AuthProvider } from './components/providers/AuthProvider';
 
 import { Outfit } from 'next/font/google';
 import './globals.css';
@@ -30,13 +32,17 @@ export default function RootLayout({
 			<body className={outfit.className}>
 				<ErrorBoundary>
 					<AnalyticsWrapper>
-						<div className='site'>
-							<Header />
+						<AuthProvider>
+							<LayoutProvider>
+								<div className='site'>
+									<Header />
 
-							{children}
+									{children}
 
-							<Footer />
-						</div>
+									<Footer />
+								</div>
+							</LayoutProvider>
+						</AuthProvider>
 					</AnalyticsWrapper>
 				</ErrorBoundary>
 			</body>

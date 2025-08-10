@@ -10,6 +10,10 @@
 	text-align: center;
 	user-select: none;
 	z-index: 10;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 var(--gap);
 
 	nav {
 		padding-left: var(--gap);
@@ -25,5 +29,74 @@
 		@media (min-width: 640px) {
 			transform: rotateX(0deg);
 		}
+	}
+}
+
+.leftSection {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.rightSection {
+	display: flex;
+	align-items: center;
+}
+
+.accountButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	background-color: var(--color-primary, #0066cc);
+	color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	transition: background-color 0.2s ease, transform 0.2s ease;
+	font-size: 1rem;
+}
+
+.accountButton:hover {
+	background-color: var(--color-primary-dark, #0052a3);
+	transform: scale(1.05);
+}
+
+.authButtons {
+	display: flex;
+	gap: 1rem;
+}
+
+.authButton {
+	padding: 0.5rem 1rem;
+	background-color: transparent;
+	color: var(--color-text, #333);
+	border: 1px solid var(--color-border, #ddd);
+	border-radius: 4px;
+	text-decoration: none;
+	font-size: 0.9rem;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.authButton:hover {
+	background-color: var(--color-primary, #0066cc);
+	color: white;
+	border-color: var(--color-primary, #0066cc);
+}
+
+@media (max-width: 768px) {
+	.header {
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 0.5rem var(--gap);
+	}
+	
+	.authButtons {
+		gap: 0.5rem;
+	}
+	
+	.authButton {
+		padding: 0.4rem 0.8rem;
+		font-size: 0.8rem;
 	}
 }
