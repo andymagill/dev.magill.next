@@ -10,7 +10,7 @@ import ErrorBoundary from '@/app/components/global/ErrorBoundary';
 import Header from './components/global/Header';
 import Footer from './components/global/Footer';
 import { LayoutProvider } from './components/providers/LayoutProvider';
-import { AuthProvider } from './components/providers/AuthProvider';
+import { AuthProvider } from './contexts/AuthContext';
 
 import { Outfit } from 'next/font/google';
 import './globals.css';

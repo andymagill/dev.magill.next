@@ -3,7 +3,7 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
-import { AuthProvider } from '@/app/components/providers/AuthProvider';
+import { AuthProvider } from '@/app/contexts/AuthContext';
 import styles from './Header.module.scss';
 
 // Mock the Navigation component

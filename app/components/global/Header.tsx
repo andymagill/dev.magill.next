@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import Navigation from './Navigation';
 import NavButton from './NavButton';
-import { useIsAuthenticated, useShowAuthButtons } from '@/app/components/providers/AuthProvider';
+import { useIsAuthenticated, useShowAuthButtons } from '@/app/contexts/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 

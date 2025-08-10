@@ -31,7 +31,7 @@ vi.mock('./components/providers/LayoutProvider', () => ({
 	),
 }));
 
-vi.mock('./components/providers/AuthProvider', () => ({
+vi.mock('./contexts/AuthContext', () => ({
 	AuthProvider: ({ children }: React.PropsWithChildren) => (
 		<div data-testid='auth-provider'>{children}</div>
 	),
