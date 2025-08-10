@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://magill.dev/blog</loc><lastmod>2025-07-04T02:14:36.511Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev</loc><lastmod>2025-07-04T02:14:36.511Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/ai-discoverability-structured-data-gives-rich-context-to-clueless-crawlers</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/automating-a-full-stack-multi-environment-deployment-pipeline</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/boosting-my-nextjs-blogs-visibility-with-rss</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/building-a-flexible-modal-component-in-react</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/crafting-a-developer-website-for-professional-growth</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/generate-a-web-app-manifest-with-nextjs</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/happy-birthday-to-my-website</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/lets-breakdown-my-website</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/make-your-website-talk-with-the-javascript-web-speech-api</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/row-level-security-in-serverless-postgresql-for-hipaa-compliance</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/simplified-content-management-with-markdown</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/post/when-to-use-es6-sets-instead-of-arrays-in-javascript</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/feed/posts.xml</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://magill.dev/projects</loc><lastmod>2025-07-04T02:14:36.512Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/feed/posts.xml</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/projects</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/blog</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/ai-discoverability-structured-data-gives-rich-context-to-clueless-crawlers</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/automating-a-full-stack-multi-environment-deployment-pipeline</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/boosting-my-nextjs-blogs-visibility-with-rss</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/building-a-flexible-modal-component-in-react</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/crafting-a-developer-website-for-professional-growth</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/generate-a-web-app-manifest-with-nextjs</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/happy-birthday-to-my-website</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/lets-breakdown-my-website</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/make-your-website-talk-with-the-javascript-web-speech-api</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/row-level-security-in-serverless-postgresql-for-hipaa-compliance</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/simplified-content-management-with-markdown</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://magill.dev/post/when-to-use-es6-sets-instead-of-arrays-in-javascript</loc><lastmod>2025-08-10T16:29:12.679Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
