@@ -5,10 +5,12 @@ const { spawn } = require('child_process');
 const FILTER = "The CJS build of Vite's Node API is deprecated";
 
 const args = process.argv.slice(2);
-// Prefer local binary if available
-const cmd = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+// Prefer local binary if available. Use a shell on Windows to avoid EINVAL
+// when spawning .cmd shims (spawn of .cmd can fail on some Node/Windows setups).
+const cmd = 'npx';
 const cp = spawn(cmd, ['vitest', ...args], {
 	stdio: ['inherit', 'pipe', 'pipe'],
+	shell: true,
 });
 
 function filterAndPrint(stream, dest) {
