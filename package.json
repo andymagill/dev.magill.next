@@ -15,19 +15,19 @@
 		"analyze": "cross-env ANALYZE=true npm run build"
 	},
 	"dependencies": {
-		"@fortawesome/fontawesome-svg-core": "^6.6.0",
-		"@fortawesome/free-brands-svg-icons": "^6.6.0",
-		"@fortawesome/free-solid-svg-icons": "^6.6.0",
-		"@fortawesome/react-fontawesome": "^0.2.2",
+		"@fortawesome/fontawesome-svg-core": "^7.1.0",
+		"@fortawesome/free-brands-svg-icons": "^7.1.0",
+		"@fortawesome/free-solid-svg-icons": "^7.1.0",
+		"@fortawesome/react-fontawesome": "^3.1.1",
 		"gray-matter": "^4.0.3",
-		"markdown-to-jsx": "^7.4.1",
+		"markdown-to-jsx": "^9.3.0",
 		"next": "^14.2.14",
 		"next-sitemap": "^4.2.3",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"rss": "^1.2.2",
 		"sass": "^1.94.2",
-		"serve": "^14.2.3"
+		"serve": "^14.2.5"
 	},
 	"devDependencies": {
 		"@next/bundle-analyzer": "^15.3.3",
@@ -49,6 +49,6 @@
 		"prettier": "^3.7.4",
 		"typescript": "^5",
 		"vitest": "^4.0.15",
-		"wrangler": "^3.80.2"
+		"wrangler": "^4.53.0"
 	}
 }
