@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 export default function Home() {
 	return (
 		<main className={`${styles.main} main`}>
-			<div className={`${styles.mainWrapper} mainWrapper}`}>
+			<div className={`${styles.mainWrapper} mainWrapper`}>
 				<Hero className='row'>
 					{/* Portrait */}
 					<div className={`${styles.portraitContainer} portraitContainer`}>
@@ -78,7 +78,7 @@ export default function Home() {
 							I’m currently looking for{' '}
 							<Link href='/blog'>new&nbsp;challenges</Link> and interesting{' '}
 							opportunities. I built{' '}
-							<a href='/post/lets-breakdown-this-website'>this website</a>{' '}
+							<Link href='/post/lets-breakdown-this-website'>this website</Link>{' '}
 							<a href='//github.com/andymagill/dev.magill.next'>from scratch</a>{' '}
 							to showcase{' '}
 							<Link href='/projects'>some of my&nbsp;best&nbsp;work</Link>.{' '}

@@ -11,7 +11,8 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({ duration = 32 }) => {
 	const animationRef = useRef<HTMLDivElement>(null);
 	const startTimeRef = useRef<number | null>(null);
 	const animationFrameId = useRef<number | null>(null);
-	const lastFrameTimeRef = useRef<number>(performance.now());
+	// Do not call impure functions (performance.now) during render
+	const lastFrameTimeRef = useRef<number>(0);
 
 	useEffect(() => {
 		if (typeof window === 'undefined') return;
@@ -20,6 +21,8 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({ duration = 32 }) => {
 		startTimeRef.current = storedStartTime
 			? Number(storedStartTime)
 			: performance.now();
+		// initialize lastFrameTimeRef now that we're in an effect
+		lastFrameTimeRef.current = performance.now();
 		localStorage.setItem(
 			'heroAnimationStartTime',
 			startTimeRef.current.toString()

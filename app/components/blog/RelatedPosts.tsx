@@ -13,17 +13,23 @@ interface Props {
  * when the container scrolls into view so server-rendered children can animate.
  */
 export default function RelatedPosts({ children, className }: Props) {
-	const ref = useRef<HTMLDivElement | null>(null);
-	const [visible, setVisible] = useState(false);
+	const ref = useRef<HTMLDivElement | null>(null);	
+	// If IntersectionObserver is not available (e.g. tests/older browsers),
+	// start visible to avoid calling setState synchronously inside effect.
+	const [visible, setVisible] = useState(() =>
+		typeof IntersectionObserver === 'undefined' ? true : false
+	);
 
 	useEffect(() => {
+		// If already marked visible (fallback), no observer needed
+		if (visible) return;
+
 		if (typeof IntersectionObserver === 'undefined') {
-			setVisible(true);
 			return;
 		}
 
 		const el = ref.current;
-		if (!el) return;
+		if (!el) return;	
 
 		const obs = new IntersectionObserver(
 			([entry], o) => {
@@ -37,7 +43,7 @@ export default function RelatedPosts({ children, className }: Props) {
 
 		obs.observe(el);
 		return () => obs.disconnect();
-	}, []);
+	}, [visible]);
 
 	const wrapperClass = `${styles.container} ${className ?? ''}`.trim();
 

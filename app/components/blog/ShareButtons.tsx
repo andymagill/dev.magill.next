@@ -27,21 +27,25 @@ interface ShareButtonsProps {
  * Renders links to share the current page on social media with enhanced animations
  */
 const ShareButtons: React.FC<ShareButtonsProps> = ({ title }) => {
-	let [url, setUrl] = useState('');
-	const [isVisible, setIsVisible] = useState(false);
+	// Initialize `url` from the environment to avoid calling setState in an effect
+	const [url] = useState(() =>
+		typeof window !== 'undefined' ? window.location.href : ''
+	);
+	const [isVisible, setIsVisible] = useState(() =>
+		typeof IntersectionObserver === 'undefined' ? true : false
+	);
 	const shareButtonsRef = useRef<HTMLDivElement>(null);
 	const titleParam = encodeURIComponent(title);
 
-	// get current url
-	useEffect(() => {
-		setUrl(window.location.href);
-	}, []);
+	// No need to set `url` in an effect; it is initialized from `window` above.
 
 	// Intersection Observer for viewport reveal animation
 	useEffect(() => {
+		// If already visible via fallback, skip observer setup
+		if (isVisible) return;
+
 		// Check if IntersectionObserver is available (not in test environment)
 		if (typeof IntersectionObserver === 'undefined') {
-			setIsVisible(true);
 			return;
 		}
 
@@ -63,7 +67,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ title }) => {
 		}
 
 		return () => observer.disconnect();
-	}, []);
+	}, [isVisible]);
 
 	// create share urls for each platform
 	const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${url}`;

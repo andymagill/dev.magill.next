@@ -25,14 +25,13 @@ const Modal: React.FC<ModalProps> = ({
 	closeOnOutsideClick = true,
 	showHeader = true,
 }) => {
-	const [isMounted, setIsMounted] = useState(false);
+	// Avoid calling setState inside an effect for mount detection; initialize from environment
+	const [isMounted] = useState(() => typeof window !== 'undefined');
 	const modalRef = useRef<HTMLDivElement>(null);
 	const modalBodyRef = useRef<HTMLDivElement>(null);
 
 	// Handle body scroll locking
 	useEffect(() => {
-		setIsMounted(true);
-
 		if (isOpen) {
 			// Save the current scroll position before locking
 			const scrollY = window.scrollY;
@@ -40,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({
 			// Add class to body to prevent scrolling
 			document.body.classList.add('modal-open');
 
-			// Store the scroll position as a data attribute
+			// Store the scroll position as inline style
 			document.body.style.top = `-${scrollY}px`;
 
 			return () => {
