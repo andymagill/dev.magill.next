@@ -9,6 +9,12 @@ export class MatterContentParser implements IContentParser {
 		const parsed = matter(content);
 		const { data, content: parsedContent } = parsed;
 
+		// Normalize line endings to LF. Some markdown renderers' fence
+		// detection can break on CRLF (Windows) line endings after
+		// dependency upgrades — normalize here so downstream rendering
+		// (e.g., `markdown-to-jsx`) sees consistent newlines.
+		const normalizedContent = parsedContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
 		// Ensure required properties are present or provide defaults
 		const validatedData = {
 			title: data.title || 'Untitled',
@@ -17,7 +23,7 @@ export class MatterContentParser implements IContentParser {
 		};
 
 		return {
-			content: parsedContent,
+			content: normalizedContent,
 			data: validatedData,
 		};
 	}
