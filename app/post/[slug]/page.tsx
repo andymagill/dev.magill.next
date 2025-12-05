@@ -43,13 +43,15 @@ export const generateStaticParams = async (): Promise<{ slug: string }[]> => {
 export async function generateMetadata({
 	params,
 }: {
-	params: { slug: string };
+	// Next 16 may pass `params` as a Promise; accept either and normalize
+	params: { slug: string } | Promise<{ slug: string }>;
 }) {
-	const post: PostType = postService.getPost(params.slug) as PostType;
+	const resolvedParams = (params as any)?.then ? await (params as any) : params;
+	const post: PostType = postService.getPost(resolvedParams.slug) as PostType;
 
 	const meta = {
 		title: `${post.title} - ${settings.title}`,
-		url: `${settings.siteUrl}/post/${params.slug}/`,
+		url: `${settings.siteUrl}/post/${resolvedParams.slug}/`,
 	};
 
 	return {
@@ -94,7 +96,9 @@ interface PostProps {
  * @returns Rendered blog post page
  */
 export default async function Post(props: PostProps) {
-	const slug = props.params.slug;
+	const rawParams = props.params as { slug: string } | Promise<{ slug: string }>;
+	const resolved = (rawParams as any)?.then ? await (rawParams as any) : rawParams;
+	const slug = resolved.slug;
 	const post: PostType = postService.getPost(slug) as PostType;
 
 	// Handle author display with fallback to settings

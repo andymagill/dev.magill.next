@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'; // Force static generation
+
 import type { MetadataRoute } from 'next';
 import { settings } from '@/utils/settings.mjs';
 

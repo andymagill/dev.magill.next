@@ -1,5 +1,4 @@
 //  /app/components/global/Header.tsx
-import { useEffect } from 'react';
 import Navigation from './Navigation';
 import NavButton from './NavButton';
 
