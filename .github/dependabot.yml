@@ -1,52 +1,52 @@
 version: 2
 updates:
-  - package-ecosystem: "pnpm"
-    directory: "/"
+  - package-ecosystem: 'pnpm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "monday"
+      interval: 'weekly'
+      day: 'monday'
     open-pull-requests-limit: 5
     labels:
-      - "dependencies"
+      - 'dependencies'
     allow:
-      - dependency-type: "all"
+      - dependency-type: 'all'
     groups:
       framework-stack:
         patterns:
-          - "next"
-          - "react"
-          - "react-dom"
-          - "@next/*"
-          - "next-sitemap"
+          - 'next'
+          - 'react'
+          - 'react-dom'
+          - '@next/*'
+          - 'next-sitemap'
       content-support:
         patterns:
-          - "gray-matter"
-          - "markdown-to-jsx"
-          - "rss"
-          - "sass"
-          - "serve"
-          - "@fortawesome/*"
+          - 'gray-matter'
+          - 'markdown-to-jsx'
+          - 'rss'
+          - 'sass'
+          - 'serve'
+          - '@fortawesome/*'
       dev-tooling:
         patterns:
-          - "eslint*"
-          - "prettier"
-          - "typescript"
-          - "vitest*"
-          - "@testing-library/*"
-          - "@types/*"
-          - "@vitejs/*"
-          - "@vitest/coverage-v8"
-          - "wrangler"
-          - "cross-env"
-          - "jsdom"
-  - package-ecosystem: "github-actions"
-    directory: "/"
+          - 'eslint*'
+          - 'prettier'
+          - 'typescript'
+          - 'vitest*'
+          - '@testing-library/*'
+          - '@types/*'
+          - '@vitejs/*'
+          - '@vitest/coverage-v8'
+          - 'wrangler'
+          - 'cross-env'
+          - 'jsdom'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     open-pull-requests-limit: 5
     labels:
-      - "dependencies"
+      - 'dependencies'
     groups:
       ci-actions:
         patterns:
-          - "*"
+          - '*'

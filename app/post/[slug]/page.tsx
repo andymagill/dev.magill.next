@@ -96,8 +96,12 @@ interface PostProps {
  * @returns Rendered blog post page
  */
 export default async function Post(props: PostProps) {
-	const rawParams = props.params as { slug: string } | Promise<{ slug: string }>;
-	const resolved = (rawParams as any)?.then ? await (rawParams as any) : rawParams;
+	const rawParams = props.params as
+		| { slug: string }
+		| Promise<{ slug: string }>;
+	const resolved = (rawParams as any)?.then
+		? await (rawParams as any)
+		: rawParams;
 	const slug = resolved.slug;
 	const post: PostType = postService.getPost(slug) as PostType;
 

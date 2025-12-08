@@ -6,19 +6,19 @@ const nextConfig = require('eslint-config-next');
 const base = Array.isArray(nextConfig) ? [...nextConfig] : [nextConfig];
 
 module.exports = [
-  // Include Next's exported flat config first
-  ...base,
-  // Project-specific ignores
-  {
-    ignores: ['node_modules/**', '.next/**', 'out/**' , 'coverage/**' ],
-  },
-  // Files scope with language options; keep rules empty to inherit from Next
-  {
-    files: ['**/*.{js,cjs,mjs,ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2024,
-      sourceType: 'module',
-    },
-    rules: {},
-  },
+	// Include Next's exported flat config first
+	...base,
+	// Project-specific ignores
+	{
+		ignores: ['node_modules/**', '.next/**', 'out/**', 'coverage/**'],
+	},
+	// Files scope with language options; keep rules empty to inherit from Next
+	{
+		files: ['**/*.{js,cjs,mjs,ts,tsx}'],
+		languageOptions: {
+			ecmaVersion: 2024,
+			sourceType: 'module',
+		},
+		rules: {},
+	},
 ];

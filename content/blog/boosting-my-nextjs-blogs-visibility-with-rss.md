@@ -81,7 +81,7 @@ _Easy peasy lemon squeezy_, as the kids like to say. You can see my [latest impl
 **Build for Production**: Finally, lets run the build process to kick out the jams :
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 New posts and content changes will now auto-magically show up in [the feed.xml](https://magill.dev/feed/posts.xml). Excelsior!
