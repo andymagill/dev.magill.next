@@ -13,12 +13,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.12.0"
-      - name: Install
-        run: npm install
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.25.0
+      - name: Install dependencies
+        run: pnpm install
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Publish
         uses: cloudflare/pages-action@v1
         with:
