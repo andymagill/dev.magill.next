@@ -2,6 +2,7 @@
 	"name": "dev.magill.next",
 	"version": "0.1.0",
 	"private": true,
+	"packageManager": "pnpm@10.25.0",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -13,7 +14,7 @@
 		"test": "node ./scripts/run-vitest.js",
 		"start": "next start",
 		"serve": "serve out",
-		"analyze": "cross-env ANALYZE=true npm run build"
+		"analyze": "cross-env ANALYZE=true pnpm run build"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^7.1.0",

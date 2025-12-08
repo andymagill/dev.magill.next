@@ -44,16 +44,17 @@ import { formatUtc } from '@your-scope/date/formatUtc';
 ```
 
 ### Toolbox layout
+
 Favor domain-based folders over a flat “utils” dump. This scales without creating a grab-bag.
 
 ```markdown
 src/
-  date/
-    formatUtc.ts
-  events/
-    analyticsEvent.ts
-  string/
-    slugify.ts
+date/
+formatUtc.ts
+events/
+analyticsEvent.ts
+string/
+slugify.ts
 index.ts
 ```
 
@@ -63,24 +64,22 @@ Here is how to structure the package.json to specify details about filenames, ty
 
 ```json
 {
-  "name": "@your-scope/helpers",
-  "version": "0.1.0",
-  "type": "module",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "rollup -c",
-    "test": "node ./test/run.js"
-  }
+	"name": "@your-scope/helpers",
+	"version": "0.1.0",
+	"type": "module",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"files": ["dist", "README.md"],
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "rollup -c",
+		"test": "node ./test/run.js"
+	}
 }
 ```
 
 ### TypeScript-first approach
+
 Prefer authoring in TypeScript and emitting declarations automatically.
 
 tsconfig.json (library-focused essentials):

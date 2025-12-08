@@ -13,7 +13,9 @@ export class MatterContentParser implements IContentParser {
 		// detection can break on CRLF (Windows) line endings after
 		// dependency upgrades — normalize here so downstream rendering
 		// (e.g., `markdown-to-jsx`) sees consistent newlines.
-		const normalizedContent = parsedContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+		const normalizedContent = parsedContent
+			.replace(/\r\n/g, '\n')
+			.replace(/\r/g, '\n');
 
 		// Ensure required properties are present or provide defaults
 		const validatedData = {

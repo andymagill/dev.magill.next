@@ -20,8 +20,8 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	// Track whether speech synthesis is currently active
 	const [isSpeaking, setIsSpeaking] = useState(false);
 	// Initialize support at first render instead of setting state inside an effect
-	const [speechSupported] = useState(() =>
-		typeof window !== 'undefined' && !!window.speechSynthesis
+	const [speechSupported] = useState(
+		() => typeof window !== 'undefined' && !!window.speechSynthesis
 	);
 
 	// Preferred voices in order
