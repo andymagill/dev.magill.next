@@ -1,6 +1,6 @@
 .listenButton {
 	display: inline-flex;
-	background: var(--background);
+	background-color: var(--background);
 	color: var(--foreground);
 	border: none;
 	border-radius: 0.75em;
@@ -9,14 +9,14 @@
 	font-size: 0.88rem;
 	cursor: pointer;
 	transition:
-		opacity 0.2s,
-		box-shadow 0.2s;
+		background-color 0.2s,
+		color 0.2s;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 .listenButton:hover,
 .listenButton:focus {
-	opacity: 0.66;
-	box-shadow: 0 0 0 transparent;
+	background-color: var(--foreground);
+	color: var(--background);
 }
 .listenButton.speaking {
 	background: #750440;
