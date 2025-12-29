@@ -89,6 +89,12 @@ To install, follow these steps:
 4. Push to the branch: `git push origin feature-branch`
 5. Create a [pull request on GitHub](https://github.com/andymagill/dev.magill.next/pulls).
 
+
+## Dependency maintenance
+
+Dependabot checks run weekly on Monday mornings, and the configuration at [.github/dependabot.yml](.github/dependabot.yml#L1-L57) keeps updates predictable by grouping Next.js/runtime packages, markdown/content tooling, general dev utilities, and GitHub Actions workflows into a maximum of three pnpm PRs and two workflow PRs per cycle. Treat each incoming PR as part of its named group so we can merge a complete bundle of related changes instead of reacting to scattered updates.
+
+
 ### Creating Issues
 
 If you encounter a bug, have a feature request, or want to make a suggestion, please open an issue using the [GitHub Issues](https://github.com/andymagill/dev.magill.next/issues) page.
