@@ -1,6 +1,7 @@
 version: 2
 updates:
-  - package-ecosystem: "pnpm"
+  - package-ecosystem: "npm"
+    package-manager: "pnpm"
     directory: "/"
     schedule:
       interval: "weekly"
