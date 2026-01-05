@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, type ReactElement } from 'react';
 import ProjectList from './ProjectList';
 import ErrorDisplay from '../global/ErrorDisplay';
 import { ProjectService } from '@/utils/projectService';
@@ -10,7 +10,7 @@ import { ProjectListContainerProps } from '@/utils/types';
 export default async function ProjectListContainer({
 	file = '',
 	maxProjects = 0,
-}: ProjectListContainerProps): Promise<JSX.Element> {
+}: ProjectListContainerProps): Promise<ReactElement> {
 	// Fetch data and handle errors before constructing JSX
 	let projectsToRender = [] as any[];
 	try {
