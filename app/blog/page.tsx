@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { settings } from '@/utils/settings.mjs';
 import Hero from '@/app/components/global/Hero';
 import PostList from '@/app/components/blog/PostList';
+import JsonLd from '@/app/components/global/JsonLd';
 import styles from './page.module.scss';
 
 const meta = {
@@ -63,10 +64,7 @@ export default function Projects() {
 	return (
 		<main className={styles.main}>
 			{/* JSON-LD structured data for SEO */}
-			<script
-				type='application/ld+json'
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-			/>
+			<JsonLd data={jsonLd} />
 
 			<Hero>
 				<h1>A Collection of Rants & Ramblings </h1>

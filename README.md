@@ -2,7 +2,7 @@
 
 # Intro
 
-This project is a TypeScript/React/Next.JS portfolio and statically generated blogging application for my professional website at https://magill.dev. Built following the JAMstack architectural approach, it features analytics, unit testing, static site generation, dynamic routing, social sharing, automated sitemaps, RSS feed, markdown content parsing, and more.
+This project is a TypeScript/React/Next.JS portfolio and statically generated blogging application for my professional website at https://magill.dev. Built following the JAMstack architectural approach, it features analytics, unit testing, static site generation, dynamic routing, social sharing, automated sitemaps, JSON-LD structured data, RSS feed, markdown content parsing, and more.
 
 ## Installation
 

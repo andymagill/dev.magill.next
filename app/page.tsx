@@ -12,6 +12,7 @@ import Hero from '@/app/components/global/Hero';
 import Callout from '@/app/components/global/Callout';
 import PostList from '@/app/components/blog/PostList';
 import ProjectListContainer from '@/app/components/projects/ProjectListContainer';
+import JsonLd from '@/app/components/global/JsonLd';
 
 import styles from './page.module.scss';
 
@@ -43,8 +44,31 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+	const jsonLd = [
+		{
+			'@context': 'https://schema.org',
+			'@type': 'WebSite',
+			name: settings.title,
+			description: settings.description,
+			url: settings.siteUrl,
+		},
+		{
+			'@context': 'https://schema.org',
+			'@type': 'Person',
+			name: settings.author,
+			url: settings.siteUrl,
+			jobTitle: 'Web Engineer',
+			sameAs: [
+				'https://www.linkedin.com/in/andrew-magill',
+				'https://github.com/andymagill',
+			],
+		},
+	];
+
 	return (
 		<main className={`${styles.main} main`}>
+			{/* JSON-LD structured data for SEO */}
+			<JsonLd data={jsonLd} />
 			<div className={`${styles.mainWrapper} mainWrapper`}>
 				<Hero className='row'>
 					{/* Portrait */}

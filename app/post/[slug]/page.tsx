@@ -19,6 +19,7 @@ import ShareButtons from '@/app/components/blog/ShareButtons';
 import ListenButton from '@/app/components/blog/ListenButton';
 import RelatedPosts from '@/app/components/blog/RelatedPosts';
 import RelatedPostList from '@/app/components/blog/RelatedPostList';
+import JsonLd from '@/app/components/global/JsonLd';
 import styles from './page.module.scss';
 
 /**
@@ -130,10 +131,7 @@ export default async function Post(props: PostProps) {
 	return (
 		<main className={styles.main}>
 			{/* JSON-LD structured data for SEO */}
-			<script
-				type='application/ld+json'
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-			/>
+			<JsonLd data={jsonLd} />
 			<Hero>
 				<h1 className={styles.title}>{post.title}</h1>
 				<p className={styles.description}>{post.description}</p>
