@@ -1,122 +1,364 @@
 //  @app/components/global/HeroAnimation.module.scss
+// GPU-accelerated background animation with animated gradient and layered bokeh particles
+// ARCHITECTURE: Per-particle delays (0-300ms) create asynchronous motion with 2 drift animations
+// DO NOT add more drift animations - they cause all particles to synchronize
 
-// TODO: add reduced motion media query and styles
+// TODO: add prefers-reduced-motion media query
 
-.heroAnimation {
-	--grid-width: max(3em, 10vmin);
-	--grid-height: max(3em, 10vmin);
-	--line-color: #aaaaaa;
-	--dot-color: #fff;
-	--dot-size: 0.4em;
-	--point-gap-width: calc(var(--grid-width) * 3);
-	--point-gap-height: calc(var(--grid-height) * 3);
+@property --linear-0-angle {
+	syntax: '<angle>';
+	initial-value: 161.3deg;
+	inherits: false;
+}
 
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: -1;
-	background: linear-gradient(
-		124deg,
-		#d54a0e,
-		#c06f1f,
-		#999e0d,
-		#1fb037,
-		#1e9ea4,
-		#2c21cc,
-		#b90dc9,
-		#c70c50
-	);
-	background-size: 1600% 1600%;
-	// animation: rainbow 32s ease infinite;
-	background-position: calc(var(--progress) * -1%);
+@property --gradient-l0-c0 {
+	syntax: '<color>';
+	initial-value: #14ad2eff;
+	inherits: false;
+}
 
-	&:before,
-	&:after,
-	.inner:before,
-	.inner:after {
-		content: '';
-		position: absolute;
-		z-index: 1;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		mix-blend-mode: overlay;
+@property --gradient-l0-p0 {
+	syntax: '<percentage>';
+	initial-value: 0%;
+	inherits: false;
+}
+
+@property --gradient-l0-c1 {
+	syntax: '<color>';
+	initial-value: #dd4648ff;
+	inherits: false;
+}
+
+@property --gradient-l0-p1 {
+	syntax: '<percentage>';
+	initial-value: 55.2%;
+	inherits: false;
+}
+
+@property --gradient-l0-c2 {
+	syntax: '<color>';
+	initial-value: #36647dff;
+	inherits: false;
+}
+
+@property --gradient-l0-p2 {
+	syntax: '<percentage>';
+	initial-value: 100%;
+	inherits: false;
+}
+
+@keyframes gradient-animation {
+	0% {
+		--linear-0-angle: 161.3deg;
+		--gradient-l0-c0: #14ad2eff;
+		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #dd4648ff;
+		--gradient-l0-p1: calc(55.2% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #36647dff;
+		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
-
-	&:before {
-		background-image:
-			linear-gradient(var(--line-color), transparent 3px),
-			linear-gradient(to right, var(--line-color), transparent 3px);
-		background-size:
-			100% var(--grid-height),
-			var(--grid-width) 100%;
-		animation: 4s linear move infinite;
+	33.3% {
+		--linear-0-angle: 138.7deg;
+		--gradient-l0-c0: #d97e1aff;
+		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #4d890fff;
+		--gradient-l0-p1: calc(40% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #8629aaff;
+		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
-
-	&:after {
-		transform: translateZ(-100%);
-		background-image: radial-gradient(
-			var(--dot-color) calc(var(--dot-size) * 0.8),
-			transparent calc(var(--dot-size) * 0.8)
-		);
-		background-size: var(--point-gap-width) var(--point-gap-height);
-		background-position: var(--point-gap-width) calc(var(--point-gap-height));
+	66.6% {
+		--linear-0-angle: 146.3deg;
+		--gradient-l0-c0: #bb603aff;
+		--gradient-l0-p0: calc(13.2% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #520d73ff;
+		--gradient-l0-p1: calc(48.4% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #2d7b0fff;
+		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
-
-	.inner {
-		&:before,
-		&:after {
-			background-size: var(--point-gap-width) var(--point-gap-height);
-			background-position: var(--point-gap-width) calc(var(--point-gap-height));
-		}
-
-		&:after {
-			background-image: radial-gradient(
-				var(--dot-color) calc(var(--dot-size) * 2),
-				transparent calc(var(--dot-size) * 2)
-			);
-			transform: scale(2, 2);
-			filter: blur(0.25em);
-			opacity: 0.8;
-		}
-
-		&:before {
-			background-image: radial-gradient(
-				var(--dot-color) var(--dot-size),
-				transparent var(--dot-size)
-			);
-			transform: scale(1.4, 1.4);
-			filter: blur(0.15em);
-		}
-	}
-	&:after {
-		animation: 4s linear move infinite;
-	}
-
-	.inner {
-		&:after {
-			animation: 4s linear move infinite;
-		}
-
-		&:before {
-			animation: 4s linear move infinite;
-		}
+	100% {
+		--linear-0-angle: 161.3deg;
+		--gradient-l0-c0: #14ad2eff;
+		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #dd4648ff;
+		--gradient-l0-p1: calc(55.2% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #36647dff;
+		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
 }
 
-@keyframes move {
+.heroAnimation {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	overflow: hidden;
+
+	background: linear-gradient(
+		var(--linear-0-angle),
+		var(--gradient-l0-c0) var(--gradient-l0-p0),
+		var(--gradient-l0-c1) var(--gradient-l0-p1),
+		var(--gradient-l0-c2) var(--gradient-l0-p2)
+	);
+
+/* Subtle static orbs to ensure viewport never fully empties during tuning.
+   Very low opacity and large size so they act as a gentle safety net only. */
+background-image:
+		radial-gradient(40vmin 40vmin at 10% 20%, hsl(210 80% 70% / 0.06) 0%, transparent 60%),
+		radial-gradient(30vmin 30vmin at 80% 60%, hsl(320 80% 70% / 0.05) 0%, transparent 65%),
+		linear-gradient(var(--linear-0-angle), var(--gradient-l0-c0) var(--gradient-l0-p0), var(--gradient-l0-c1) var(--gradient-l0-p1), var(--gradient-l0-c2) var(--gradient-l0-p2));
+	background-blend-mode: normal, normal, normal;
+
+	animation: gradient-animation 12s ease-in-out infinite;
+	animation-delay: var(--animation-delay, 0ms);
+}
+
+/* Layer 1: Fading & Scaling Bokeh Orbs (GPU-Accelerated) */
+/* CRITICAL ARCHITECTURE: Layer 1 starts immediately. Layer 2 (::after) is offset by 30s
+   so that when Layer 1 particles drift off-screen, Layer 2 is mid-flow, ensuring continuous coverage. */
+.heroAnimation::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image:
+		radial-gradient(
+			25vmin 25vmin at calc(30% + var(--before-bg-x-offset-0, 0%))
+				calc(20% + var(--before-y-offset-0, 0vmin)),
+			hsl(40 100% 70% / 0.4) 0%,
+			hsl(40 100% 70% / 0.4) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			23vmin 23vmin at calc(70% + var(--before-bg-x-offset-1, 0%))
+				calc(35% + var(--before-y-offset-1, 0vmin)),
+			hsl(60 100% 75% / 0.5) 0%,
+			hsl(60 100% 75% / 0.5) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			27vmin 27vmin at calc(50% + var(--before-bg-x-offset-2, 0%))
+				calc(75% + var(--before-y-offset-2, 0vmin)),
+			hsl(180 100% 70% / 0.4) 0%,
+			hsl(180 100% 70% / 0.4) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			21vmin 21vmin at calc(22% + var(--before-bg-x-offset-3, 0%))
+				calc(60% + var(--before-y-offset-3, 0vmin)),
+			hsl(320 100% 70% / 0.3) 0%,
+			hsl(320 100% 70% / 0.3) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			24vmin 24vmin at calc(85% + var(--before-bg-x-offset-4, 0%))
+				calc(15% + var(--before-y-offset-4, 0vmin)),
+			hsl(270 100% 65% / 0.4) 0%,
+			hsl(270 100% 65% / 0.4) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			26vmin 26vmin at calc(40% + var(--before-bg-x-offset-5, 0%))
+				calc(85% + var(--before-y-offset-5, 0vmin)),
+			hsl(10 100% 75% / 0.5) 0%,
+			hsl(10 100% 75% / 0.5) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			40vmin 40vmin at calc(60% + var(--before-bg-x-offset-6, 0%))
+				calc(50% + var(--before-y-offset-6, 0vmin)),
+			hsl(0 100% 50% / 0.15) 0%,
+			hsl(0 100% 50% / 0.15) 85%,
+			transparent 100%
+		);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+
+	pointer-events: none;
+	z-index: 1;
+
+	/* GPU acceleration */
+	will-change: transform, opacity;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	contain: layout style paint;
+	filter: hue-rotate(var(--before-hue-avg, 0deg));
+	animation:
+		bokeh-fade-1 8s ease-in-out infinite,
+		bokeh-scale-1 10s ease-in-out infinite,
+		bokeh-drift-right-slow 60s linear infinite,
+		bokeh-drift-right-medium 48s linear infinite;
+	animation-delay:
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-0-delay, 0ms)),
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-1-delay, 0ms)),
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-2-delay, 0ms)),
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-3-delay, 0ms)),
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-4-delay, 0ms)),
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-5-delay, 0ms)),
+		calc(var(--before-layer-delay, var(--animation-delay, 0ms)) + var(--before-particle-6-delay, 0ms));
+}
+
+/* Layer 2: Secondary Fading & Scaling Bokeh Orbs */
+/* CRITICAL ARCHITECTURE: Layer 2 keeps the -36s base offset while still using per-particle delays.
+	The base offset keeps two layers anti-phased, and the per-particle delay array keeps particles
+	within each layer staggered across their 60s/32s drift cycles. */
+.heroAnimation::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image:
+		radial-gradient(
+			24vmin 24vmin at calc(80% + var(--after-bg-x-offset-0, 0%))
+				calc(25% + var(--after-y-offset-0, 0vmin)),
+			hsl(210 100% 70% / 0.5) 0%,
+			hsl(210 100% 70% / 0.5) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			22vmin 22vmin at calc(35% + var(--after-bg-x-offset-1, 0%))
+				calc(70% + var(--after-y-offset-1, 0vmin)),
+			hsl(300 100% 70% / 0.4) 0%,
+			hsl(300 100% 70% / 0.4) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			26vmin 26vmin at calc(65% + var(--after-bg-x-offset-2, 0%))
+				calc(45% + var(--after-y-offset-2, 0vmin)),
+			hsl(120 100% 75% / 0.45) 0%,
+			hsl(120 100% 75% / 0.45) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			20vmin 20vmin at calc(30% + var(--after-bg-x-offset-3, 0%))
+				calc(80% + var(--after-y-offset-3, 0vmin)),
+			hsl(30 100% 75% / 0.5) 0%,
+			hsl(30 100% 75% / 0.5) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			25vmin 25vmin at calc(55% + var(--after-bg-x-offset-4, 0%))
+				calc(10% + var(--after-y-offset-4, 0vmin)),
+			hsl(150 100% 70% / 0.45) 0%,
+			hsl(150 100% 70% / 0.45) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			23vmin 23vmin at calc(18% + var(--after-bg-x-offset-5, 0%))
+				calc(50% + var(--after-y-offset-5, 0vmin)),
+			hsl(270 100% 65% / 0.4) 0%,
+			hsl(270 100% 65% / 0.4) 85%,
+			transparent 100%
+		),
+		radial-gradient(
+			38vmin 38vmin at calc(35% + var(--after-bg-x-offset-6, 0%))
+				calc(60% + var(--after-y-offset-6, 0vmin)),
+			hsl(200 100% 60% / 0.12) 0%,
+			hsl(200 100% 60% / 0.12) 85%,
+			transparent 100%
+		);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+
+	pointer-events: none;
+	z-index: 1;
+
+	/* GPU acceleration */
+	will-change: transform, opacity;
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	contain: layout style paint;
+	filter: hue-rotate(var(--after-hue-avg, 0deg));
+	animation:
+		bokeh-fade-2 9s ease-in-out infinite,
+		bokeh-scale-2 12s ease-in-out infinite,
+		bokeh-drift-right-fast 32s linear infinite,
+		bokeh-drift-right-faster 24s linear infinite;
+	animation-delay:
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-0-delay, 0ms)),
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-1-delay, 0ms)),
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-2-delay, 0ms)),
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-3-delay, 0ms)),
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-4-delay, 0ms)),
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-5-delay, 0ms)),
+		calc(var(--after-layer-delay, calc(var(--animation-delay, 0ms) - 36000ms)) + var(--after-particle-6-delay, 0ms));
+}
+
+/* Fade animations create pulsing depth effect */
+@keyframes bokeh-fade-1 {
+	0%,
+	100% {
+		opacity: 0.75;
+	}
+	50% {
+		opacity: 0.45;
+	}
+}
+
+@keyframes bokeh-fade-2 {
+	0%,
+	100% {
+		opacity: 0.9;
+	}
+	50% {
+		opacity: 0.6;
+	}
+}
+
+/* Scale animations add additional movement dimension */
+@keyframes bokeh-scale-1 {
+	0%,
+	100% {
+		transform: translateZ(0) scale(1.15);
+	}
+	50% {
+		transform: translateZ(0) scale(1);
+	}
+}
+
+@keyframes bokeh-scale-2 {
+	0%,
+	100% {
+		transform: translateZ(0) scale(1.2);
+	}
+	50% {
+		transform: translateZ(0) scale(0.95);
+	}
+}
+
+/* Horizontal drift - left to right continuous motion */
+@keyframes bokeh-drift-right-slow {
 	0% {
-		background-position: calc(var(--point-gap-width) / 2)
-			calc(var(--point-gap-height) / 2);
+		transform: translateZ(0) translateX(-100dvw);
 	}
 	100% {
-		background-position: calc(var(--point-gap-width) / 2 * -1)
-			calc(var(--point-gap-height) / 2 * -1);
+		transform: translateZ(0) translateX(150dvw);
+	}
+}
+
+@keyframes bokeh-drift-right-medium {
+	0% {
+		transform: translateZ(0) translateX(-100dvw);
+	}
+	100% {
+		transform: translateZ(0) translateX(150dvw);
+	}
+}
+
+@keyframes bokeh-drift-right-fast {
+	0% {
+		transform: translateZ(0) translateX(-100dvw);
+	}
+	100% {
+		transform: translateZ(0) translateX(150dvw);
+	}
+}
+
+@keyframes bokeh-drift-right-faster {
+	0% {
+		transform: translateZ(0) translateX(-100dvw);
+	}
+	100% {
+		transform: translateZ(0) translateX(150dvw);
 	}
 }
