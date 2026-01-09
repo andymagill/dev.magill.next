@@ -9,7 +9,7 @@ lastUpdated: 1747238853
 
 Modal popups are a very common UI pattern that adds a lot of utility to modern web apps. Unfortunately for developers like us, that means we need to master all the technical complexities associated with them. What seems like a simple popup window actually involves a lot of intricate details: accessibility, responsive design, keyboard navigation, scroll management, and more.
 
-For my current project, I needed something that could be reused throughout the application rather than reinventing the wheel each time. In this post, I'll walk through how we can creat a flexible, reusable modal component that can render content, forms, or whatever else I need to show, on any device.
+For my current project, I needed something that could be reused throughout the application rather than reinventing the wheel each time. In this post, I'll walk through how we can create a flexible, reusable modal component that can render content, forms, or whatever else I need to show, on any device.
 
 ## What exactly do we need here?
 
@@ -158,7 +158,7 @@ For modals with a lot of content, we want the modal content to scroll while keep
 }
 ```
 
-This keeps your header visible while users scroll through that novel-length privacy policy. The header and close button stays put, so users can escape when they inevitably get bored.
+This keeps your header visible while users scroll through that novel-length privacy policy. The header and close button stay put, so users can escape when they inevitably get bored.
 
 ### Resetting Modal Content
 
@@ -183,7 +183,7 @@ useEffect(() => {
 
 ## Using the Modal
 
-Here we can see the component in it's natural habitat. When users click on a thumbnail, the modal provides a seamless way to display additional details:
+Here we can see the component in its natural habitat. When users click on a thumbnail, the modal provides a seamless way to display additional details:
 
 ```tsx
 function Thumbnail({ title, description, image }) {

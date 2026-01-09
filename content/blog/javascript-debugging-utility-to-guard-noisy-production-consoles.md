@@ -55,7 +55,7 @@ const logger = (() => {
 })();
 ```
 
-Notice I'm now using arrow functions to return the object methods, within an immediatly involking function so lazy me doesn't even need initalize it. Also, I only production-guarded _debug_ messages, while _info_, _warn_, and _error_ remain active since they are typically useful for monitoring. Now I've got a rock solid, reusable logger I can use throughout my application.
+Notice I'm now using arrow functions to return the object methods, within an immediately invoking function so lazy me doesn't even need to initialize it. Also, I only production-guarded _debug_ messages, while _info_, _warn_, and _error_ remain active since they are typically useful for monitoring. Now I've got a rock solid, reusable logger I can use throughout my application.
 
 ```javascript
 // Example usage:

@@ -7,7 +7,7 @@ created: 1751579020
 lastUpdated:
 ---
 
-If you have never heard your website speak, you are in for a real treat! I've spend enough time building and writing for my own site that I have decided to make it easy for people to listen too. Enter the Web Speech API, the best browser feature that most users never asked for.
+If you have never heard your website speak, you are in for a real treat! I've spent enough time building and writing for my own site that I have decided to make it easy for people to listen to. Enter the Web Speech API, the best browser feature that most users never asked for.
 
 ## Why bother with a "listen" button?
 
@@ -42,20 +42,16 @@ function setupSpeechButton(contentSelector, buttonSelector) {
 		const voice = getPreferredVoice();
 		if (voice) utterance.voice = voice;
 
-		// Specify the voice based on language
-		const voice = getPreferredVoice();
-		if (voice) utterance.voice = voice;
-
 		// toggle the button
 		utterance.onstart = () => {
 			button.disabled = true;
 			button.textContent = 'Stop';
 		};
+
 		utterance.onend = () => {
 			button.disabled = false;
 			button.textContent = 'Listen';
 		};
-		utterance.onend = () => (button.disabled = false);
 
 		// Speak the content
 		window.speechSynthesis.speak(utterance);
@@ -74,7 +70,7 @@ function setupSpeechButton(contentSelector, buttonSelector) {
 setupSpeechButton('blog-content', 'listen-btn');
 ```
 
-_ABRACADABRA!_ If the user's browser supports speech synthesis, a "listen" button is rendered. If not, nothing happens. To see the latest version of the React implementation that I used on my own site, checkout this [React component](https://github.com/andymagill/dev.magill.next/blob/master/app/components/blog/ListenButton.tsx).
+_ABRACADABRA!_ If the user's browser supports speech synthesis, a "listen" button is rendered. If not, nothing happens. To see the latest version of the React implementation that I used on my own site, check out this [React component](https://github.com/andymagill/dev.magill.next/blob/master/app/components/blog/ListenButton.tsx).
 
 ## Closing tag
 

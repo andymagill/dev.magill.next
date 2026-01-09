@@ -11,7 +11,7 @@ When planning the implementation of [my new website](https://magill.dev/), I wan
 
 ## Stacking the Foundation
 
-At the heart of this website lies a curated tech stack based on React and Next.js. React's component-based architecture is great for building a dynamic and interactive user interface. Next.js provided the backend and dev environment to build the site statically, which helps statisfy two of our initial requirements.
+At the heart of this website lies a curated tech stack based on React and Next.js. React's component-based architecture is great for building a dynamic and interactive user interface. Next.js provided the backend and dev environment to build the site statically, which helps satisfy two of our initial requirements.
 
 For styling, I opted for a combination of SASS and CSS Modules. SASS allowed me to write more maintainable stylesheets, while CSS Modules ensured that styles remained neatly scoped to specific components. To manage content, I chose [Markdown](https://magill.dev/simplified-content-management-with-markdown) for its simplicity and readability. This decision allowed me to focus on writing without getting bogged down in complex formatting.
 
@@ -91,7 +91,7 @@ As I continue to develop this website, I have a handful of exciting ideas to imp
 
 On the technical side, I'm looking to [enhance blogging functionality](https://github.com/andymagill/dev.magill.next/blob/master/ROADMAP.md) and UI. This might include features like improved search capabilities and tag-based filtering. For the project content, I'm exploring ways to create more engaging and dynamic presentations of my work.
 
-Building this website has been an interesting journey. The power and flexibility of modern web development tools has enabled me to carefully tailor the development and editing expereince. I'm curious where this site will take me, as I continue buiding it over the next few years.
+Building this website has been an interesting journey. The power and flexibility of modern web development tools has enabled me to carefully tailor the development and editing experience. I'm curious where this site will take me, as I continue building it over the next few years.
 
 ### Related Links
 

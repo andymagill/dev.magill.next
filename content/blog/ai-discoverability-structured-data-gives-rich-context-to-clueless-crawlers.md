@@ -21,7 +21,7 @@ Like me, you might find your blog is missing Article, Author, or Breadcrumb sche
 
 ## Implementing Structured Data in Your Codebase
 
-For my chosen solution, I didn't bother with fancy utility functions or helpers. I've keep things relatively simple for the [initial breakdown of this website's tech stack](/post/lets-breakdown-my-website), so I'll just dangerously drop the JSON-LD schema into a script tag right in the page component:
+For my chosen solution, I didn't bother with fancy utility functions or helpers. I've kept things relatively simple for the [initial breakdown of this website's tech stack](/post/lets-breakdown-my-website), so I'll just dangerously drop the JSON-LD schema into a script tag right in the page component:
 
 ```tsx
 // app/post/[slug]/page.tsx
@@ -86,7 +86,7 @@ export default function Product({ product }) {
 }
 ```
 
-This approach helps AI and search engines display rich product snippets, improving discoverability and reach of your content. Adapt the schema to and match the available data and suit your purpose.
+This approach helps AI and search engines display rich product snippets, improving discoverability and reach of your content. Adapt the schema to match the available data and suit your purpose.
 
 ## Conclusion
 

@@ -88,7 +88,7 @@ Setting session variables at the start of each connection makes sure that user-s
 
 ## Conclusion
 
-Row Level Security in PostgreSQL isn’t just a neat trick—it’s a practical, scalable way to remain HIPAA-compliant without losing your mind (or your patients' data). In a serverless world, it’s even more important to simplfy access logic, to prevent unforseen challenges from becoming critical failures.
+Row Level Security in PostgreSQL isn't just a neat trick—it's a practical, scalable way to remain HIPAA-compliant without losing your mind (or your patients' data). In a serverless world, it's even more important to simplify access logic, to prevent unforeseen challenges from becoming critical failures.
 
 With some thoughtful RLS policies, we can let PostgreSQL do the heavy lifting, while we sit back and admire what we accomplished. And if someone asks why you’re so calm about HIPAA audits, just wink and say, _“It’s all in the rows, my friend.”_
 

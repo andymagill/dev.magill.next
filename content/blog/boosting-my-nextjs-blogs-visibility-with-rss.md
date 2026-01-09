@@ -60,7 +60,7 @@ const getPostFeed = (posts = []) => {
 export { getPostFeed };
 ```
 
-You can checkout my most recent version of that utility function in [this site's repo on GitHub](https://github.com/andymagill/dev.magill.next/blob/master/utils/feed.js). Someday I'll create a unit test for that function, pinky swear, but for now...
+You can check out my most recent version of that utility function in [this site's repo on GitHub](https://github.com/andymagill/dev.magill.next/blob/master/utils/feed.js). Someday I'll create a unit test for that function, pinky swear, but for now...
 
 **Route the Feed**: Then, we can "feed" our blog data into an API route.tsx
 
@@ -78,7 +78,7 @@ export async function GET() {
 
 _Easy peasy lemon squeezy_, as the kids like to say. You can see my [latest implementation](https://github.com/andymagill/dev.magill.next/blob/master/app/feed/%5Btype%5D/route.tsx) of this includes a [dynamic route segment](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes) to serve different versions of the post feed.
 
-**Build for Production**: Finally, lets run the build process to kick out the jams :
+**Build for Production**: Finally, let's run the build process to kick out the jams :
 
 ```bash
 pnpm run build
@@ -126,7 +126,7 @@ export async function GET(
 }
 ```
 
-This route handles requests for both `/feed/posts.xml` (RSS) and `/feed/posts.json` (raw article data). When a request is made, it generates the RSS feed using the utility function and returns it with the correct content type. This approach leverages Next.js’s file-based routing and makes it easy to add or modify feed formats in the future (_im looking at you emerging AI protocols_).
+This route handles requests for both `/feed/posts.xml` (RSS) and `/feed/posts.json` (raw article data). When a request is made, it generates the RSS feed using the utility function and returns it with the correct content type. This approach leverages Next.js’s file-based routing and makes it easy to add or modify feed formats in the future (_I'm looking at you emerging AI protocols_).
 
 ## The Closing Tag
 

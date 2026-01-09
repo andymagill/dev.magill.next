@@ -27,7 +27,7 @@ export { analyticsEvent } from './events/analyticsEvent';
 export { formatUtc } from './date/formatUtc';
 ```
 
-Publish your utilities as a package (for example @your-scope/utils) and consumers can install what they need without pulling the whole toolbox:
+Publish your utilities as a package (for example (@your-scope/utils) and consumers can install what they need without pulling the whole toolbox:
 
 ### Install with npm
 

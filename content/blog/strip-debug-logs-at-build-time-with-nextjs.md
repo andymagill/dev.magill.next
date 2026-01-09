@@ -7,7 +7,7 @@ created: 1757001185
 lastUpdated:
 ---
 
-I never thought I would recommend anyone get into stripping, but sometimes you gotta to what you gotta do.My [last article](/post/javascript-debugging-utility-to-guard-noisy-production-consoles) described a tamer approach, runtime guarding of debug logs. But if you really want clean logs and easier debugging, the simpliest solution might just be to remove debug calls during the build process. Instead of wrapping every `console.debug()` in guards at runtime, you can tell the Next.js compiler to strip them out when you create your production build.
+I never thought I would recommend anyone get into stripping, but sometimes you gotta do what you gotta do. My [last article](/post/javascript-debugging-utility-to-guard-noisy-production-consoles) described a tamer approach, runtime guarding of debug logs. But if you really want clean logs and easier debugging, the simplest solution might just be to remove debug calls during the build process. Instead of wrapping every `console.debug()` in guards at runtime, you can tell the Next.js compiler to strip them out when you create your production build.
 
 ## Why build-time removal?
 
@@ -45,11 +45,11 @@ Next time you build with this config, _console.log_, _console.debug_, and _conso
 ## When to pick which
 
 - Use the Next.js compiler removeConsole when you want absolute assurance that debug/log calls never reach production
-- Use a runtime-guarded logger when you require strict code consistency across enviroments, or want the ability to control debug logic dynamically.
+- Use a runtime-guarded logger when you require strict code consistency across environments, or want the ability to control debug logic dynamically.
 
 ## Closing Tag
 
-Both approaches are valid for different scenarios, and each developer will have their own preference. If your priority is safety and zero risk of leaking debug output, strip logs at build time with the Next.js compiler. If you want flexibility and occasional production introspection, consider keeping keep the runtime guard and a central logger.
+Both approaches are valid for different scenarios, and each developer will have their own preference. If your priority is safety and zero risk of leaking debug output, strip logs at build time with the Next.js compiler. If you want flexibility and occasional production introspection, consider keeping the runtime guard and a central logger.
 
 ## References
 

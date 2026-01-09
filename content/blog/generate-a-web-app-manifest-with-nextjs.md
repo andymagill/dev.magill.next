@@ -7,7 +7,9 @@ created: 1731610486
 lastUpdated:
 ---
 
-The web app manifest is a simple way to reinforce the branding of your web application. In it's most basic form, it’s a just JSON file that provides relevant metadata about your website, allowing browsers to present your app like a native application. This includes details like the app's name, icons, theme colors, and display preferences. In this article, we’ll walk through how to create and implement a generated web app manifest in your Next.js application. So buckle up, because we're about to make your site look like it means business—without actually having to wear a suit.
+The web app manifest is a simple way to reinforce the branding of your web application. In its most basic form, it’s a just JSON file that provides relevant metadata about your website, allowing browsers to present your app like a native application. This includes details like the app's name, icons, theme colors, and display preferences. 
+
+In this article, we’ll walk through how to create and implement a generated web app manifest in your Next.js application. So buckle up, because we're about to make your site look like it means business—without actually having to wear a suit.
 
 ## What the Heck is a Manifest?
 
@@ -69,7 +71,7 @@ Ready to get your hands dirty? Let’s dive into creating a [generated web app m
 
 ## The Closing Tag
 
-I started this task simply because I wanted to update the favicon on [my professional website](https://magill.dev), and I somehow ended up in a rabbit hole of web manifests and PWA functionality. It's all part of the process of [crafting a developer website for professional growth](/post/crafting-a-developer-website-for-professional-growth). By using a generated web app manifest in my Next.js site, I can reinforce my visual branding and provide a more similar experience to native apps. Next.js's built-in support for web manifests allows me to customize the manifest easily while creating a more engaging and accessible web application. Next.js's automatic handling of manifest and icon metadata simplifies the whole process, reducing the potential for human errors and laying the ground-work for more interesting PWA features (to be continued).
+I started this task simply because I wanted to update the favicon on [my professional website](https://magill.dev), and I somehow ended up in a rabbit hole of web manifests and PWA functionality. It's all part of the process of [crafting a developer website for professional growth](/post/crafting-a-developer-website-for-professional-growth). By using a generated web app manifest in my Next.js site, I can reinforce my visual branding and provide an experience more similar to native apps. Next.js's built-in support for web manifests allows me to customize the manifest easily while creating a more engaging and accessible web application. Next.js's automatic handling of manifest and icon metadata simplifies the whole process, reducing the potential for human errors and laying the groundwork for more interesting PWA features (to be continued).
 
 ### Related Links
 

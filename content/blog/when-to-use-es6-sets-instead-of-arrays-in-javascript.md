@@ -9,7 +9,7 @@ lastUpdated:
 
 If you are like me, you often reach for arrays out of habit. They’re flexible, familiar, and perfect for most everyday tasks like rendering UI, keeping things in order, or working with duplicates.
 
-But sometimes we need to guarantee uniqueness as a requirement, or check values in a huge list quickly. That’s where ES6 Sets come in. Let's consider some real world examples of both Sets and Arrays, and demonstrate how to properly use them in your next project.
+But sometimes we need to guarantee uniqueness as a requirement, or check values in a huge list quickly. That's where ES6 Sets come in. Let's consider some real-world examples of both Sets and Arrays, and demonstrate how to properly use them in your next project.
 
 ## Tracking Unique Events with Sets
 

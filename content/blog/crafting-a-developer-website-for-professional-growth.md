@@ -13,7 +13,7 @@ In a competitive job market, a strong portfolio can be your secret sauce. It's l
 
 ### Show Growth, Not Projects
 
-A good professional website should not just show your best projects in a portfolio format, it's also about sharing your thought process and how you tackle challenges. **[Addy Osmani](https://addyosmani.com/blog/write-learn/)**, an Engineering Manager at Google, talks about how highlighting what you learned to set you apart: _"The practice of writing about learning encourages a growth mindset. It fosters curiosity, critical thinking, and a willingness to engage with challenging subjects."_ He suggests including details about the obstacles you faced, and how you solved them. This way, you're not just showcasing your coding skills; you're also highlighting your critical thinking and adaptability in your published work and previous experiences.
+A good professional website should not just show your best projects in a portfolio format, it's also about sharing your thought process and how you tackle challenges. **[Addy Osmani](https://addyosmani.com/blog/write-learn/)**, an Engineering Manager at Google, talks about how highlighting what you learned can set you apart: _"The practice of writing about learning encourages a growth mindset. It fosters curiosity, critical thinking, and a willingness to engage with challenging subjects."_ He suggests including details about the obstacles you faced, and how you solved them. This way, you're not just showcasing your coding skills; you're also highlighting your critical thinking and adaptability in your published work and previous experiences.
 
 ### Storytelling And Your Personal Brand
 
@@ -23,7 +23,7 @@ A professional blog is your chance to tell your story—think of it as your orig
 
 Your website should reflect your journey as a developer. As you build and maintain it, focus on incorporating current trends, addressing relevant challenges, and telling your unique story. With a thoughtful approach, your portfolio can become a powerful tool in showcasing not just what you do, but how well you can do it.
 
-These ideas, along with the resources below helped shape my thoughts on how I would build [my website](https://magill.dev/) and [work portfolio](https://magill.dev/projects).
+These ideas, along with the resources below, helped shape my thoughts on how I would build [my website](https://magill.dev/) and [work portfolio](https://magill.dev/projects).
 
 ### Related Resources
 

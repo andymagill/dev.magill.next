@@ -7,14 +7,14 @@ created: 1738864468
 lastUpdated:
 ---
 
-I have a confession to make, I am terrible at remembering all the different deployment checks and publishing chores for each of my projects. It's embarrassing, I know. Now that the aire has been cleared, let's find a way to compensate for my shortcomings.
+I have a confession to make, I am terrible at remembering all the different deployment checks and publishing chores for each of my projects. It's embarrassing, I know. Now that the air has been cleared, let's find a way to compensate for my shortcomings.
 
 In my latest project, I'll set up a full-stack multi-environment deployment pipeline using [GitHub Actions](https://github.com/features/actions). This has been so incredibly useful, I decided to share some details about why I chose this configuration and the benefits of this approach:
 
 ## But Why?
 
 <img alt="But Why?" width="320" src="/images/blog/but-why.jpg#right" >
-For my project, I needed a safe space to test code changes before they went live. Local development has it's place, but you know it can be a pain for applications hosted on multiple environments. A staging platform provides a valuable resource for stakeholder reviews, facilitating regular feedback and deeper collaboration. This setup allows me to push changes where they are needed, and automagically perform any steps required for each environment. I shake my head when I think about all the time I wasted doing this manually.
+For my project, I needed a safe space to test code changes before they went live. Local development has its place, but you know it can be a pain for applications hosted on multiple environments. A staging platform provides a valuable resource for stakeholder reviews, facilitating regular feedback and deeper collaboration. This setup allows me to push changes where they are needed, and automagically perform any steps required for each environment. I shake my head when I think about all the time I wasted doing this manually.
 
 ## Laying the Pipeline
 
@@ -32,7 +32,7 @@ One key benefit of this approach is access control. By granting developers acces
 
 Workflows are triggered by pushes to the relevant branches. In my workflow, a push to develop triggers the staging deployment, and a push to main triggers the production deployment.
 
-The front-end build process uses `npm run build` which runs the front-end build process (which is defined in package.json, silly). On staging, we can specify separate configuration files, with the `--config dev.config.js` flag to customize build process more precisely. This back-end build uses a generic `composer install` action, which [could be customized further](https://github.com/ramsey/composer-install).
+The front-end build process uses `npm run build` which runs the front-end build process (which is defined in package.json, silly). On staging, we can specify separate configuration files, with the `--config dev.config.js` flag to customize the build process more precisely. This back-end build uses a generic `composer install` action, which [could be customized further](https://github.com/ramsey/composer-install).
 
 Here's a more detailed snippet, tying it all together:
 
