@@ -1,22 +1,28 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styles from './HeroAnimation.module.scss';
 
-interface HeroAnimationProps {
-	duration?: number;
-}
+interface HeroAnimationProps {}
 
-/** Seeded random generator - produces consistent values for same seed + index */
+/** Seeded random generator */
 const seededRandom = (seed: number, index: number): number => {
 	const x = Math.sin((seed + index) * 12.9898) * 43758.5453;
 	return x - Math.floor(x);
 };
 
-interface ParticleData {
-	yOffset: number;
-	bgXOffset: number;
-	hueRotation: number;
+interface ParticlePreset {
+	id: string;
+	top: number; // percentage (allows -10% to 110%)
+	left: number; // percentage
+	size: number; // vmin
+	hue: number; // degrees
+	duration: number; // seconds
+	baseDelay: number; // base negative delay before elapsed offset
+	colorIdx: number; // palette index
+}
+
+interface ParticleRender extends ParticlePreset {
 	delay: number;
 }
 
@@ -24,150 +30,141 @@ interface AnimationState {
 	startTime: number;
 	seed: number;
 	gradientOffsets: { c0: number; c1: number; c2: number };
-	layerPhaseOffsets: { before: number; after: number };
-	particles: {
-		before: ParticleData[];
-		after: ParticleData[];
-	};
+	particles: ParticlePreset[];
 }
 
-const HeroAnimation: React.FC<HeroAnimationProps> = ({ duration = 12000 }) => {
-	const containerRef = useRef<HTMLDivElement>(null);
+const PARTICLE_COUNT = 20;
 
+/**
+ * Create deterministic presets for every particle so we can hydrate them from localStorage
+ * and simply offset their animation delay by the elapsed time on subsequent pageviews.
+ */
+const buildParticlePresets = (seed: number): ParticlePreset[] => {
+	const presets: ParticlePreset[] = [];
+	for (let i = 0; i < PARTICLE_COUNT; i++) {
+		const r = (offset: number) => seededRandom(seed, i * 10 + offset);
+		const duration = 30 + r(1) * 30;
+		const baseDelay = -r(2) * duration;
+		presets.push({
+			id: `p-${i}`,
+			top: r(3) * 90 - 30,
+			left: r(4) * 20 - 10,
+			size: 10 + r(5) * 70,
+			hue: r(6) * 60 - 30,
+			duration,
+			baseDelay,
+			colorIdx: Math.floor(r(7) * 4),
+		});
+	}
+	return presets;
+};
+
+const HeroAnimation: React.FC<HeroAnimationProps> = () => {
+	const [gradientState, setGradientState] = useState<AnimationState | null>(null);
+	const [elapsedMs, setElapsedMs] = useState<number | null>(null);
+	const [particles, setParticles] = useState<ParticleRender[]>([]);
+
+	// Hydrate the persisted animation state, compute the elapsed offset, and render particles only once per mount.
 	useEffect(() => {
-		const container = containerRef.current;
-		if (!container) return;
-
+		const storedState = localStorage.getItem('heroAnimationState_v2');
 		const now = Date.now();
-		const storedState = localStorage.getItem('heroAnimationState');
+		let seed: number;
+		let currentState: AnimationState;
+		let needsPersist = false;
 
-		let state: AnimationState;
-
-		// Generate particle data for both layers
-		// Use mixed negative/positive delays across 60s cycle for continuous coverage
-		// Half particles use large negative delays (appear late in cycle at page load)
-		// Half use small/positive delays (appear early/on time)
-		// Together they fill the entire 60s duration with no gaps
-		const generateParticles = (seed: number, startSeedIndex: number): ParticleData[] => {
-			const delayPattern = [
-				-51429, // P0: ~85% through cycle
-				-34286, // P1: ~57% through cycle
-				-17142, // P2: ~28% through cycle
-				0,      // P3: at start
-				8571,   // P4: after 8.57s
-				25714,  // P5: after 25.7s
-				42857,  // P6: after 42.8s
-			];
-			
-			return Array.from({ length: 7 }, (_, i) => ({
-				yOffset: seededRandom(seed, startSeedIndex + i) * 70 - 35,
-				bgXOffset: seededRandom(seed, startSeedIndex + 10 + i) * 10 - 5,
-				hueRotation: seededRandom(seed, startSeedIndex + 20 + i) * 60 - 30,
-				delay: delayPattern[i],
-			}));
-		};
-
-		let shouldPersistState = false;
 		if (storedState) {
-			const parsed = JSON.parse(storedState);
-			const savedOffsets = parsed.layerPhaseOffsets ?? { before: 0, after: -30000 };
-			const needsMigration = savedOffsets.after > 0;
-			const afterPhaseOffset = needsMigration
-				? -36000 + (seededRandom(parsed.seed, 40) - 0.5) * 10000
-				: savedOffsets.after;
-			const layerPhaseOffsets = {
-				before: savedOffsets.before ?? 0,
-				after: afterPhaseOffset,
-			};
-			// Regenerate particles from stored seed to ensure consistent delays
-			state = {
-				...parsed,
-				layerPhaseOffsets,
-				particles: {
-					before: generateParticles(parsed.seed, 21),
-					after: generateParticles(parsed.seed, 25),
-				},
-			};
-			shouldPersistState = needsMigration;
+			currentState = JSON.parse(storedState);
+			if (!currentState.startTime) {
+				currentState.startTime = now;
+				needsPersist = true;
+			}
+			seed = currentState.seed;
 		} else {
-			const startTime = now;
-			const seed = Math.floor(Math.random() * 1000000);
-			const layerPhaseJitter = (seededRandom(seed, 40) - 0.5) * 10000;
-			const layerPhaseOffsets = {
-				before: 0,
-				after: -36000 + layerPhaseJitter,
-			};
-
-			state = {
-				startTime,
+			seed = Math.floor(Math.random() * 1000000);
+			currentState = {
+				startTime: now,
 				seed,
 				gradientOffsets: {
 					c0: seededRandom(seed, 37) * 8 - 4,
 					c1: seededRandom(seed, 38) * 10 - 5,
 					c2: seededRandom(seed, 39) * 6 - 3,
 				},
-				layerPhaseOffsets,
-				particles: {
-					before: generateParticles(seed, 21),
-					after: generateParticles(seed, 25),
-				},
+				particles: [],
 			};
-			shouldPersistState = true;
+			needsPersist = true;
 		}
 
-		if (shouldPersistState) {
-			localStorage.setItem('heroAnimationState', JSON.stringify(state));
+		const presets = currentState.particles && currentState.particles.length
+			? currentState.particles
+			: buildParticlePresets(seed);
+		if (!currentState.particles?.length) {
+			currentState.particles = presets;
+			needsPersist = true;
 		}
 
-		// Calculate delay only once on mount
-		const totalElapsed = now - state.startTime;
-		const delayMs = -totalElapsed;
-
-		// Apply single animation delay for all animations
-		container.style.setProperty('--animation-delay', `${delayMs}ms`);
-
-		// Apply gradient color stop offsets
-		container.style.setProperty('--gradient-c0-offset', `${state.gradientOffsets.c0}%`);
-		container.style.setProperty('--gradient-c1-offset', `${state.gradientOffsets.c1}%`);
-		container.style.setProperty('--gradient-c2-offset', `${state.gradientOffsets.c2}%`);
-
-		const beforeLayerDelay = delayMs + state.layerPhaseOffsets.before;
-		const afterLayerDelay = delayMs + state.layerPhaseOffsets.after;
-		container.style.setProperty('--before-layer-delay', `${beforeLayerDelay}ms`);
-		container.style.setProperty('--after-layer-delay', `${afterLayerDelay}ms`);
-
-		// Debug: expose computed timing values to console for diagnosis
-		if (process.env.NODE_ENV !== 'production') {
-			console.debug('HeroAnimation delays:', {
-				beforeLayerDelay,
-				afterLayerDelay,
-				sampleBeforeParticleDelay: state.particles.before[0]?.delay,
-				sampleAfterParticleDelay: state.particles.after[0]?.delay,
-			});
+		if (needsPersist) {
+			localStorage.setItem('heroAnimationState_v2', JSON.stringify(currentState));
 		}
+		
+		const elapsed = now - currentState.startTime;
+		const elapsedSeconds = elapsed / 1000;
+		const renderParticles = presets.map((preset) => ({
+			...preset,
+			delay: preset.baseDelay - elapsedSeconds,
+		}));
 
-		// Apply particle data for both layers
-		const applyParticles = (layer: 'before' | 'after') => {
-			const particles = state.particles[layer];
-			const beforeHueAvg = particles.reduce((sum, p) => sum + p.hueRotation, 0) / particles.length;
+		// Delay the render commits until the next frame to avoid synchronous setState warnings.
+		const raf = requestAnimationFrame(() => {
+			setGradientState(currentState);
+			setElapsedMs(elapsed);
+			setParticles(renderParticles);
+		});
+		return () => cancelAnimationFrame(raf);
+	}, []);
 
-			particles.forEach((particle, i) => {
-				container.style.setProperty(`--${layer}-y-offset-${i}`, `${particle.yOffset}vmin`);
-				container.style.setProperty(`--${layer}-bg-x-offset-${i}`, `${particle.bgXOffset}%`);
-				container.style.setProperty(`--${layer}-hue-${i}`, `${particle.hueRotation}deg`);
-				container.style.setProperty(`--${layer}-particle-${i}-delay`, `${particle.delay}ms`);
-			});
-
-			container.style.setProperty(`--${layer}-hue-avg`, `${beforeHueAvg}deg`);
-		};
-
-		applyParticles('before');
-		applyParticles('after');
-	}, [duration]);
+	// Translate persisted gradient offsets into CSS custom properties and keep the animation aligned to the stored clock.
+	const styleVars = useMemo(() => {
+		if (!gradientState || elapsedMs === null) return {};
+		return {
+			'--gradient-c0-offset': `${gradientState.gradientOffsets.c0}%`,
+			'--gradient-c1-offset': `${gradientState.gradientOffsets.c1}%`,
+			'--gradient-c2-offset': `${gradientState.gradientOffsets.c2}%`,
+			'--animation-delay': `-${elapsedMs}ms`,
+		} as React.CSSProperties;
+	}, [gradientState, elapsedMs]);
 
 	return (
-		<div ref={containerRef} className={`${styles.heroAnimation} heroAnimation`}></div>
+		<div className={`${styles.heroAnimation} heroAnimation`} style={styleVars}>
+			{particles.map((p) => (
+				<div
+					key={p.id}
+					className={styles.particle}
+					style={{
+						'--top': `${p.top}%`,
+						'--left': `${p.left}%`,
+						'--size': `${p.size}vmin`,
+						'--hue': `${p.hue}deg`,
+						'--duration': `${p.duration}s`,
+						'--delay': `${p.delay}s`,
+						// Base colors based on the design system/palette roughly matching the previous gradients
+						// We can use a few base HSLs and rotate them
+						'--base-color': getBaseColor(p.colorIdx),
+					} as React.CSSProperties}
+				/>
+			))}
+		</div>
 	);
 };
+
+function getBaseColor(idx: number): string {
+	const colors = [
+		'hsl(30 45% 60% / 0.5)',
+		'hsl(90 45% 60% / 0.5)',
+		'hsl(150 45% 60% / 0.5)',
+		'hsl(210 45% 60% / 0.5)',
+		'hsl(270 45% 60% / 0.5)',
+	];
+	return colors[idx % colors.length];
+}
 
 export default HeroAnimation;
