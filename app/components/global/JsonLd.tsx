@@ -11,7 +11,7 @@ interface JsonLdProps {
 const JsonLd: React.FC<JsonLdProps> = ({ data }) => {
 	return (
 		<script
-			type="application/ld+json"
+			type='application/ld+json'
 			dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
 		/>
 	);

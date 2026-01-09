@@ -7,7 +7,7 @@ created: 1731610486
 lastUpdated:
 ---
 
-The web app manifest is a simple way to reinforce the branding of your web application. In its most basic form, it’s a just JSON file that provides relevant metadata about your website, allowing browsers to present your app like a native application. This includes details like the app's name, icons, theme colors, and display preferences. 
+The web app manifest is a simple way to reinforce the branding of your web application. In its most basic form, it’s a just JSON file that provides relevant metadata about your website, allowing browsers to present your app like a native application. This includes details like the app's name, icons, theme colors, and display preferences.
 
 In this article, we’ll walk through how to create and implement a generated web app manifest in your Next.js application. So buckle up, because we're about to make your site look like it means business—without actually having to wear a suit.
 

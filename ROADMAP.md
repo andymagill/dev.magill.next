@@ -5,10 +5,10 @@
 - [ ] Implement pagination for blog posts
 - [ ] Add a search functionality for blog posts
 - [x] Create a featured posts section
-- [X] Implement a related posts feature
+- [x] Implement a related posts feature
 - [x] Add social media sharing buttons for blog posts
 - [ ] Add social API for better sharing on mobile
-- [X] Create an RSS feed for automated syndication
+- [x] Create an RSS feed for automated syndication
 
 ## User Interaction
 
@@ -60,7 +60,7 @@
 ## Security Enhancements
 
 - [ ] Add CSRF protection
-- [X] Regular security audits and updates
+- [x] Regular security audits and updates
 
 ## Testing and Quality Assurance
 

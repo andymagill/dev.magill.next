@@ -60,7 +60,9 @@ const buildParticlePresets = (seed: number): ParticlePreset[] => {
 };
 
 const HeroAnimation: React.FC<HeroAnimationProps> = () => {
-	const [gradientState, setGradientState] = useState<AnimationState | null>(null);
+	const [gradientState, setGradientState] = useState<AnimationState | null>(
+		null
+	);
 	const [elapsedMs, setElapsedMs] = useState<number | null>(null);
 	const [particles, setParticles] = useState<ParticleRender[]>([]);
 
@@ -94,18 +96,22 @@ const HeroAnimation: React.FC<HeroAnimationProps> = () => {
 			needsPersist = true;
 		}
 
-		const presets = currentState.particles && currentState.particles.length
-			? currentState.particles
-			: buildParticlePresets(seed);
+		const presets =
+			currentState.particles && currentState.particles.length
+				? currentState.particles
+				: buildParticlePresets(seed);
 		if (!currentState.particles?.length) {
 			currentState.particles = presets;
 			needsPersist = true;
 		}
 
 		if (needsPersist) {
-			localStorage.setItem('heroAnimationState_v2', JSON.stringify(currentState));
+			localStorage.setItem(
+				'heroAnimationState_v2',
+				JSON.stringify(currentState)
+			);
 		}
-		
+
 		const elapsed = now - currentState.startTime;
 		const elapsedSeconds = elapsed / 1000;
 		const renderParticles = presets.map((preset) => ({
@@ -139,17 +145,19 @@ const HeroAnimation: React.FC<HeroAnimationProps> = () => {
 				<div
 					key={p.id}
 					className={styles.particle}
-					style={{
-						'--top': `${p.top}%`,
-						'--left': `${p.left}%`,
-						'--size': `${p.size}vmin`,
-						'--hue': `${p.hue}deg`,
-						'--duration': `${p.duration}s`,
-						'--delay': `${p.delay}s`,
-						// Base colors based on the design system/palette roughly matching the previous gradients
-						// We can use a few base HSLs and rotate them
-						'--base-color': getBaseColor(p.colorIdx),
-					} as React.CSSProperties}
+					style={
+						{
+							'--top': `${p.top}%`,
+							'--left': `${p.left}%`,
+							'--size': `${p.size}vmin`,
+							'--hue': `${p.hue}deg`,
+							'--duration': `${p.duration}s`,
+							'--delay': `${p.delay}s`,
+							// Base colors based on the design system/palette roughly matching the previous gradients
+							// We can use a few base HSLs and rotate them
+							'--base-color': getBaseColor(p.colorIdx),
+						} as React.CSSProperties
+					}
 				/>
 			))}
 		</div>
