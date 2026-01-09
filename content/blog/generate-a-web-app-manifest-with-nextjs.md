@@ -69,7 +69,7 @@ Ready to get your hands dirty? Let’s dive into creating a [generated web app m
 
 ## The Closing Tag
 
-I started this task simply because I wanted to update the favicon on [my professional website](https://magill.dev), and I somehow ended up in a rabbit hole of web manifests and PWA functionality. By using a generated web app manifest in my Next.js site, I can reinforce my visual branding and provide a more similar experience to native apps. Next.js's built-in support for web manifests allows me to customize the manifest easily while creating a more engaging and accessible web application. Next.js's automatic handling of manifest and icon metadata simplifies the whole process, reducing the potential for human errors and laying the ground-work for more interesting PWA features (to be continued).
+I started this task simply because I wanted to update the favicon on [my professional website](https://magill.dev), and I somehow ended up in a rabbit hole of web manifests and PWA functionality. It's all part of the process of [crafting a developer website for professional growth](/post/crafting-a-developer-website-for-professional-growth). By using a generated web app manifest in my Next.js site, I can reinforce my visual branding and provide a more similar experience to native apps. Next.js's built-in support for web manifests allows me to customize the manifest easily while creating a more engaging and accessible web application. Next.js's automatic handling of manifest and icon metadata simplifies the whole process, reducing the potential for human errors and laying the ground-work for more interesting PWA features (to be continued).
 
 ### Related Links
 

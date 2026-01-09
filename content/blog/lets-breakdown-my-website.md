@@ -17,7 +17,7 @@ For styling, I opted for a combination of SASS and CSS Modules. SASS allowed me 
 
 ## Summoning the Beast
 
-Here are some of the challenges and problems I faced when building this website, and how I tackled them. If you're diving into similar Next.js projects, you might find this useful:
+Here are some of the challenges and problems I faced when building this website, and how I tackled them. From [handling SEO for AI crawlers](/post/ai-discoverability-structured-data-gives-rich-context-to-clueless-crawlers) to [persisting animation states](/post/persisting-animation-state-across-page-views-in-Reactjs), if you're diving into similar Next.js projects, you might find this useful:
 
 ### Dynamic Routes vs. Static Generation:
 
