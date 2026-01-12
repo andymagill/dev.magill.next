@@ -6,41 +6,24 @@ updates:
       interval: 'weekly'
       day: 'monday'
       time: '02:00'
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 2
     labels:
       - 'dependencies'
     allow:
       - dependency-type: 'all'
     groups:
-      framework-stack:
+      core:
         patterns:
           - 'next'
           - 'react'
           - 'react-dom'
           - '@next/*'
           - 'next-sitemap'
-      content-stack:
-        patterns:
           - 'gray-matter'
           - 'markdown-to-jsx'
           - 'rss'
           - 'sass'
-          - 'serve'
-          - '@fortawesome/*'
-      dev-tooling:
-        patterns:
-          - 'eslint*'
-          - 'prettier'
           - 'typescript'
-          - 'vitest*'
-          - '@testing-library/*'
-          - '@types/*'
-          - '@vitejs/*'
-          - '@vitest/coverage-v8'
-          - 'jsdom'
-          - '@next/bundle-analyzer'
-          - 'wrangler'
-          - 'cross-env'
       miscellaneous:
         patterns:
           - '*'
@@ -54,30 +37,4 @@ updates:
           - 'markdown-to-jsx'
           - 'rss'
           - 'sass'
-          - 'serve'
-          - '@fortawesome/*'
-          - 'eslint*'
-          - 'prettier'
           - 'typescript'
-          - 'vitest*'
-          - '@testing-library/*'
-          - '@types/*'
-          - '@vitejs/*'
-          - '@vitest/coverage-v8'
-          - 'jsdom'
-          - '@next/bundle-analyzer'
-          - 'wrangler'
-          - 'cross-env'
-  - package-ecosystem: 'github-actions'
-    directory: '/'
-    schedule:
-      interval: 'weekly'
-      day: 'monday'
-      time: '09:00'
-    open-pull-requests-limit: 2
-    labels:
-      - 'dependencies'
-    groups:
-      ci-workflows:
-        patterns:
-          - '*'
