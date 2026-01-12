@@ -37,8 +37,8 @@
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.1",
 		"@types/dompurify": "^3.2.0",
-		"@types/node": "^25.0.3",
-		"@types/react": "^19.2.7",
+		"@types/node": "^25.0.6",
+		"@types/react": "^19.2.8",
 		"@types/react-dom": "^19.2.3",
 		"@types/rss": "^0.0.32",
 		"@vitejs/plugin-react": "^5.1.2",
@@ -51,6 +51,6 @@
 		"prettier": "^3.7.4",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.16",
-		"wrangler": "^4.56.0"
+		"wrangler": "^4.58.0"
 	}
 }
