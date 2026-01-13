@@ -7,7 +7,7 @@ created: 1749230700
 lastUpdated:
 ---
 
-Apparently chatbots are the hot new target audience for everything, and unfortunately they're not impressed with your fancy frontend UI. So, if you want your content to show up in AI overviews, structured data provides that context to clueless bots and poorly informed AI workflows. It's a key part of machine discoverability, alongside other techniques like [boosting your Next.js blog's visibility with RSS](/post/boosting-my-nextjs-blogs-visibility-with-rss).
+Apparently chatbots are the hot new target audience for everything, and unfortunately they're not impressed with your fancy frontend UI. So, if you want your content to show up in AI overviews, structured data provides that context to clueless bots and poorly informed AI workflows. It's a key part of machine discoverability, alongside other techniques like [boosting your Next.js blog's visibility with RSS](https://magill.dev/post/boosting-my-nextjs-blogs-visibility-with-rss).
 
 ## Structured Data & Micro-Schemas
 
@@ -21,7 +21,7 @@ Like me, you might find your blog is missing Article, Author, or Breadcrumb sche
 
 ## Implementing Structured Data in Your Codebase
 
-For my chosen solution, I didn't bother with fancy utility functions or helpers. I've kept things relatively simple for the [initial breakdown of this website's tech stack](/post/lets-breakdown-my-website), so I'll just dangerously drop the JSON-LD schema into a script tag right in the page component:
+For my chosen solution, I didn't bother with fancy utility functions or helpers. I've kept things relatively simple for the [initial breakdown of this website's tech stack](https://magill.dev/post/lets-breakdown-my-website), so I'll just dangerously drop the JSON-LD schema into a script tag right in the page component:
 
 ```tsx
 // app/post/[slug]/page.tsx

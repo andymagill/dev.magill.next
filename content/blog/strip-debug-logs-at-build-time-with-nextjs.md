@@ -7,7 +7,7 @@ created: 1757001185
 lastUpdated:
 ---
 
-I never thought I would recommend anyone get into stripping, but sometimes you gotta do what you gotta do. My [last article](/post/javascript-debugging-utility-to-guard-noisy-production-consoles) described a tamer approach, runtime guarding of debug logs. But if you really want clean logs and easier debugging, the simplest solution might just be to remove debug calls during the build process. Instead of wrapping every `console.debug()` in guards at runtime, you can tell the Next.js compiler to strip them out when you create your production build.
+I never thought I would recommend anyone get into stripping, but sometimes you gotta do what you gotta do. My [last article](https://magill.dev/post/javascript-debugging-utility-to-guard-noisy-production-consoles) described a tamer approach, runtime guarding of debug logs. But if you really want clean logs and easier debugging, the simplest solution might just be to remove debug calls during the build process. Instead of wrapping every `console.debug()` in guards at runtime, you can tell the Next.js compiler to strip them out when you create your production build.
 
 ## Why build-time removal?
 
@@ -15,7 +15,7 @@ I never thought I would recommend anyone get into stripping, but sometimes you g
 - Debug statements can't accidentally leak because they're not in the final bundle.
 - Keeps source code readable without littering it with guards.
 
-This is a lot simpler than the [runtime-guarded logger in my previous article](/post/javascript-debugging-utility-to-guard-noisy-production-consoles), which keeps calls in the bundle but silences them in production. Build-time removal deletes the calls from the bundle entirely — more permanent, less flexible.
+This is a lot simpler than the [runtime-guarded logger in my previous article](https://magill.dev/post/javascript-debugging-utility-to-guard-noisy-production-consoles), which keeps calls in the bundle but silences them in production. Build-time removal deletes the calls from the bundle entirely — more permanent, less flexible.
 
 ## Next.js compiler: removeConsole
 

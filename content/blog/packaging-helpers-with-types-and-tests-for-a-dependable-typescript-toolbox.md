@@ -18,7 +18,7 @@ Small utility functions — helpers — become force multipliers when they can b
 
 ## Practical use-cases for Helpers
 
-Imagine you want to maintain a small set of functions across several frontends: a date formatting helper, a tiny analytics-event normalizer, or even a [specialized debugging utility to guard production consoles](/post/javascript-debugging-utility-to-guard-noisy-production-consoles). Duplicating logic across repos introduces drift and bugs. Packaging those helpers lets you fix issues once and consume consistent behavior everywhere.
+Imagine you want to maintain a small set of functions across several frontends: a date formatting helper, a tiny analytics-event normalizer, or even a [specialized debugging utility to guard production consoles](https://magill.dev/post/javascript-debugging-utility-to-guard-noisy-production-consoles). Duplicating logic across repos introduces drift and bugs. Packaging those helpers lets you fix issues once and consume consistent behavior everywhere.
 
 Export the helpers to provide a stable API surface. Example (index.js):
 
