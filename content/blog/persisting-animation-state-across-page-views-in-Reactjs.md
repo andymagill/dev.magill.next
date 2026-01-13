@@ -1,7 +1,7 @@
 ---
 title: Persisting Animation State Across Page-Views In React.js
 description: A walkthrough of how to persist the state of an animation across page-views with seeded randomization, deterministic state, and CSS Parameter interpolation.
-image: images/blog/react-persist.png
+image: /images/blog/react-persist.png
 tags: React, Animation, Frontend
 created: 1767988474
 lastUpdated:
