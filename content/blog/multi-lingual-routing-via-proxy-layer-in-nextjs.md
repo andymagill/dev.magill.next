@@ -1,7 +1,7 @@
 ---
 title: Multi-lingual Routing via Proxy Layer in Next.js 16
 description: Learn how to structure a Next.js 16 proxy layer to orchestrate multi-lingual routing, API authentication, and SEO-friendly URLs with different route classifications.
-image: images/blog/routing-diagram.png
+image: /images/blog/routing-diagram.png
 tags: internationalization, middleware, multilingual routing, i18n, Next.js
 created: 1768327304
 lastUpdated:
