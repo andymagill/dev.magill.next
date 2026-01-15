@@ -1,3 +1,5 @@
+import styles from './PostDate.module.scss';
+
 /**
  * PostDate Component
  *
@@ -78,20 +80,20 @@ export default function PostDate({ created, lastUpdated }: PostDateProps) {
 	}
 
 	return (
-		<span>
+		<div className={styles.dateContainer}>
 			{publishedDate && (
-				<>
+				<span className={styles.dateLine}>
 					Published on <time dateTime={created}>{publishedDate}</time>
-				</>
+				</span>
 			)}
 			{publishedDate && showUpdated && (
-				<span className="spacer"> • </span>
+				<span className={styles.separator}> • </span>
 			)}
 			{showUpdated && (
-				<>
+				<span className={styles.dateLine}>
 					Updated on <time dateTime={lastUpdated}>{updatedDate}</time>
-				</>
+				</span>
 			)}
-		</span>
+		</div>
 	);
 }
