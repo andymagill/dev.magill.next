@@ -85,7 +85,7 @@ export default function PostDate({ created, lastUpdated }: PostDateProps) {
 				</>
 			)}
 			{publishedDate && showUpdated && (
-				<span className="mx-4"> • </span>
+				<span className="spacer"> • </span>
 			)}
 			{showUpdated && (
 				<>
