@@ -84,7 +84,9 @@ export default function PostDate({ created, lastUpdated }: PostDateProps) {
 					Published on <time dateTime={created}>{publishedDate}</time>
 				</>
 			)}
-			{publishedDate && showUpdated && ' • '}
+			{publishedDate && showUpdated && (
+				<span className="mx-4"> • </span>
+			)}
 			{showUpdated && (
 				<>
 					Updated on <time dateTime={lastUpdated}>{updatedDate}</time>
