@@ -4,7 +4,7 @@ description: Row Level Security in PostgreSQL isn’t just a neat trick-it’s a
 image: /images/blog/marcos-mayer-locks.jpg
 tags: Serverless, HIPAA, PostgreSQL
 created: 1744729263
-lastUpdated:
+lastUpdated: 1768487848
 ---
 
 It's time to revisit everyone's two favorite topics, Row Level Security (RLS) and HIPAA compliance. I'm here to give the people what they want, so here is my take on how to create a safe and orderly place for your legally-protected patient data to live.
@@ -23,11 +23,20 @@ Row Level Security in PostgreSQL is powerful enough to handle even complex relat
 
 ## 1. Create Policies for Clinicians
 
-Let’s say there’s a many-to-many relationship between clinicians and patients managed through a `clinicians_patients` join table. We want clinicians to only see their own patients, but not others. Here's how we can get there:
+Let's say there's a many-to-many relationship between clinicians and patients managed through a `clinicians_patients` join table. We want clinicians to only see their own patients, but not others. Here's how we can get there:
 
 ```sql
 CREATE POLICY clinician_patient_access ON patients
   FOR SELECT, UPDATE
+  USING (EXISTS (
+    SELECT 1
+    FROM clinicians_patients
+    WHERE clinicians_patients.patient_id = patients.id
+      AND clinicians_patients.clinician_id = current_setting('app.current_user')::int
+  ));
+
+CREATE POLICY clinician_patient_delete ON patients
+  FOR DELETE
   USING (EXISTS (
     SELECT 1
     FROM clinicians_patients
@@ -40,7 +49,7 @@ This policy works by checking if the `clinician_id` in the `clinicians_patients`
 
 ## 2. Enable RLS on Your Tables
 
-First, you need to tell PostgreSQL to actually care about row-level access. By default, it’s blissfully ignorant. We could enable RLS on all three tables: `patients`, `clinicians`, and `clinicians_patients`.
+We still need to tell PostgreSQL to actually care about row-level access. By default, it's blissfully ignorant. Enable RLS on all three tables:
 
 ```sql
 ALTER TABLE patients ENABLE ROW LEVEL SECURITY;
@@ -48,11 +57,9 @@ ALTER TABLE clinicians ENABLE ROW LEVEL SECURITY;
 ALTER TABLE clinicians_patients ENABLE ROW LEVEL SECURITY;
 ```
 
-Congratulations, you’ve just hired a beefy database bouncer! But right now, he’s still letting everyone in. Let’s fix that.
-
 ### One RLS Policy to Rule Them All
 
-By default, superusers and table owners can bypass RLS, which can be risky in serverless setups where connections are shared. To lock down access, use:
+By default, superusers and table owners can bypass RLS, which can be risky in serverless setups where connections are shared. To lock down access completely, force RLS on sensitive tables:
 
 ```sql
 ALTER TABLE patients FORCE ROW LEVEL SECURITY;
@@ -60,13 +67,13 @@ ALTER TABLE clinicians FORCE ROW LEVEL SECURITY;
 ALTER TABLE clinicians_patients FORCE ROW LEVEL SECURITY;
 ```
 
-This ensures all access follows your RLS policies, even for privileged users. In serverless environments, this step is crucial to protect sensitive data and maintain compliance. Now, not even the table owner can bypass your policies. (Take that, creepy snoopers.)
+This ensures all access follows your RLS policies, even for privileged users. In serverless environments, this step is crucial to protect sensitive data and maintain compliance. Now, not even the table owner can bypass your policies.
 
 ## 3. Serverless Gotchas
 
 Serverless PostgreSQL is stateless, so we can’t rely on sticky sessions or nerd magic. We'll need to establish [PostgreSQL session variables](https://www.postgresql.org/docs/current/runtime-config-client.html) at the start of each connection. Our app’s authentication layer should handle this — _don’t trust anyone!_. But since we're cool, here's the deets:
 
-### Set the PostgreSQL Session Variable:\*\*
+### Set the PostgreSQL Session Variable
 
 In your app, set the user session after successfully establishing a connection:
 
@@ -84,7 +91,7 @@ async function setSessionVariable(userId) {
 
 ### Is All That Really Necessary?
 
-Setting session variables at the start of each connection makes sure that user-specific context, based the current user's ID and role, is explicitly defined. This context is critical for enforcing RLS policies, which depend on session variables to determine which rows a user can access. Without session variables, the database would lack the necessary context to apply access controls, potentially leading to unauthorized data exposure or errors.
+Setting session variables at the start of each connection makes sure that user-specific context is explicitly defined. This context is critical for enforcing RLS policies, which depend on session variables to determine which rows a user can access. Without session variables, we're missing the necessary context to apply our shiny new polices and access controls.
 
 ## Conclusion
 
