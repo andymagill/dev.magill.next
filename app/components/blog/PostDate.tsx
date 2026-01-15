@@ -67,15 +67,29 @@ interface PostDateProps {
  * @returns Rendered PostDate component
  */
 export default function PostDate({ created, lastUpdated }: PostDateProps) {
-	// Get display date information
-	const { displayDateTime, displayText, displayDate } = getPostDate(
-		created,
-		lastUpdated ?? ''
-	);
+	// Format both dates
+	const publishedDate = formatDate(created);
+	const updatedDate = lastUpdated ? formatDate(lastUpdated) : null;
+	const showUpdated = updatedDate && updatedDate !== publishedDate;
+
+	// Hide the entire section if no dates are available
+	if (!publishedDate && !updatedDate) {
+		return null;
+	}
 
 	return (
 		<span>
-			{displayText} <time dateTime={displayDateTime}>{displayDate}</time>
+			{publishedDate && (
+				<>
+					Published on <time dateTime={created}>{publishedDate}</time>
+				</>
+			)}
+			{publishedDate && showUpdated && ' • '}
+			{showUpdated && (
+				<>
+					Updated on <time dateTime={lastUpdated}>{updatedDate}</time>
+				</>
+			)}
 		</span>
 	);
 }
