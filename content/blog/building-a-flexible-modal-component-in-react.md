@@ -4,7 +4,7 @@ description: Learn how to create a flexible, accessible modal dialog component i
 image: /images/blog/modal-example.jpg
 tags: React, Components, Accessibility, a11y
 created: 1746201655
-lastUpdated: 1747238853
+lastUpdated: 1768574180
 ---
 
 Modal popups are a very common UI pattern that adds a lot of utility to modern web apps. Unfortunately for developers like us, that means we need to master all the technical complexities associated with them. What seems like a simple popup window actually involves a lot of intricate details: accessibility, responsive design, keyboard navigation, scroll management, and more.
@@ -21,169 +21,121 @@ My wishlist looks something like this:
 - **Scroll Management**: It should prevent scrolling of the underlying page, but allow scrolling within the modal when necessary
 - **Flexibility**: The design must be simple enough to easily use anywhere, and adapt to different contexts and content types
 
-<img alt="Modal Component Example" width="480" src="/images/blog/modal-example.png#right" >
+## The Dialog Element, the Modern Standard
 
-### Component Structure
+<img alt="Modal Component Example" width="480" src="/images/blog/modal-example.jpg#right" >
 
-The foundation of any component is its structure, so here are the key parts we need:
+Since 2024, the HTML `<dialog>` element has achieved excellent cross-browser support and now handles focus management, keyboard navigation, and accessibility out of the box. **This is the recommended approach for most use cases.** The native dialog provides:
 
-1. **Overlay**: A full-screen layer that dims the background and captures clicks outside the modal
-2. **Modal Container**: The actual modal window that holds the content
-3. **Content Area**: The flexible section that can contain any React nodes
-4. **Close Button**: Always accessible, whether in the header or floating
+- Built-in backdrop and `::backdrop` pseudo-element for styling
+- Automatic focus trapping and restoration
+- `Escape` key handling by default
+- Better performance and less JavaScript overhead
+- Reduced complexity and bundle size
 
-### Why Not Use the Native Dialog Element?
-
-You might be wondering why we're avoiding the HTML `<dialog>` element here. While it offers built-in modal functionality, custom implementations give us more direct control over styling, positioning, and animations. The native dialog can also behave inconsistently across browsers, particularly with focus management and keyboard navigation. By rolling our own with divs and portals, we maintain complete control over the user experience, ensuring our modal works exactly as designed in all environments.
-
-Using a custom approach with React's functional components and hooks approach, the basic structure looks something like this:
+Here's a clean React wrapper around the native `<dialog>` element:
 
 ```tsx
+import { useRef, useEffect } from 'react';
+
 const Modal = ({ isOpen, onClose, title, children }) => {
-	// State and refs go here, along with my hopes and dreams
+	const dialogRef = useRef<HTMLDialogElement>(null);
+
+	useEffect(() => {
+		const dialog = dialogRef.current;
+		if (!dialog) return;
+
+		if (isOpen) {
+			dialog.showModal();
+		} else {
+			dialog.close();
+		}
+	}, [isOpen]);
 
 	return (
-		<div
-			className={`modalOverlay ${isOpen ? 'open' : ''}`}
-			onClick={handleOutsideClick}
-			role='dialog'
-			aria-modal='true'
+		<dialog
+			ref={dialogRef}
+			className='modal'
+			onClose={onClose}
 		>
-			<div className={`modalContent`}>
-				<div className='modalHeader'>
-					{title && <h2>{title}</h2>}
-					<button
-						className='closeButton'
-						onClick={onClose}
-						aria-label='Close modal'
-					>
-						<CloseIcon />
-					</button>
-				</div>
-
-				<div className='modalBody'>{children}</div>
+			<div className='modalHeader'>
+				{title && <h2>{title}</h2>}
+				<button
+					className='closeButton'
+					onClick={onClose}
+					aria-label='Close modal'
+				>
+					×
+				</button>
 			</div>
-		</div>
+
+			<div className='modalBody'>{children}</div>
+		</dialog>
 	);
 };
 ```
 
-### Locking Body Scrolling
+### Styling the Dialog and Backdrop
 
-When a modal opens, you want to prevent the underlying page from scrolling. This creates a focused experience and prevents confusion, but we also need to preserve the user's scroll position for when they close the modal. Otherwise, users will lose their place on the page.
-
-```tsx
-useEffect(() => {
-	if (isOpen) {
-		// Save the current scroll position before locking
-		const scrollY = window.scrollY;
-
-		// Add class to body to prevent scrolling
-		document.body.classList.add('modal-open');
-
-		// Store the scroll position as a data attribute
-		document.body.style.top = `-${scrollY}px`;
-
-		return () => {
-			// Remove the class when modal closes
-			document.body.classList.remove('modal-open');
-
-			// Reset the body position
-			document.body.style.top = '';
-
-			// Restore scroll position
-			window.scrollTo(0, scrollY);
-		};
-	}
-}, [isOpen]);
-```
-
-### Accessibility Concerns
-
-It's tempting to pretend accessibility doesn't exist, but we don't want visually impaired users to grab their pitchforks and threaten our livelihood. Instead, we can just set ARIA attributes to help screen readers understand the purpose and state of the modal:
-
-```tsx
-<div
-	role='dialog'
-	aria-modal='true'
-	aria-labelledby={title ? 'modal-title' : undefined}
-	// ...other attributes
->
-	{title && <h2 id='modal-title'>{title}</h2>}
-	// ...content
-</div>
-```
-
-### Using React Portals
-
-One vital technical aspect of modals is rendering them outside the normal DOM hierarchy. React's Portal mechanism allows us to mount our modal to the document body regardless of where the component is used in our React component tree:
-
-```tsx
-import { createPortal } from 'react-dom';
-
-const Modal = ({ isOpen, onClose, children, ...props }) => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  const modalContent = (
-    // Modal JSX structure here
-  );
-
-  if (!isMounted) {
-    return null;
-  }
-
-  return createPortal(modalContent, document.body);
-};
-```
-
-This pattern ensures our modal appears above all other content, avoiding issues with z-index and stacking contexts.
-
-### Scroll Management Within the Modal
-
-For modals with a lot of content, we want the modal content to scroll while keeping other elements in their place. We can accomplish this by making the header sticky and having the content area scroll independently:
+The native dialog provides a `::backdrop` pseudo-element for styling the background. Here's a complete setup:
 
 ```scss
+/* Dialog container */
+.modal {
+	padding: 2rem;
+	border: none;
+	border-radius: 8px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+	max-width: 90vw;
+	max-height: 90vh;
+}
+
+/* Background overlay */
+.modal::backdrop {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+```
+
+### Accessibility is Built-In
+
+The native `<dialog>` element handles most accessibility concerns automatically:
+- Focus management is handled by `showModal()` and `close()`
+- Pressing `Escape` closes the dialog by default
+- The browser manages focus trapping
+- Screen readers recognize it as a dialog
+
+### No Portals Needed
+
+Unlike custom implementations, the native `<dialog>` element doesn't require React portals. The browser automatically layers dialogs above other content with `z-index: auto`, which is treated specially by the browser. You can place your modal component anywhere in your component tree without worrying about stacking contexts.
+
+### Handling Long Content
+
+For modals with extensive content, use a scrollable content area while keeping the header sticky:
+
+```scss
+.modal {
+	display: flex;
+	flex-direction: column;
+}
+
 .modalHeader {
-	position: sticky;
-	top: 0;
-	z-index: 10;
+	flex-shrink: 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
 }
-.modalInfo {
+
+.modalBody {
 	overflow-y: auto;
-	max-height: calc(100% - 5rem);
+	flex-grow: 1;
 }
 ```
 
-This keeps your header visible while users scroll through that novel-length privacy policy. The header and close button stay put, so users can escape when they inevitably get bored.
-
-### Resetting Modal Content
-
-When a modal is reused with different content, we need to ensure a fresh start each time. This small enhancement allows content taller than the modal and ensures UX consistency by scrolling the modal content back to the top:
-
-```tsx
-// Create a ref to access the modal body
-const modalBodyRef = useRef(null);
-
-// Reset scroll position when modal opens with new content
-useEffect(() => {
-	if (isOpen && modalBodyRef.current) {
-		modalBodyRef.current.scrollTop = 0;
-	}
-}, [isOpen, children]);
-
-// Then in your JSX, attach the ref:
-<div className='modalBody' ref={modalBodyRef}>
-	{children}
-</div>;
-```
+The dialog automatically constrains itself to viewport size, so content inside scrolls naturally.
 
 ## Using the Modal
 
-Here we can see the component in its natural habitat. When users click on a thumbnail, the modal provides a seamless way to display additional details:
+Here's the component in use. Click a button to open, and the dialog handles everything else:
 
 ```tsx
 function Thumbnail({ title, description, image }) {
@@ -191,60 +143,57 @@ function Thumbnail({ title, description, image }) {
 
 	return (
 		<>
-			<div className='thumbnail' onClick={() => setIsModalOpen(true)}>
-				<Image src={image} alt={title} />
-			</div>
+			<button onClick={() => setIsModalOpen(true)} className='thumbnail'>
+				<img src={image} alt={title} />
+			</button>
 
-			{isModalOpen && (
-				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-					<div className='itemModalContent'>
-						<div className='itemModalImage'>
-							<Image src={image} alt={title} />
-						</div>
-						<div className='itemModalInfo'>
-							<h2>{title}</h2>
-							<p>{description}</p>
-						</div>
-					</div>
-				</Modal>
-			)}
+			<Modal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+				title={title}
+			>
+				<div className='itemModalContent'>
+					<img src={image} alt={title} />
+					<p>{description}</p>
+				</div>
+			</Modal>
 		</>
 	);
 }
 ```
 
-### For Forms and Signups
+### For Forms and Other Use Cases
 
-Let's imagine we want to collect some user data without sending them to another page? Same modal, different outfit:
+The same component works for any content—forms, confirmations, notifications:
 
 ```tsx
-function Contact() {
+function ContactSection() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
 		<>
 			<button onClick={() => setIsModalOpen(true)}>Get in Touch</button>
-			{isModalOpen && (
-				<Modal
-					isOpen={isModalOpen}
-					onClose={() => setIsModalOpen(false)}
-					title='Contact Us'
-				>
-					<ContactForm onSubmit={() => setIsModalOpen(false)} />
-				</Modal>
-			)}
+
+			<Modal
+				isOpen={isModalOpen}
+				onClose={() => setIsModalOpen(false)}
+				title='Contact Us'
+			>
+				<ContactForm onSubmit={() => setIsModalOpen(false)} />
+			</Modal>
 		</>
 	);
 }
 ```
 
-## Wrapping Up
+## The Closing Tag
 
-The true value of this approach comes when you need to add new functionality. Instead of building specialized modals for each use case, you can reuse this component with different props and content. This ensures consistency, maintains accessibility standards, and lets you focus on more important things.
+The true value of building flexible modal components comes when you need to add new functionality. Whether you're wrapping the native `<dialog>` element or implementing a custom solution, reusable components ensure consistency, maintain accessibility standards, and let you focus on more important things.
 
 Whether you're showing off your best cat photos, collecting emails nobody wants to give you, or displaying legal text no one wants to read, a well-built modal makes life better for everyone involved - especially future you, who doesn't have to build it again.
 
 ### Related Links
 
-- [React createPortal() Documentation](https://react.dev/reference/react-dom/createPortal)
-- [The A11Y Project - A guide to troublesome UI components](https://www.a11yproject.com/posts/a-guide-to-troublesome-ui-components/#modals)
+- [MDN: The Dialog Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) - Native HTML dialog documentation
+- [React createPortal() Documentation](https://react.dev/reference/react-dom/createPortal) - For custom implementations
+- [The A11Y Project - A guide to troublesome UI components](https://www.a11yproject.com/posts/a-guide-to-troublesome-ui-components/#modals) - Accessibility best practices
