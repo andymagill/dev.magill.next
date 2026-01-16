@@ -55,7 +55,7 @@ When I'm using ChatGPT or Claude to help draft content (like [this article](http
 
 ### The Closing tag
 
-Look, I'm not saying Markdown will change your life or make you a better person or anything. But it would be silly to ignore the advantages Markdown offers for content formatting and management. Its simplicity, portability, and compatibility with 3rd party platforms, make it a useful tool in a lot of situations. I've written a little more about [how I've implemented Markdown](https://magill.dev/post/lets-breakdown-this-website) on my [blog](https://magill.dev/). If any of this sounds interesting, maybe it is time to consider using in your own projects.
+Look, I'm not saying Markdown will change your life or make you a better person or anything. But it would be silly to ignore the advantages Markdown offers for content formatting and management. Its simplicity, portability, and compatibility with 3rd party platforms, make it a useful tool in a lot of situations. I've written a little more about [how I've implemented Markdown](https://magill.dev/post/lets-breakdown-my-website) on my [blog](https://magill.dev/). If any of this sounds interesting, maybe it is time to consider using in your own projects.
 
 ### Related Links
 

@@ -102,7 +102,7 @@ export default function Home() {
 							I’m currently looking for{' '}
 							<Link href='/blog'>new&nbsp;challenges</Link> and interesting{' '}
 							opportunities. I built{' '}
-							<Link href='/post/lets-breakdown-this-website'>this website</Link>{' '}
+							<Link href='/post/lets-breakdown-my-website'>this website</Link>{' '}
 							<a href='//github.com/andymagill/dev.magill.next'>from scratch</a>{' '}
 							to showcase{' '}
 							<Link href='/projects'>some of my&nbsp;best&nbsp;work</Link>.{' '}
