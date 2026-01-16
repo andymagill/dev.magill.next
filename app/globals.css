@@ -81,24 +81,28 @@ main {
 pre,
 code {
 	font-family: monospace;
-	font-size: 0.88rem;
 }
 
-code {
-	display: inline-block;
-	background-color: var(--backgroundToo);
-	padding: 0 0.5em;
-}
-
-pre code {
+pre {
 	display: block;
 	position: relative;
 	padding: 0.75em 1em;
 	margin-top: 0.5em;
 	overflow: auto;
 
-	line-height: 1.5;
+	font-size: 0.88rem;
+	line-height: 1.4;
 	color: #dfe5e5;
 	background-color: #2c2928;
 	scrollbar-color: #dfe5e5 #2c2928;
+}
+
+code {
+	display: inline-block;
+}
+
+p code ,
+li code {
+	background-color: var(--backgroundToo);
+	padding: 0 0.5em;
 }
