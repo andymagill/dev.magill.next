@@ -138,14 +138,15 @@ export default async function Post(props: PostProps) {
 				<p className={styles.author}>
 					by <Link href='/'>{displayAuthor}</Link>
 				</p>
-				<p className={styles.publishDate}>
-					<PostDate created={post.created} lastUpdated={post.lastUpdated} />
-				</p>
+				<PostDate created={post.created} lastUpdated={post.lastUpdated} />
+				
 				<ListenButton text={post.content} />
 			</Hero>
 
 			<article className={styles.post}>
-				<Markdown>{post.content}</Markdown>
+				<Markdown options={{ forceBlock: true }}>
+					{post.content}
+				</Markdown>
 				<ShareButtons title={post.title} />
 			</article>
 

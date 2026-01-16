@@ -14,17 +14,18 @@ interface Props {
  */
 export default function RelatedPosts({ children, className }: Props) {
 	const ref = useRef<HTMLDivElement | null>(null);
-	// If IntersectionObserver is not available (e.g. tests/older browsers),
-	// start visible to avoid calling setState synchronously inside effect.
-	const [visible, setVisible] = useState(() =>
-		typeof IntersectionObserver === 'undefined' ? true : false
-	);
+	// Track when component has mounted on client
+	const [mounted, setMounted] = useState(false);
+	// Start not visible, will be set after mounting
+	const [visible, setVisible] = useState(false);
 
 	useEffect(() => {
-		// If already marked visible (fallback), no observer needed
-		if (visible) return;
+		setMounted(true);
 
+		// If IntersectionObserver is not available (e.g tests/older browsers),
+		// show immediately
 		if (typeof IntersectionObserver === 'undefined') {
+			setVisible(true);
 			return;
 		}
 
@@ -43,7 +44,7 @@ export default function RelatedPosts({ children, className }: Props) {
 
 		obs.observe(el);
 		return () => obs.disconnect();
-	}, [visible]);
+	}, []);
 
 	const wrapperClass = `${styles.container} ${className ?? ''}`.trim();
 

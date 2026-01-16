@@ -19,10 +19,8 @@ interface ListenButtonProps {
 const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	// Track whether speech synthesis is currently active
 	const [isSpeaking, setIsSpeaking] = useState(false);
-	// Initialize support at first render instead of setting state inside an effect
-	const [speechSupported] = useState(
-		() => typeof window !== 'undefined' && !!window.speechSynthesis
-	);
+	// Track when the component has mounted on the client
+	const [mounted, setMounted] = useState(false);
 
 	// Preferred voices in order
 	const preferredVoices = [
@@ -41,6 +39,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 	// Only perform mount/unmount side-effects here (do not set state)
 	useEffect(() => {
+		setMounted(true);
 		window.speechSynthesis?.cancel();
 		return () => {
 			window.speechSynthesis?.cancel();
@@ -87,7 +86,9 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		setIsSpeaking(false);
 	};
 
-	if (!speechSupported) return null;
+	if (!mounted) return null;
+
+	if (!window.speechSynthesis) return null;
 
 	return (
 		<button
