@@ -12,10 +12,11 @@ describe('ListenButton', () => {
 		vi.restoreAllMocks();
 	});
 
-	test('does not render when speechSynthesis is unsupported', () => {
+	test('does not render when speechSynthesis is unsupported', async () => {
 		// Ensure speechSynthesis is undefined
 		delete (window as any).speechSynthesis;
 		render(<ListenButton text='hello world' />);
+		// Button should not render since API is not supported
 		expect(screen.queryByRole('button')).toBeNull();
 	});
 
@@ -36,6 +37,8 @@ describe('ListenButton', () => {
 			getVoices: () => voices,
 			speak: mockSpeak,
 			cancel: mockCancel,
+			addEventListener: vi.fn(),
+			removeEventListener: vi.fn(),
 		} as any;
 
 		// Minimal fake constructor for SpeechSynthesisUtterance
@@ -52,7 +55,9 @@ describe('ListenButton', () => {
 		} as any;
 
 		render(<ListenButton text='hello world' />);
-		const button = screen.getByRole('button');
+		
+		// Wait for button to appear after compatibility check and voice loading
+		const button = await waitFor(() => screen.getByRole('button'));
 		expect(button).toHaveAttribute('aria-pressed', 'false');
 
 		// Click to start speaking
@@ -71,7 +76,7 @@ describe('ListenButton', () => {
 		);
 	});
 
-	test('selects a preferred voice when available', () => {
+	test('selects a preferred voice when available', async () => {
 		const mockCancel = vi.fn();
 		const mockSpeak = vi.fn((utt: any) => {
 			// Immediately start and end to keep test synchronous
@@ -88,6 +93,8 @@ describe('ListenButton', () => {
 			getVoices: () => voices,
 			speak: mockSpeak,
 			cancel: mockCancel,
+			addEventListener: vi.fn(),
+			removeEventListener: vi.fn(),
 		} as any;
 
 		(window as any).SpeechSynthesisUtterance = function (
@@ -102,7 +109,9 @@ describe('ListenButton', () => {
 		} as any;
 
 		render(<ListenButton text='choose voice' />);
-		const button = screen.getByRole('button');
+		
+		// Wait for button to appear
+		const button = await waitFor(() => screen.getByRole('button'));
 		fireEvent.click(button);
 
 		expect(mockSpeak).toHaveBeenCalled();
