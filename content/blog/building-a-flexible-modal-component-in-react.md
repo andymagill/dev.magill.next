@@ -53,11 +53,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 	}, [isOpen]);
 
 	return (
-		<dialog
-			ref={dialogRef}
-			className='modal'
-			onClose={onClose}
-		>
+		<dialog ref={dialogRef} className='modal' onClose={onClose}>
 			<div className='modalHeader'>
 				{title && <h2>{title}</h2>}
 				<button
@@ -99,6 +95,7 @@ The native dialog provides a `::backdrop` pseudo-element for styling the backgro
 ### Accessibility is Built-In
 
 The native `<dialog>` element handles most accessibility concerns automatically:
+
 - Focus management is handled by `showModal()` and `close()`
 - Pressing `Escape` closes the dialog by default
 - The browser manages focus trapping

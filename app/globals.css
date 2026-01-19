@@ -101,7 +101,7 @@ code {
 	display: inline-block;
 }
 
-p code ,
+p code,
 li code {
 	background-color: var(--backgroundToo);
 	padding: 0 0.5em;
