@@ -9,13 +9,13 @@ export default function manifest(): MetadataRoute.Manifest {
 		short_name: settings.title,
 		description: settings.description,
 		start_url: '/',
-		display: 'standalone',
+		display: 'minimal-ui',
 		background_color: '#ffffff',
 		theme_color: '#42b01b',
 		icons: [
 			{
 				src: '/favicon.ico',
-				sizes: 'any',
+				sizes: '48x48',
 				type: 'image/x-icon',
 			},
 			{
