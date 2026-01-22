@@ -12,24 +12,19 @@ interface ListenButtonProps {
 /**
  * ListenButton component
  *
- * Provides a button to read aloud the given text using the browser's Speech Synthesis API.
- * Shows a play or stop icon and label depending on whether speech is active.
- * Hides button until Web Speech API compatibility is confirmed and voices are loaded.
- * Cancels speech on mount/unmount to prevent speech from persisting across navigation.
+ * Renders a button that reads text aloud using the Web Speech API.
+ * Only displays when the API is available and voices are loaded.
+ * Automatically cancels speech on unmount to prevent audio persisting across navigation.
  */
 const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
-	// Track whether speech synthesis is currently active
 	const [isSpeaking, setIsSpeaking] = useState(false);
-	// Track when the component has mounted on the client
-	const [mounted, setMounted] = useState(false);
-	// Track if Web Speech API is supported and available
 	const [isSupported, setIsSupported] = useState(false);
-	// Track if voices have been loaded
 	const [voicesLoaded, setVoicesLoaded] = useState(false);
-	// Cache selected voice to avoid repeated lookups
-	const selectedVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
 
-	// Preferred voices in order
+	const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+	const isIntentionalStopRef = useRef(false);
+
+	// Preferred voice order: UK voices first, then US, with lang codes as fallback
 	const preferredVoices = [
 		'Microsoft Sonia Online (Natural) - English (United Kingdom)',
 		'Google UK English Female',
@@ -44,197 +39,111 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		'enUS',
 	];
 
-	/**
-	 * Effect 1: Mount/unmount lifecycle and compatibility check
-	 * Only perform mount/unmount side-effects here
-	 */
+	// Check API support and handle cleanup on unmount
 	useEffect(() => {
-		try {
-			// Check if speechSynthesis API exists
-			const hasSpeechSynthesis = !!window.speechSynthesis;
-			if (!hasSpeechSynthesis) {
-				console.log('[ListenButton] Web Speech API not available in this browser');
-				setMounted(true);
-				setIsSupported(false);
-				return;
+		const isAvailable = !!window.speechSynthesis;
+		setIsSupported(isAvailable);
+
+		if (!isAvailable) return;
+
+		// Cancel any lingering speech on unmount
+		return () => {
+			try {
+				window.speechSynthesis?.cancel();
+			} catch (err) {
+				console.error('[ListenButton] Failed to cancel speech on unmount', err);
 			}
-
-			console.log('[ListenButton] Web Speech API is available, compatibility check passed');
-			setIsSupported(true);
-			setMounted(true);
-
-			// Cancel any ongoing speech
-			window.speechSynthesis.cancel();
-
-			return () => {
-				// Cleanup: cancel speech on unmount
-				try {
-					window.speechSynthesis?.cancel();
-				} catch (err) {
-					console.error('[ListenButton] Error canceling speech on unmount', err);
-				}
-			};
-		} catch (err) {
-			console.error('[ListenButton] Error during compatibility check', err);
-			setMounted(true);
-			setIsSupported(false);
-		}
+		};
 	}, []);
 
-	/**
-	 * Effect 2: Load voices asynchronously
-	 * Web Speech API loads voices asynchronously, especially in production.
-	 * Listen for voiceschanged event to know when voices are ready.
-	 */
+	// Load voices asynchronously
 	useEffect(() => {
 		if (!isSupported) return;
 
-		const loadVoices = () => {
-			try {
-				const voices = window.speechSynthesis?.getVoices?.() || [];
-				if (voices.length > 0) {
-					console.log(`[ListenButton] Voices loaded: ${voices.length} available`);
-					setVoicesLoaded(true);
-				} else {
-					console.log('[ListenButton] No voices available yet, waiting for voiceschanged event');
-				}
-			} catch (err) {
-				console.error('[ListenButton] Error loading voices', err);
-				setVoicesLoaded(false);
-			}
+		const updateVoiceStatus = () => {
+			const voices = window.speechSynthesis?.getVoices?.() || [];
+			setVoicesLoaded(voices.length > 0);
 		};
 
-		// Try to load voices immediately
-		loadVoices();
+		// Try immediately in case voices are already loaded
+		updateVoiceStatus();
 
-		// Also listen for voiceschanged event (fires when voices become available)
-		window.speechSynthesis?.addEventListener('voiceschanged', loadVoices);
-
+		// Listen for delayed voice loading
+		window.speechSynthesis?.addEventListener('voiceschanged', updateVoiceStatus);
 		return () => {
-			window.speechSynthesis?.removeEventListener('voiceschanged', loadVoices);
+			window.speechSynthesis?.removeEventListener('voiceschanged', updateVoiceStatus);
 		};
 	}, [isSupported]);
 
-	// Helper to select the best available voice
-	function getPreferredVoice(): SpeechSynthesisVoice | null {
-		// Return cached voice if available
-		if (selectedVoiceRef.current) {
-			return selectedVoiceRef.current;
+	const selectVoice = (): SpeechSynthesisVoice | undefined => {
+		const voices = window.speechSynthesis?.getVoices?.() || [];
+		if (!voices.length) return undefined;
+
+		// Try to match by exact name first
+		for (const pref of preferredVoices) {
+			const match = voices.find((v) => v.name === pref || v.lang === pref);
+			if (match) return match;
 		}
 
-		try {
-			const voices = window.speechSynthesis?.getVoices?.() || [];
-			
-			if (voices.length === 0) {
-				console.log('[ListenButton] No voices available for selection');
-				return null;
-			}
+		// Fallback to any en-US voice
+		const enUsVoice = voices.find((v) =>
+			v.lang?.toLowerCase().startsWith('en-us')
+		);
+		return enUsVoice || voices[0];
+	};
 
-			// Try to find a preferred voice by name or lang
-			for (const pref of preferredVoices) {
-				const byName = voices.find((v) => v.name === pref);
-				if (byName) {
-					console.log(`[ListenButton] Selected voice by name: ${pref}`);
-					selectedVoiceRef.current = byName;
-					return byName;
-				}
-				const byLang = voices.find((v) => v.lang === pref);
-				if (byLang) {
-					console.log(`[ListenButton] Selected voice by lang: ${pref}`);
-					selectedVoiceRef.current = byLang;
-					return byLang;
-				}
-			}
-
-			// Fallback: any en-US voice
-			const enVoice = voices.find(
-				(v) => v.lang && v.lang.toLowerCase().startsWith('en-us')
-			);
-			if (enVoice) {
-				console.log(`[ListenButton] Selected fallback en-US voice: ${enVoice.name}`);
-				selectedVoiceRef.current = enVoice;
-				return enVoice;
-			}
-
-			// Fallback: first available voice
-			if (voices[0]) {
-				console.log(`[ListenButton] Selected first available voice: ${voices[0].name}`);
-				selectedVoiceRef.current = voices[0];
-				return voices[0];
-			}
-
-			return null;
-		} catch (err) {
-			console.error('[ListenButton] Error selecting preferred voice', err);
-			return null;
-		}
-	}
-
-	// Start reading the text aloud
 	const handleListen = () => {
 		try {
-			if (!window.speechSynthesis) {
-				console.error('[ListenButton] Web Speech API not available');
-				return;
-			}
+			if (!window.speechSynthesis) return;
 
-			// Cancel any ongoing speech
 			window.speechSynthesis.cancel();
-			console.log('[ListenButton] Starting speech synthesis');
-
-			// Create utterance
 			const utterance = new window.SpeechSynthesisUtterance(text);
+			utteranceRef.current = utterance;
 
-			// Set preferred voice if available
-			const voice = getPreferredVoice();
-			if (voice) {
-				utterance.voice = voice;
-			} else {
-				console.log('[ListenButton] No voice selected, using browser default');
-			}
-
-			// Configure utterance properties
+			const voice = selectVoice();
+			if (voice) utterance.voice = voice;
 			utterance.pitch = 1.25;
 
-			// Set event handlers
-			utterance.onstart = () => {
-				console.log('[ListenButton] Speech started');
-				setIsSpeaking(true);
-			};
+			utterance.onstart = () => setIsSpeaking(true);
 
 			utterance.onend = () => {
-				console.log('[ListenButton] Speech ended');
+				utteranceRef.current = null;
 				setIsSpeaking(false);
 			};
 
 			utterance.onerror = (event) => {
-				console.error(`[ListenButton] Speech synthesis error: ${event.error}`);
+				// "interrupted" is expected when user stops playback
+				if (event.error !== 'interrupted') {
+					console.error(
+						`[ListenButton] Speech synthesis error: ${event.error}`
+					);
+				}
+				utteranceRef.current = null;
 				setIsSpeaking(false);
 			};
 
-			// Attempt to speak
 			window.speechSynthesis.speak(utterance);
 		} catch (err) {
-			console.error('[ListenButton] Error in handleListen', err);
+			console.error('[ListenButton] Failed to start speech synthesis', err);
 			setIsSpeaking(false);
 		}
 	};
 
-	// Stop reading aloud
 	const handleStop = () => {
 		try {
+			isIntentionalStopRef.current = true;
 			window.speechSynthesis.cancel();
-			console.log('[ListenButton] Speech stopped by user');
 			setIsSpeaking(false);
 		} catch (err) {
-			console.error('[ListenButton] Error in handleStop', err);
+			console.error('[ListenButton] Failed to stop speech', err);
+		} finally {
+			setTimeout(() => {
+				isIntentionalStopRef.current = false;
+			}, 0);
 		}
 	};
 
-	// Only render button when: component is mounted, API is supported, and voices are loaded
-	if (!mounted || !isSupported || !voicesLoaded) {
-		return null;
-	}
+	if (!isSupported || !voicesLoaded) return null;
 
 	return (
 		<button
@@ -248,7 +157,6 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			aria-pressed={isSpeaking}
 			aria-label={isSpeaking ? 'Stop reading' : 'Play reading'}
 		>
-			{/* Icon: Play when idle, Stop when speaking */}
 			<span
 				aria-hidden='true'
 				style={{
@@ -259,7 +167,6 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			>
 				<FontAwesomeIcon icon={isSpeaking ? faStop : faPlay} />
 			</span>
-			{/* Button label */}
 			{isSpeaking ? 'stop' : 'listen'}
 		</button>
 	);
