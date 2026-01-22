@@ -59,7 +59,7 @@
 		}
 	}
 	~ nav {
-		background-color: var(--background);
+		background-color: var(--alwaysBlack);
 		color: var(--foreground);
 
 		@media (min-width: 640px) {
