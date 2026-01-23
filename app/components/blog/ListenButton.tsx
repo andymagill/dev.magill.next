@@ -58,7 +58,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 	// Load voices asynchronously
 	useEffect(() => {
-		if (!isSupported) return;
+		if (!isSupported || !window.speechSynthesis) return;
 
 		const updateVoiceStatus = () => {
 			const voices = window.speechSynthesis?.getVoices?.() || [];
@@ -69,10 +69,13 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		updateVoiceStatus();
 
 		// Listen for delayed voice loading
-		window.speechSynthesis?.addEventListener('voiceschanged', updateVoiceStatus);
-		return () => {
-			window.speechSynthesis?.removeEventListener('voiceschanged', updateVoiceStatus);
-		};
+		const speechSynthesis = window.speechSynthesis;
+		if (speechSynthesis.addEventListener) {
+			speechSynthesis.addEventListener('voiceschanged', updateVoiceStatus);
+			return () => {
+				speechSynthesis.removeEventListener('voiceschanged', updateVoiceStatus);
+			};
+		}
 	}, [isSupported]);
 
 	const selectVoice = (): SpeechSynthesisVoice | undefined => {
@@ -143,7 +146,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		}
 	};
 
-	if (!isSupported || !voicesLoaded) return null;
+	const isReady = isSupported && voicesLoaded;
 
 	return (
 		<button
@@ -156,6 +159,8 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			type='button'
 			aria-pressed={isSpeaking}
 			aria-label={isSpeaking ? 'Stop reading' : 'Play reading'}
+			disabled={!isReady}
+			style={{ opacity: isReady ? 1 : 0.5, cursor: isReady ? 'pointer' : 'not-allowed' }}
 		>
 			<span
 				aria-hidden='true'

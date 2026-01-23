@@ -12,12 +12,14 @@ describe('ListenButton', () => {
 		vi.restoreAllMocks();
 	});
 
-	test('does not render when speechSynthesis is unsupported', async () => {
+	test('renders disabled when speechSynthesis is unsupported', async () => {
 		// Ensure speechSynthesis is undefined
 		delete (window as any).speechSynthesis;
 		render(<ListenButton text='hello world' />);
-		// Button should not render since API is not supported
-		expect(screen.queryByRole('button')).toBeNull();
+		// Button should render but be disabled since API is not supported
+		const button = screen.queryByRole('button');
+		expect(button).toBeInTheDocument();
+		expect(button).toBeDisabled();
 	});
 
 	test('renders and starts/stops speaking', async () => {
