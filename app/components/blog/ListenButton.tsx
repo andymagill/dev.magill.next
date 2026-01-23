@@ -18,6 +18,7 @@ interface ListenButtonProps {
  */
 const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	const [isSpeaking, setIsSpeaking] = useState(false);
+	const [isProcessing, setIsProcessing] = useState(false);
 	const [isSupported, setIsSupported] = useState(false);
 	const [voicesLoaded, setVoicesLoaded] = useState(false);
 
@@ -99,6 +100,9 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		try {
 			if (!window.speechSynthesis) return;
 
+			// Show processing feedback immediately
+			setIsProcessing(true);
+
 			window.speechSynthesis.cancel();
 			const utterance = new window.SpeechSynthesisUtterance(text);
 			utteranceRef.current = utterance;
@@ -107,10 +111,14 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			if (voice) utterance.voice = voice;
 			utterance.pitch = 1.25;
 
-			utterance.onstart = () => setIsSpeaking(true);
+			utterance.onstart = () => {
+				setIsProcessing(false);
+				setIsSpeaking(true);
+			};
 
 			utterance.onend = () => {
 				utteranceRef.current = null;
+				setIsProcessing(false);
 				setIsSpeaking(false);
 			};
 
@@ -122,12 +130,14 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 					);
 				}
 				utteranceRef.current = null;
+				setIsProcessing(false);
 				setIsSpeaking(false);
 			};
 
 			window.speechSynthesis.speak(utterance);
 		} catch (err) {
 			console.error('[ListenButton] Failed to start speech synthesis', err);
+			setIsProcessing(false);
 			setIsSpeaking(false);
 		}
 	};
@@ -136,6 +146,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		try {
 			isIntentionalStopRef.current = true;
 			window.speechSynthesis.cancel();
+			setIsProcessing(false);
 			setIsSpeaking(false);
 		} catch (err) {
 			console.error('[ListenButton] Failed to stop speech', err);
@@ -153,14 +164,21 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			className={
 				isSpeaking
 					? `${styles.listenButton} ${styles.speaking}`
+					: isProcessing
+					? `${styles.listenButton} ${styles.processing}`
 					: styles.listenButton
 			}
-			onClick={isSpeaking ? handleStop : handleListen}
+			onClick={isSpeaking || isProcessing ? handleStop : handleListen}
 			type='button'
-			aria-pressed={isSpeaking}
-			aria-label={isSpeaking ? 'Stop reading' : 'Play reading'}
+			aria-pressed={isSpeaking || isProcessing}
+			aria-label={
+				isSpeaking || isProcessing ? 'Stop reading' : 'Play reading'
+			}
 			disabled={!isReady}
-			style={{ opacity: isReady ? 1 : 0.5, cursor: isReady ? 'pointer' : 'not-allowed' }}
+			style={{
+				opacity: isReady ? 1 : 0.5,
+				cursor: isReady ? 'pointer' : 'not-allowed',
+			}}
 		>
 			<span
 				aria-hidden='true'
@@ -172,7 +190,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			>
 				<FontAwesomeIcon icon={isSpeaking ? faStop : faPlay} />
 			</span>
-			{isSpeaking ? 'stop' : 'listen'}
+			{isSpeaking ? 'stop' : isProcessing ? 'processing...' : 'listen'}
 		</button>
 	);
 };

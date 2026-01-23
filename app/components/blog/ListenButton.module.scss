@@ -18,7 +18,22 @@
 	background-color: var(--foreground);
 	color: var(--background);
 }
+.listenButton.processing {
+	background: hsl(27, 100%, 26%);
+	color: #fff;
+	animation: pulse 1.5s ease-in-out infinite;
+}
 .listenButton.speaking {
 	background: #750440;
 	color: #fff;
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
 }
