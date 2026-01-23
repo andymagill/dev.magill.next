@@ -2,7 +2,7 @@
 'use client';
 
 import React from 'react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useLayoutEffect, useState, useRef } from 'react';
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,14 +33,16 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ title }) => {
 	const shareButtonsRef = useRef<HTMLDivElement>(null);
 	const titleParam = encodeURIComponent(title);
 
+	// Set the URL after mounting on the client (before paint to avoid hydration mismatch)
+	useLayoutEffect(() => {
+		queueMicrotask(() => setUrl(window.location.href));
+	}, []);
+
 	// Intersection Observer for viewport reveal animation
 	useEffect(() => {
-		// Set the URL after mounting on the client
-		setUrl(window.location.href);
-
 		// Check if IntersectionObserver is available (not in test environment)
 		if (typeof IntersectionObserver === 'undefined') {
-			setIsVisible(true);
+			queueMicrotask(() => setIsVisible(true));
 			return;
 		}
 

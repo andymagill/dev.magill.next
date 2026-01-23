@@ -20,12 +20,12 @@ export default function RelatedPosts({ children, className }: Props) {
 	const [visible, setVisible] = useState(false);
 
 	useEffect(() => {
-		setMounted(true);
+		queueMicrotask(() => setMounted(true));
 
 		// If IntersectionObserver is not available (e.g tests/older browsers),
 		// show immediately
 		if (typeof IntersectionObserver === 'undefined') {
-			setVisible(true);
+			queueMicrotask(() => setVisible(true));
 			return;
 		}
 
