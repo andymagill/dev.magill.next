@@ -27,8 +27,6 @@ interface ShareButtonsProps {
  * Renders links to share the current page on social media with enhanced animations
  */
 const ShareButtons: React.FC<ShareButtonsProps> = ({ title }) => {
-	// Track when component has mounted on client
-	const [mounted, setMounted] = useState(false);
 	// Initialize `url` as empty, will be set in effect after mounting
 	const [url, setUrl] = useState('');
 	const [isVisible, setIsVisible] = useState(false);
@@ -37,7 +35,6 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ title }) => {
 
 	// Intersection Observer for viewport reveal animation
 	useEffect(() => {
-		setMounted(true);
 		// Set the URL after mounting on the client
 		setUrl(window.location.href);
 
