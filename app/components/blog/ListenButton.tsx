@@ -76,6 +76,9 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 		[]
 	);
 
+	// Memoize cleaned text to avoid redundant cleanMarkdown calls
+	const cleanedText = useMemo(() => cleanMarkdown(text), [text]);
+
 	// Cleanup function with timeout protection
 	const resetState = useCallback(() => {
 		setSpeechState('idle');
