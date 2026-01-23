@@ -1,8 +1,20 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, useMemo, useLayoutEffect } from 'react';
+import React, {
+	useState,
+	useEffect,
+	useRef,
+	useCallback,
+	useMemo,
+	useLayoutEffect,
+} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faStop, faExclamationTriangle, faHourglass } from '@fortawesome/free-solid-svg-icons';
+import {
+	faPlay,
+	faStop,
+	faExclamationTriangle,
+	faHourglass,
+} from '@fortawesome/free-solid-svg-icons';
 import { cleanMarkdown } from '../../../utils/cleanMarkdown';
 import styles from './ListenButton.module.scss';
 
@@ -96,7 +108,11 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 	// Initialize voices with timeout and retry logic
 	useEffect(() => {
-		if (!isMounted || typeof window === 'undefined' || !window.speechSynthesis) {
+		if (
+			!isMounted ||
+			typeof window === 'undefined' ||
+			!window.speechSynthesis
+		) {
 			return;
 		}
 
@@ -110,7 +126,10 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 				// If not ready but check is happening, schedule retry
 				if (!ready && !voiceInitTimeoutRef.current) {
-					voiceInitTimeoutRef.current = setTimeout(checkVoicesReady, VOICE_CHECK_RETRY_MS);
+					voiceInitTimeoutRef.current = setTimeout(
+						checkVoicesReady,
+						VOICE_CHECK_RETRY_MS
+					);
 				}
 			} catch (err) {
 				setVoicesReady(false);
@@ -165,59 +184,65 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	}, [preferredVoices]);
 
 	// Helper: Create and configure utterance with voice selection
-	const createUtteranceWithVoice = useCallback((truncatedText: string) => {
-		const utterance = new window.SpeechSynthesisUtterance(truncatedText);
-		
-		// Set voice
-		const voice = selectVoice();
-		if (voice) {
-			utterance.voice = voice;
-		}
+	const createUtteranceWithVoice = useCallback(
+		(truncatedText: string) => {
+			const utterance = new window.SpeechSynthesisUtterance(truncatedText);
 
-		utterance.pitch = 1.25;
-		utterance.rate = 1;
+			// Set voice
+			const voice = selectVoice();
+			if (voice) {
+				utterance.voice = voice;
+			}
 
-		return utterance;
-	}, [selectVoice]);
+			utterance.pitch = 1.25;
+			utterance.rate = 1;
+
+			return utterance;
+		},
+		[selectVoice]
+	);
 
 	// Helper: Setup event handlers for utterance
-	const setupUtteranceHandlers = useCallback((
-		utterance: SpeechSynthesisUtterance,
-		stateTransitionedRef: { current: boolean }
-	) => {
-		utterance.onstart = () => {
-			stateTransitionedRef.current = true;
-			if (processingTimeoutRef.current) {
-				clearTimeout(processingTimeoutRef.current);
-				processingTimeoutRef.current = null;
-			}
-			setSpeechState('speaking');
-			setErrorMessage(null);
-		};
-
-		utterance.onend = () => {
-			stateTransitionedRef.current = true;
-			resetState();
-		};
-
-		utterance.onerror = (event: SpeechSynthesisErrorEvent) => {
-			const errorCode = event.error || 'unknown';
-
-			// "interrupted" is expected when user stops playback
-			if (errorCode !== 'interrupted') {
-				if (!stateTransitionedRef.current) {
-					stateTransitionedRef.current = true;
-					setErrorMessage(`Error: ${errorCode}. Try again.`);
+	const setupUtteranceHandlers = useCallback(
+		(
+			utterance: SpeechSynthesisUtterance,
+			stateTransitionedRef: { current: boolean }
+		) => {
+			utterance.onstart = () => {
+				stateTransitionedRef.current = true;
+				if (processingTimeoutRef.current) {
+					clearTimeout(processingTimeoutRef.current);
+					processingTimeoutRef.current = null;
 				}
-			}
+				setSpeechState('speaking');
+				setErrorMessage(null);
+			};
 
-			if (processingTimeoutRef.current) {
-				clearTimeout(processingTimeoutRef.current);
-				processingTimeoutRef.current = null;
-			}
-			resetState();
-		};
-	}, [resetState]);
+			utterance.onend = () => {
+				stateTransitionedRef.current = true;
+				resetState();
+			};
+
+			utterance.onerror = (event: SpeechSynthesisErrorEvent) => {
+				const errorCode = event.error || 'unknown';
+
+				// "interrupted" is expected when user stops playback
+				if (errorCode !== 'interrupted') {
+					if (!stateTransitionedRef.current) {
+						stateTransitionedRef.current = true;
+						setErrorMessage(`Error: ${errorCode}. Try again.`);
+					}
+				}
+
+				if (processingTimeoutRef.current) {
+					clearTimeout(processingTimeoutRef.current);
+					processingTimeoutRef.current = null;
+				}
+				resetState();
+			};
+		},
+		[resetState]
+	);
 
 	const handleListen = useCallback(() => {
 		try {
@@ -239,7 +264,9 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			// Truncate text to reasonable length (avoid synth limits)
 			// Most implementations support 5000-10000 characters safely
 			const truncatedText =
-				cleanedText.length > MAX_SPEECH_LENGTH ? cleanedText.substring(0, MAX_SPEECH_LENGTH) : cleanedText;
+				cleanedText.length > MAX_SPEECH_LENGTH
+					? cleanedText.substring(0, MAX_SPEECH_LENGTH)
+					: cleanedText;
 
 			// Set processing state with timeout protection
 			setSpeechState('processing');
@@ -365,7 +392,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 							: showError
 								? `${styles.listenButton} ${styles.error}`
 								: styles.listenButton
-				} ${(isReady || showError) ? styles.buttonEnabled : styles.buttonDisabled}`}
+				} ${isReady || showError ? styles.buttonEnabled : styles.buttonDisabled}`}
 				onClick={isActive ? handleStop : handleListen}
 				type='button'
 				aria-pressed={isActive}
@@ -387,10 +414,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 							: undefined
 				}
 			>
-				<span
-					aria-hidden='true'
-					className={styles.icon}
-				>
+				<span aria-hidden='true' className={styles.icon}>
 					<FontAwesomeIcon
 						icon={
 							speechState === 'speaking'
@@ -414,10 +438,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 			{/* Error message display */}
 			{showError && errorMessage && (
-				<div
-					role='alert'
-					className={styles.errorMessage}
-				>
+				<div role='alert' className={styles.errorMessage}>
 					{errorMessage}
 				</div>
 			)}

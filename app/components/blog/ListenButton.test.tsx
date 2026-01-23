@@ -1,6 +1,12 @@
 /// <reference types="vitest" />
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import {
+	render,
+	screen,
+	fireEvent,
+	waitFor,
+	act,
+} from '@testing-library/react';
 import ListenButton from './ListenButton';
 import { vi, describe, beforeEach, test, expect } from 'vitest';
 
@@ -319,4 +325,3 @@ describe('ListenButton', () => {
 		expect(mockCancel).toHaveBeenCalled();
 	});
 });
-
