@@ -28,36 +28,37 @@ describe('Navigation', () => {
 	it('renders all navigation links correctly', () => {
 		render(<Navigation />);
 
-		// Check if all navigation links are present
-		const links = screen.getAllByTestId('next-link');
+		// Check if all navigation links are present (both Link and regular <a> tags)
+		const nextLinks = screen.getAllByTestId('next-link');
+		const allLinks = screen.getAllByRole('link');
 
-		// Check the number of links
-		expect(links).toHaveLength(6);
+		// Check the total number of links
+		expect(allLinks).toHaveLength(6);
 
 		// Check each link by href and text
-		expect(links[0]).toHaveAttribute('href', '/');
-		expect(links[0]).toHaveTextContent('Home');
+		expect(allLinks[0]).toHaveAttribute('href', '/');
+		expect(allLinks[0]).toHaveTextContent('Home');
 
-		expect(links[1]).toHaveAttribute('href', '/blog');
-		expect(links[1]).toHaveTextContent('Blog');
+		expect(allLinks[1]).toHaveAttribute('href', '/blog');
+		expect(allLinks[1]).toHaveTextContent('Blog');
 
-		expect(links[2]).toHaveAttribute('href', '/projects');
-		expect(links[2]).toHaveTextContent('Projects');
+		expect(allLinks[2]).toHaveAttribute('href', '/projects');
+		expect(allLinks[2]).toHaveTextContent('Projects');
 
-		expect(links[3]).toHaveAttribute(
+		expect(allLinks[3]).toHaveAttribute(
 			'href',
 			'/docs/andrew-magill-developer-resume.pdf'
 		);
-		expect(links[3]).toHaveTextContent('Resume');
+		expect(allLinks[3]).toHaveTextContent('Resume');
 
-		expect(links[4]).toHaveAttribute('href', '//github.com/andymagill');
-		expect(links[4]).toHaveTextContent('GitHub');
+		expect(allLinks[4]).toHaveAttribute('href', '//github.com/andymagill');
+		expect(allLinks[4]).toHaveTextContent('GitHub');
 
-		expect(links[5]).toHaveAttribute(
+		expect(allLinks[5]).toHaveAttribute(
 			'href',
 			'//www.linkedin.com/in/andrew-magill'
 		);
-		expect(links[5]).toHaveTextContent('LinkedIn');
+		expect(allLinks[5]).toHaveTextContent('LinkedIn');
 	});
 
 	it('applies the correct CSS classes', () => {
