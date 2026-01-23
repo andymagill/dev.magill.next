@@ -69,8 +69,12 @@ interface PostDateProps {
  * @returns Rendered PostDate component
  */
 export default function PostDate({ created, lastUpdated }: PostDateProps) {
+	// Use current date as fallback if created is missing
+	const now = new Date().toISOString();
+	const createdOrFallback = created || now;
+
 	// Format both dates
-	const publishedDate = formatDate(created);
+	const publishedDate = formatDate(createdOrFallback);
 	const updatedDate = lastUpdated ? formatDate(lastUpdated) : null;
 	const showUpdated = updatedDate && updatedDate !== publishedDate;
 
@@ -83,7 +87,7 @@ export default function PostDate({ created, lastUpdated }: PostDateProps) {
 		<div className={styles.dateContainer}>
 			{publishedDate && (
 				<span className={styles.dateLine}>
-					Published on <time dateTime={created}>{publishedDate}</time>
+					Published on <time dateTime={createdOrFallback}>{publishedDate}</time>
 				</span>
 			)}
 			{publishedDate && showUpdated && (
