@@ -259,10 +259,8 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 				return;
 			}
 
-			if (!cleanedText || cleanedText.trim().length === 0) {
-				setErrorMessage('No readable content found');
-				return;
-			}
+		// Strip markdown formatting from the content
+		const cleanedText = cleanMarkdown(text);
 
 			// Truncate text to reasonable length (avoid synth limits)
 			// Most implementations support 5000-10000 characters safely
@@ -356,7 +354,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			setErrorMessage('Failed to start speech. Please try again.');
 			resetState();
 		}
-	}, [cleanedText, selectVoice, resetState]);
+	}, [text, selectVoice, resetState]);
 
 	const handleStop = useCallback(() => {
 		try {

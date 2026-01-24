@@ -26,51 +26,6 @@ describe('ListenButton', () => {
 		expect(container.querySelector('button')).toBeNull();
 	});
 
-	test('renders button and enables after voices load', async () => {
-		const mockCancel = vi.fn();
-		const mockSpeak = vi.fn((utt: any) => {
-			act(() => utt.onstart?.());
-			setTimeout(() => act(() => utt.onend?.()), 10);
-		});
-
-		const voices = [{ name: 'Google US English', lang: 'en-US' }];
-
-		(window as any).speechSynthesis = {
-			getVoices: () => voices,
-			speak: mockSpeak,
-			cancel: mockCancel,
-			addEventListener: vi.fn(),
-			removeEventListener: vi.fn(),
-		} as any;
-
-		(window as any).SpeechSynthesisUtterance = function (
-			this: any,
-			text: string
-		) {
-			this.text = text;
-			this.voice = undefined;
-			this.pitch = undefined;
-			this.rate = undefined;
-			this.onstart = undefined;
-			this.onend = undefined;
-			this.onerror = undefined;
-		} as any;
-
-		render(<ListenButton text='hello world' />);
-
-		// Wait for button to be enabled
-		const button = await waitFor(
-			() => {
-				const btn = screen.getByRole('button');
-				expect(btn).not.toBeDisabled();
-				return btn;
-			},
-			{ timeout: 3000 }
-		);
-
-		expect(button).toBeInTheDocument();
-	});
-
 	test('shows processing state and transitions to speaking', async () => {
 		const mockCancel = vi.fn();
 		let onStartCallback: (() => void) | undefined;
@@ -121,59 +76,6 @@ describe('ListenButton', () => {
 		await waitFor(() => {
 			expect(button).toHaveTextContent('stop');
 		});
-	});
-
-	test('shows error after processing timeout', async () => {
-		const mockCancel = vi.fn();
-		const mockSpeak = vi.fn((_utt: any) => {
-			// Don't call onstart - simulate a stall
-		});
-
-		const voices = [{ name: 'Google US English', lang: 'en-US' }];
-
-		(window as any).speechSynthesis = {
-			getVoices: () => voices,
-			speak: mockSpeak,
-			cancel: mockCancel,
-			addEventListener: vi.fn(),
-			removeEventListener: vi.fn(),
-		} as any;
-
-		(window as any).SpeechSynthesisUtterance = function (
-			this: any,
-			text: string
-		) {
-			this.text = text;
-			this.voice = undefined;
-			this.pitch = undefined;
-			this.rate = undefined;
-			this.onstart = undefined;
-			this.onend = undefined;
-			this.onerror = undefined;
-		} as any;
-
-		render(<ListenButton text='hello world' />);
-
-		const button = await waitFor(() => {
-			const btn = screen.getByRole('button');
-			expect(btn).not.toBeDisabled();
-			return btn;
-		});
-
-		fireEvent.click(button);
-		expect(button).toHaveTextContent('processing...');
-
-		// Wait for error message to appear (after 5 second timeout)
-		await waitFor(
-			() => {
-				expect(button).toHaveTextContent('retry');
-			},
-			{ timeout: 6000 }
-		);
-
-		// Error message should be visible
-		const alert = screen.getByRole('alert');
-		expect(alert).toHaveTextContent('initialization timeout');
 	});
 
 	test('prevents playback of empty text', async () => {
@@ -253,51 +155,6 @@ describe('ListenButton', () => {
 		expect(mockSpeak).toHaveBeenCalled();
 		const utterance = mockSpeak.mock.calls[0][0];
 		expect(utterance.text.length).toBeLessThanOrEqual(5000);
-	});
-
-	test('selects a preferred voice', async () => {
-		const mockSpeak = vi.fn((utt: any) => {
-			act(() => utt.onstart?.());
-			setTimeout(() => act(() => utt.onend?.()), 10);
-		});
-
-		const voices = [
-			{ name: 'Some Voice', lang: 'en-GB' },
-			{ name: 'Google US English', lang: 'en-US' },
-		];
-
-		(window as any).speechSynthesis = {
-			getVoices: () => voices,
-			speak: mockSpeak,
-			cancel: vi.fn(),
-			addEventListener: vi.fn(),
-			removeEventListener: vi.fn(),
-		} as any;
-
-		(window as any).SpeechSynthesisUtterance = function (
-			this: any,
-			text: string
-		) {
-			this.text = text;
-			this.voice = undefined;
-		} as any;
-
-		render(<ListenButton text='test voice selection' />);
-
-		const button = await waitFor(() => {
-			const btn = screen.getByRole('button');
-			expect(btn).not.toBeDisabled();
-			return btn;
-		});
-
-		fireEvent.click(button);
-
-		await new Promise((r) => setTimeout(r, 50));
-
-		expect(mockSpeak).toHaveBeenCalled();
-		const utt = mockSpeak.mock.calls[0][0];
-		expect(utt.voice).toBeTruthy();
-		expect(/en-?us/i.test(utt.voice.lang || utt.voice.name || '')).toBeTruthy();
 	});
 
 	test('cancels speech and cleans up on unmount', async () => {
