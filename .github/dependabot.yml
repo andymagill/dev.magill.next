@@ -5,36 +5,11 @@ updates:
     schedule:
       interval: 'weekly'
       day: 'monday'
-      time: '02:00'
+      time: '04:00'
     open-pull-requests-limit: 2
     labels:
       - 'dependencies'
-    allow:
-      - dependency-type: 'all'
     groups:
-      core:
-        patterns:
-          - 'next'
-          - 'react'
-          - 'react-dom'
-          - '@next/*'
-          - 'next-sitemap'
-          - 'gray-matter'
-          - 'markdown-to-jsx'
-          - 'rss'
-          - 'sass'
-          - 'typescript'
-      miscellaneous:
+      all-dependencies:
         patterns:
           - '*'
-        exclude-patterns:
-          - 'next'
-          - 'react'
-          - 'react-dom'
-          - '@next/*'
-          - 'next-sitemap'
-          - 'gray-matter'
-          - 'markdown-to-jsx'
-          - 'rss'
-          - 'sass'
-          - 'typescript'
