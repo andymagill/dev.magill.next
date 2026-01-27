@@ -154,7 +154,56 @@ describe('ListenButton', () => {
 
 		expect(mockSpeak).toHaveBeenCalled();
 		const utterance = mockSpeak.mock.calls[0][0];
-		expect(utterance.text.length).toBeLessThanOrEqual(5000);
+		// With chunking, each utterance should be under 4000 chars, not truncated at 5000
+		expect(utterance.text.length).toBeLessThanOrEqual(4000);
+	});
+
+	test('splits large text into multiple chunks and plays sequentially', async () => {
+		const mockSpeak = vi.fn((utt: any) => {
+			act(() => utt.onstart?.());
+			setTimeout(() => act(() => utt.onend?.()), 10);
+		});
+
+		const voices = [{ name: 'Google US English', lang: 'en-US' }];
+
+		(window as any).speechSynthesis = {
+			getVoices: () => voices,
+			speak: mockSpeak,
+			cancel: vi.fn(),
+			addEventListener: vi.fn(),
+			removeEventListener: vi.fn(),
+		} as any;
+
+		(window as any).SpeechSynthesisUtterance = function (
+			this: any,
+			text: string
+		) {
+			this.text = text;
+		} as any;
+
+		// Create a large text with clear sentence boundaries
+		const largeText = 'This is a sentence. '.repeat(250); // ~5000 chars with periods
+		render(<ListenButton text={largeText} />);
+
+		const button = await waitFor(() => {
+			const btn = screen.getByRole('button');
+			expect(btn).not.toBeDisabled();
+			return btn;
+		});
+
+		fireEvent.click(button);
+
+		// Wait for all utterances to be queued
+		await new Promise((r) => setTimeout(r, 100));
+
+		// Should be called multiple times for chunks
+		expect(mockSpeak.mock.calls.length).toBeGreaterThan(1);
+
+		// Each utterance should be under 4000 chars
+		mockSpeak.mock.calls.forEach((call) => {
+			const utterance = call[0];
+			expect(utterance.text.length).toBeLessThanOrEqual(4000);
+		});
 	});
 
 	test('cancels speech and cleans up on unmount', async () => {
