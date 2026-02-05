@@ -14,7 +14,7 @@ const meta = {
 	title: 'Rants & Ramblings - ' + settings.title,
 	description:
 		'A Collection of Rants and Ramblings by web developer, Andrew Magill',
-	url: `${settings.siteUrl}/blog/`,
+	url: `${settings.siteUrl}/blog`,
 };
 
 export const metadata: Metadata = {
