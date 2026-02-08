@@ -30,9 +30,10 @@ I used Next.js middleware matcher configuration to exclude system routes entirel
 ```typescript
 // proxy.ts
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|auth/callback|images|icons|.*\\..*).*)'],
+	matcher: ['/((?!api|_next|_vercel|auth/callback|images|icons|.*\\..*).*)'],
 };
 ```
+
 ## **Locale Selection: Headers vs. Cookies**
 
 The strategy for determining which locale to display differs by route type:
@@ -44,32 +45,32 @@ For users landing on the root `/`, the proxy detects locale from the browser's `
 ```typescript
 // proxy.ts - Root homepage handler
 async function handleRootHomepage(request: NextRequest, startTime: number) {
-  const response = NextResponse.next();
-  
-  // Ignore cookies; use browser language detection only
-  const preferredLocale = getBrowserOnlyLocale(request);
-  response.headers.set('x-locale', preferredLocale);
-  
-  return handleAuth(request, response, {
-    startTime,
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  });
+	const response = NextResponse.next();
+
+	// Ignore cookies; use browser language detection only
+	const preferredLocale = getBrowserOnlyLocale(request);
+	response.headers.set('x-locale', preferredLocale);
+
+	return handleAuth(request, response, {
+		startTime,
+		supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+		supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+	});
 }
 
 export function getBrowserOnlyLocale(request: NextRequest): Locale {
-  const acceptLanguage = request.headers.get('accept-language');
-  
-  if (acceptLanguage) {
-    const browserLanguages = acceptLanguage
-      .split(',')
-      .map((lang) => lang.split(';')[0].split('-')[0].trim())
-      .filter((lang) => locales.includes(lang as Locale));
-    
-    return browserLanguages[0] || 'en';
-  }
-  
-  return 'en';
+	const acceptLanguage = request.headers.get('accept-language');
+
+	if (acceptLanguage) {
+		const browserLanguages = acceptLanguage
+			.split(',')
+			.map((lang) => lang.split(';')[0].split('-')[0].trim())
+			.filter((lang) => locales.includes(lang as Locale));
+
+		return browserLanguages[0] || 'en';
+	}
+
+	return 'en';
 }
 ```
 
@@ -80,27 +81,27 @@ Centralize all route patterns in one configuration object to make logic declarat
 ```typescript
 // app/lib/proxy/route-utils.ts
 export const ROUTE_PATTERNS = {
-  ROOT: '/',
-  LOCALIZED: /^\/[a-z]{2}(\/.*)?$/,
-  ABOUT: /^\/about(\/.*)?$/,
-  BLOG: /^\/blog(\/.*)?$/,
-  EDITOR: /^\/editor/,
-  LIBRARY: /^\/library/,
-  SETTINGS: /^\/settings/,
+	ROOT: '/',
+	LOCALIZED: /^\/[a-z]{2}(\/.*)?$/,
+	ABOUT: /^\/about(\/.*)?$/,
+	BLOG: /^\/blog(\/.*)?$/,
+	EDITOR: /^\/editor/,
+	LIBRARY: /^\/library/,
+	SETTINGS: /^\/settings/,
 };
 
 export const ROUTE_CATEGORIES = {
-  INTERNATIONALIZED: [
-    ROUTE_PATTERNS.ROOT,
-    ROUTE_PATTERNS.LOCALIZED,
-    ROUTE_PATTERNS.ABOUT,
-    ROUTE_PATTERNS.BLOG,
-  ],
-  AUTH_TRACKED: [
-    ROUTE_PATTERNS.EDITOR,
-    ROUTE_PATTERNS.LIBRARY,
-    ROUTE_PATTERNS.SETTINGS,
-  ],
+	INTERNATIONALIZED: [
+		ROUTE_PATTERNS.ROOT,
+		ROUTE_PATTERNS.LOCALIZED,
+		ROUTE_PATTERNS.ABOUT,
+		ROUTE_PATTERNS.BLOG,
+	],
+	AUTH_TRACKED: [
+		ROUTE_PATTERNS.EDITOR,
+		ROUTE_PATTERNS.LIBRARY,
+		ROUTE_PATTERNS.SETTINGS,
+	],
 };
 ```
 
@@ -112,18 +113,21 @@ The proxy delegates to specialized handlers rather than implementing everything 
 // proxy.ts - Orchestration only
 import { handleI18n, applyI18nMiddleware } from './app/lib/proxy/i18n';
 import { handleAuth } from './app/lib/proxy/auth';
-import { getPreferredLocale, getBrowserOnlyLocale } from './app/lib/proxy/locale';
+import {
+	getPreferredLocale,
+	getBrowserOnlyLocale,
+} from './app/lib/proxy/locale';
 
 export async function proxy(request: NextRequest) {
-  const route = classifyRoute(pathname);
-  
-  if (route.isRoot) {
-    return handleRootHomepage(request);
-  } else if (route.shouldUseI18n) {
-    return handleInternationalizedRoute(request);
-  } else {
-    return handleNonInternationalizedRoute(request);
-  }
+	const route = classifyRoute(pathname);
+
+	if (route.isRoot) {
+		return handleRootHomepage(request);
+	} else if (route.shouldUseI18n) {
+		return handleInternationalizedRoute(request);
+	} else {
+		return handleNonInternationalizedRoute(request);
+	}
 }
 ```
 
@@ -139,26 +143,30 @@ For non-root routes, use a four-tier fallback system:
 ```typescript
 // app/lib/proxy/locale.ts
 export function getPreferredLocale(request: NextRequest): Locale {
-  // 1. Explicit locale cookie (user-selected via UI)
-  const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
-  if (cookieLocale && locales.includes(cookieLocale)) {
-    return cookieLocale;
-  }
-  
-  // 2. User profile preference (authenticated users)
-  const userPreference = request.cookies.get('USER_LANGUAGE_PREFERENCE')?.value;
-  if (userPreference && userPreference !== 'auto' && locales.includes(userPreference)) {
-    return userPreference;
-  }
-  
-  // 3. Browser Accept-Language header
-  const browserLocale = getBrowserOnlyLocale(request);
-  if (browserLocale !== 'en') {
-    return browserLocale;
-  }
-  
-  // 4. Default fallback
-  return 'en';
+	// 1. Explicit locale cookie (user-selected via UI)
+	const cookieLocale = request.cookies.get('NEXT_LOCALE')?.value;
+	if (cookieLocale && locales.includes(cookieLocale)) {
+		return cookieLocale;
+	}
+
+	// 2. User profile preference (authenticated users)
+	const userPreference = request.cookies.get('USER_LANGUAGE_PREFERENCE')?.value;
+	if (
+		userPreference &&
+		userPreference !== 'auto' &&
+		locales.includes(userPreference)
+	) {
+		return userPreference;
+	}
+
+	// 3. Browser Accept-Language header
+	const browserLocale = getBrowserOnlyLocale(request);
+	if (browserLocale !== 'en') {
+		return browserLocale;
+	}
+
+	// 4. Default fallback
+	return 'en';
 }
 ```
 
@@ -167,23 +175,23 @@ The cookie is only updated when the detected preference differs from the current
 ```typescript
 // app/lib/proxy/i18n.ts
 export function setLocaleCookieForResponse(
-  request: NextRequest,
-  response: NextResponse,
+	request: NextRequest,
+	response: NextResponse
 ): NextResponse {
-  const preferredLocale = getPreferredLocale(request);
-  const currentCookie = request.cookies.get('NEXT_LOCALE')?.value;
-  
-  // Only set if changed (performance optimization)
-  if (currentCookie !== preferredLocale) {
-    response.cookies.set('NEXT_LOCALE', preferredLocale, {
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 365,
-    });
-  }
-  
-  return response;
+	const preferredLocale = getPreferredLocale(request);
+	const currentCookie = request.cookies.get('NEXT_LOCALE')?.value;
+
+	// Only set if changed (performance optimization)
+	if (currentCookie !== preferredLocale) {
+		response.cookies.set('NEXT_LOCALE', preferredLocale, {
+			httpOnly: false,
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: 'lax',
+			maxAge: 60 * 60 * 24 * 365,
+		});
+	}
+
+	return response;
 }
 ```
 
@@ -194,18 +202,21 @@ The proxy classifies routes before processing them to determine which handling p
 ```typescript
 // app/lib/proxy/route-utils.ts
 export function classifyRoute(pathname: string): RouteClassification {
-  const isRoot = pathname === '/';
-  const isLocalized = /^\/[a-z]{2}(\/.*)?$/.test(pathname);
-  
-  const shouldUseI18n = 
-    isRoot || 
-    isLocalized || 
-    /^\/about(\/.*)?$/.test(pathname) ||
-    /^\/blog(\/.*)?$/.test(pathname);
-  
-  const shouldCheckAuth = matchesAnyPattern(pathname, ROUTE_CATEGORIES.AUTH_TRACKED);
-  
-  return { isRoot, isLocalized, shouldUseI18n, shouldCheckAuth };
+	const isRoot = pathname === '/';
+	const isLocalized = /^\/[a-z]{2}(\/.*)?$/.test(pathname);
+
+	const shouldUseI18n =
+		isRoot ||
+		isLocalized ||
+		/^\/about(\/.*)?$/.test(pathname) ||
+		/^\/blog(\/.*)?$/.test(pathname);
+
+	const shouldCheckAuth = matchesAnyPattern(
+		pathname,
+		ROUTE_CATEGORIES.AUTH_TRACKED
+	);
+
+	return { isRoot, isLocalized, shouldUseI18n, shouldCheckAuth };
 }
 ```
 
@@ -213,7 +224,7 @@ This classification ensures that the proxy acts as a high-speed filter, directin
 
 ## **Conclusion**
 
-By classifying routes before processing, the proxy becomes a high-speed filter rather than a bottleneck. Each request reaches the appropriate handler with minimal overhead, ensuring auth-tokens remain intact, crawlers get the right content, and users see their preferred language without broken URLs. 
+By classifying routes before processing, the proxy becomes a high-speed filter rather than a bottleneck. Each request reaches the appropriate handler with minimal overhead, ensuring auth-tokens remain intact, crawlers get the right content, and users see their preferred language without broken URLs.
 
 ## Related Links
 

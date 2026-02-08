@@ -62,6 +62,9 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	const chunksRef = useRef<string[]>([]);
 	const processingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 	const voiceInitTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+	const playNextChunkRef = useRef<
+		((chunks: string[], chunkIndex: number) => void) | null
+	>(null);
 
 	// Preferred voice order: UK voices first, then US, with lang codes as fallback
 	const preferredVoices = useMemo(
@@ -118,8 +121,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 				// If adding this sentence would exceed max length and we have content, start new chunk
 				if (
-					currentChunk.length + trimmedSentence.length >
-						MAX_CHUNK_LENGTH &&
+					currentChunk.length + trimmedSentence.length > MAX_CHUNK_LENGTH &&
 					currentChunk.length >= MIN_CHUNK_LENGTH
 				) {
 					chunks.push(currentChunk.trim());
@@ -140,15 +142,13 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 					// If adding this word would exceed max length and we have content, start new chunk
 					if (
-						currentChunk.length + word.length + 1 >
-							MAX_CHUNK_LENGTH &&
+						currentChunk.length + word.length + 1 > MAX_CHUNK_LENGTH &&
 						currentChunk.length >= MIN_CHUNK_LENGTH
 					) {
 						chunks.push(currentChunk.trim());
 						currentChunk = word;
 					} else {
-						currentChunk +=
-							(currentChunk.length > 0 ? ' ' : '') + word;
+						currentChunk += (currentChunk.length > 0 ? ' ' : '') + word;
 					}
 				}
 			} else {
@@ -312,10 +312,10 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 					stateTransitioned = true;
 					// Play next chunk if available
 					const nextChunkIndex = chunkIndex + 1;
-					if (nextChunkIndex < chunks.length) {
+					if (nextChunkIndex < chunks.length && playNextChunkRef.current) {
 						// Schedule next chunk to play
 						queueMicrotask(() =>
-							playNextChunk(chunks, nextChunkIndex)
+							playNextChunkRef.current?.(chunks, nextChunkIndex)
 						);
 					} else {
 						// All chunks completed
@@ -353,6 +353,8 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	);
 
 	const handleListen = useCallback(() => {
+		// Ensure ref is synced before using playNextChunk
+		playNextChunkRef.current = playNextChunk;
 		try {
 			if (typeof window === 'undefined' || !window.speechSynthesis) {
 				setErrorMessage('Speech synthesis not supported');
@@ -457,7 +459,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 				aria-pressed={isActive}
 				aria-label={
 					speechState === 'speaking'
-					? 'Stop reading article'
+						? 'Stop reading article'
 						: speechState === 'processing'
 							? 'Initializing speech synthesis'
 							: showError
@@ -487,7 +489,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 					/>
 				</span>
 				{speechState === 'speaking'
-				? 'stop'
+					? 'stop'
 					: speechState === 'processing'
 						? 'processing...'
 						: showError
