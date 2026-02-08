@@ -1,6 +1,5 @@
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -v node_modules | grep -v '.next' | grep -v coverage)  
-if [ ! -z "$STAGED_FILES" ]; then
-  echo "$STAGED_FILES" | xargs npx -y prettier --write 2>&1 | grep -v "error.*could not infer" || true
-fi
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+npx -y prettier --write $(git diff --cached --name-only)
 npx -y eslint . --ext .ts,.tsx
-npx -y vitest run
+pnpm test
