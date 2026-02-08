@@ -29,10 +29,19 @@ describe('ListenButton', () => {
 	test('shows processing state and transitions to speaking', async () => {
 		const mockCancel = vi.fn();
 		let onStartCallback: (() => void) | undefined;
+		let onEndCallback: (() => void) | undefined;
 		const mockSpeak = vi.fn((utt: any) => {
-			// Store callback for later invocation
+			// Store callbacks for later invocation
 			onStartCallback = () => utt.onstart?.();
-			setTimeout(() => act(() => onStartCallback?.()), 50);
+			onEndCallback = () => utt.onend?.();
+			setTimeout(
+				() =>
+					act(() => {
+						onStartCallback?.();
+						setTimeout(() => act(() => onEndCallback?.()), 10);
+					}),
+				50
+			);
 		});
 
 		const voices = [{ name: 'Google US English', lang: 'en-US' }];
@@ -41,7 +50,12 @@ describe('ListenButton', () => {
 			getVoices: () => voices,
 			speak: mockSpeak,
 			cancel: mockCancel,
-			addEventListener: vi.fn(),
+			addEventListener: vi.fn((event: string, callback: Function) => {
+				// Trigger voiceschanged immediately to set voicesReady
+				if (event === 'voiceschanged') {
+					setTimeout(() => callback(), 10);
+				}
+			}),
 			removeEventListener: vi.fn(),
 		} as any;
 

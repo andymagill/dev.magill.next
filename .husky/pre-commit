@@ -1,0 +1,3 @@
+npx -y prettier --write ./
+npx -y eslint . --ext .ts,.tsx
+npx -y vitest run
