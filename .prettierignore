@@ -1,0 +1,8 @@
+.prettierignore
+.husky
+.next
+node_modules
+coverage
+out
+dist
+build
