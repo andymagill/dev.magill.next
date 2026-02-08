@@ -1,3 +1,6 @@
-npx -y prettier --write ./
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -v node_modules | grep -v '.next' | grep -v coverage)  
+if [ ! -z "$STAGED_FILES" ]; then
+  echo "$STAGED_FILES" | xargs npx -y prettier --write 2>&1 | grep -v "error.*could not infer" || true
+fi
 npx -y eslint . --ext .ts,.tsx
 npx -y vitest run
