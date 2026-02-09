@@ -13,7 +13,8 @@ In my latest project, I'll set up a full-stack multi-environment deployment pipe
 
 ## But Why?
 
-<img alt="But Why?" width="320" src="/images/blog/but-why.jpg#right" >
+![But Why?](/images/blog/but-why.jpg#right)
+
 For my project, I needed a safe space to test code changes before they went live. Local development has its place, but you know it can be a pain for applications hosted on multiple environments. A staging platform provides a valuable resource for stakeholder reviews, facilitating regular feedback and deeper collaboration. This setup allows me to push changes where they are needed, and automagically perform any steps required for each environment. I shake my head when I think about all the time I wasted doing this manually.
 
 ## Laying the Pipeline

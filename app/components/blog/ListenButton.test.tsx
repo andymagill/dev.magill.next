@@ -46,14 +46,16 @@ describe('ListenButton', () => {
 
 		const voices = [{ name: 'Google US English', lang: 'en-US' }];
 
+		const voicesChangedCallbacks: Function[] = [];
+
 		(window as any).speechSynthesis = {
 			getVoices: () => voices,
 			speak: mockSpeak,
 			cancel: mockCancel,
 			addEventListener: vi.fn((event: string, callback: Function) => {
-				// Trigger voiceschanged immediately to set voicesReady
+				// Store voiceschanged callback to trigger it manually
 				if (event === 'voiceschanged') {
-					setTimeout(() => callback(), 10);
+					voicesChangedCallbacks.push(callback);
 				}
 			}),
 			removeEventListener: vi.fn(),
@@ -73,6 +75,11 @@ describe('ListenButton', () => {
 		} as any;
 
 		render(<ListenButton text='hello world' />);
+
+		// Manually trigger voiceschanged callbacks to ensure voicesReady is set
+		act(() => {
+			voicesChangedCallbacks.forEach((cb) => cb());
+		});
 
 		const button = await waitFor(() => {
 			const btn = screen.getByRole('button');
