@@ -32,7 +32,7 @@ export const generateStaticParams = async () => {
 
 **More Details:**  
 [Dynamic Routing](https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes) in NextJS
-[Deplyoing Static Exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports) in NextJS
+[Deploying Static Exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports) in NextJS
 
 ### Async File Operations:
 
@@ -83,7 +83,7 @@ return <Markdown>{post.content}</Markdown>;
 
 **More Details:**  
 [Front-Matter Documentation](https://frontmatter.codes/docs)  
-[Gettings Started with Markdown](https://www.markdownguide.org/getting-started/)
+[Getting Started with Markdown](https://www.markdownguide.org/getting-started/)
 
 ## Monumental Baby Steps
 
