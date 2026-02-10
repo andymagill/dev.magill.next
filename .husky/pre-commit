@@ -1,3 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-npx -y prettier --write $(git diff --cached --name-only)
-npx -y eslint . --ext .ts,.tsx
+npx lint-staged
