@@ -6,3 +6,6 @@ coverage
 out
 dist
 build
+
+pnpm-lock.yaml
+
