@@ -23,7 +23,7 @@ My wishlist looks something like this:
 
 ## The Dialog Element, the Modern Standard
 
-<img alt="Modal Component Example" width="480" src="/images/blog/modal-example.jpg#right" >
+![Modal Component Example](/images/blog/modal-example.jpg#right)
 
 Since 2024, the HTML `<dialog>` element has achieved excellent cross-browser support and now handles focus management, keyboard navigation, and accessibility out of the box. **This is the recommended approach for most use cases.** The native dialog provides:
 
