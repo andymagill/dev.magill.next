@@ -11,6 +11,11 @@ const withBundleAnalyzer = createBundleAnalyzer({
 const nextConfig = {
 	output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
 	images: { unoptimized: true },
+	compiler: {
+		removeConsole: process.env.NODE_ENV === 'production'
+			? { exclude: ['error'] }
+			: false,
+	},
 };
 
 export default withBundleAnalyzer(nextConfig);
