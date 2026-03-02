@@ -40,23 +40,23 @@
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.2",
 		"@types/dompurify": "^3.2.0",
-		"@types/node": "^25.3.0",
+		"@types/node": "^25.3.3",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.3",
 		"@types/rss": "^0.0.32",
 		"@vitejs/plugin-react": "^5.1.4",
 		"@vitest/coverage-v8": "^4.0.18",
 		"cross-env": "^10.1.0",
-		"eslint": "^9.0.0",
+		"eslint": "^10.0.2",
 		"eslint-config-next": "^16.1.6",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-react": "^7.37.5",
 		"husky": "^9.1.7",
 		"jsdom": "^28.1.0",
-		"lint-staged": "^16.2.7",
+		"lint-staged": "^16.3.1",
 		"prettier": "^3.8.1",
 		"typescript": "^5.9.3",
 		"vitest": "^4.0.18",
-		"wrangler": "^4.67.0"
+		"wrangler": "^4.69.0"
 	}
 }
