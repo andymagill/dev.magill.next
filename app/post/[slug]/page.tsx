@@ -170,7 +170,7 @@ export default async function Post(props: PostProps) {
 
 			{/* Related posts (SSG + client reveal) */}
 			<RelatedPosts className={styles.related}>
-				<RelatedPostList tags={post.tags} currentSlug={post.slug} />
+				<RelatedPostList tags={post.tags.join(', ')} currentSlug={post.slug} />
 			</RelatedPosts>
 		</main>
 	);

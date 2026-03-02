@@ -37,7 +37,7 @@ export interface PostContent {
 		title: string;
 		description?: string;
 		image?: string;
-		tags?: string;
+		tags?: string[];
 		created: string;
 		lastUpdated?: string;
 		[key: string]: any;
