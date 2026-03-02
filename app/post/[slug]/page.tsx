@@ -9,10 +9,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Markdown from 'markdown-to-jsx';
+import { notFound } from 'next/navigation';
 
 import { settings } from '@/utils/settings.mjs';
 import postService from '@/utils/PostService';
 import { Post as PostType } from '@/utils/types';
+import { PostNotFoundError } from '@/utils/errors';
+import { resolveParams } from '@/utils/paramResolver';
 import Hero from '@/app/components/global/Hero';
 import PostDate from '@/app/components/blog/PostDate';
 import ShareButtons from '@/app/components/blog/ShareButtons';
@@ -48,43 +51,51 @@ export async function generateMetadata({
 	// Next 16 may pass `params` as a Promise; accept either and normalize
 	params: { slug: string } | Promise<{ slug: string }>;
 }) {
-	const resolvedParams = (params as any)?.then ? await (params as any) : params;
-	const post: PostType = postService.getPost(resolvedParams.slug) as PostType;
+	const resolvedParams = await resolveParams(params);
 
-	const meta = {
-		title: `${post.title} - ${settings.title}`,
-		url: `${settings.siteUrl}/post/${resolvedParams.slug}/`,
-	};
+	try {
+		const post: PostType = postService.getPost(resolvedParams.slug) as PostType;
 
-	return {
-		title: meta.title,
-		description: post.description,
-		url: meta.url,
-		openGraph: {
+		const meta = {
+			title: `${post.title} - ${settings.title}`,
+			url: `${settings.siteUrl}/post/${resolvedParams.slug}/`,
+		};
+
+		return {
 			title: meta.title,
 			description: post.description,
 			url: meta.url,
-			images: [
-				{
-					url: `${settings.siteUrl}${post.image}`,
-					alt: `Preview of ${post.title}`,
-				},
-			],
-			type: 'article',
-			publishedTime: post.created,
-			modifiedTime: post.lastUpdated,
-		},
-		twitter: {
-			title: meta.title,
-			description: post.description,
-			images: [
-				{
-					url: `${settings.siteUrl}${post.image}`,
-					alt: `Preview of ${post.title}`,
-				},
-			],
-		},
-	};
+			openGraph: {
+				title: meta.title,
+				description: post.description,
+				url: meta.url,
+				images: [
+					{
+						url: `${settings.siteUrl}${post.image}`,
+						alt: `Preview of ${post.title}`,
+					},
+				],
+				type: 'article',
+				publishedTime: post.created,
+				modifiedTime: post.lastUpdated,
+			},
+			twitter: {
+				title: meta.title,
+				description: post.description,
+				images: [
+					{
+						url: `${settings.siteUrl}${post.image}`,
+						alt: `Preview of ${post.title}`,
+					},
+				],
+			},
+		};
+	} catch (error) {
+		if (error instanceof PostNotFoundError) {
+			notFound();
+		}
+		throw error;
+	}
 }
 
 interface PostProps {
@@ -98,14 +109,18 @@ interface PostProps {
  * @returns Rendered blog post page
  */
 export default async function Post(props: PostProps) {
-	const rawParams = props.params as
-		| { slug: string }
-		| Promise<{ slug: string }>;
-	const resolved = (rawParams as any)?.then
-		? await (rawParams as any)
-		: rawParams;
+	const resolved = await resolveParams(props.params);
 	const slug = resolved.slug;
-	const post: PostType = postService.getPost(slug) as PostType;
+
+	let post: PostType;
+	try {
+		post = postService.getPost(slug) as PostType;
+	} catch (error) {
+		if (error instanceof PostNotFoundError) {
+			notFound();
+		}
+		throw error;
+	}
 
 	// Handle author display with fallback to settings
 	const displayAuthor = (post as any)?.author ?? settings.author;
@@ -145,7 +160,11 @@ export default async function Post(props: PostProps) {
 			</Hero>
 
 			<article className={styles.post}>
-				<Markdown options={{ forceBlock: true, overrides: { code: CodeBlock } }}>{post.content}</Markdown>
+				<Markdown
+					options={{ forceBlock: true, overrides: { code: CodeBlock } }}
+				>
+					{post.content}
+				</Markdown>
 				<ShareButtons title={post.title} />
 			</article>
 

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
 export default function NotFound() {
 	return (
 		<div
+			data-not-found='true'
 			style={{
 				display: 'flex',
 				flexDirection: 'column',
@@ -18,10 +19,11 @@ export default function NotFound() {
 				textAlign: 'center',
 			}}
 		>
-			{/* Overide the default nav color */}
+			{/* Override the default nav color using CSS custom property */}
 			<style>{`
-      .navigation.navigation.navigation {
-        color: var(--foreground) !important;
+      [data-not-found="true"] .navigation {
+        --nav-color: var(--foreground);
+        color: var(--nav-color);
       }
       `}</style>
 			<p>404 - Page not found </p>

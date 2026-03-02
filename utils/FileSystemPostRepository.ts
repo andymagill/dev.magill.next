@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { IPostRepository } from './types';
+import { PostNotFoundError } from './errors';
 
 export class FileSystemPostRepository implements IPostRepository {
 	constructor(private basePath: string) {
@@ -11,7 +12,18 @@ export class FileSystemPostRepository implements IPostRepository {
 	getPostContent(slug: string): string {
 		// Use forward slashes for consistent cross-platform paths
 		const filePath = `${this.basePath}/${slug}.md`;
-		return fs.readFileSync(filePath, 'utf8');
+		try {
+			return fs.readFileSync(filePath, 'utf8');
+		} catch (error) {
+			if (
+				error instanceof Error &&
+				'code' in error &&
+				error.code === 'ENOENT'
+			) {
+				throw new PostNotFoundError(slug);
+			}
+			throw error;
+		}
 	}
 
 	getAllPostSlugs(): string[] {

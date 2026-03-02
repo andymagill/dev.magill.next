@@ -31,7 +31,7 @@ describe('PostService', () => {
 			title: 'Test Post',
 			description: 'This is a test post',
 			image: '/images/test.jpg',
-			tags: 'test, blog',
+			tags: ['test', 'blog'],
 			created: '2023-01-01',
 			lastUpdated: '2023-01-02',
 		},
@@ -97,7 +97,7 @@ describe('PostService', () => {
 				title: minimalParsedContent.data.title,
 				description: '',
 				image: '',
-				tags: '',
+				tags: [],
 				slug: mockSlug,
 				url: `${settings.siteUrl}/post/${mockSlug}`,
 				created: minimalParsedContent.data.created,
@@ -130,11 +130,11 @@ describe('PostService', () => {
 
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'post-1') {
-					return { tags: 'react, javascript', slug } as Post;
+					return { tags: ['react', 'javascript'], slug } as Post;
 				} else if (slug === 'post-2') {
-					return { tags: 'typescript, testing', slug } as Post;
+					return { tags: ['typescript', 'testing'], slug } as Post;
 				} else {
-					return { tags: 'react, testing', slug } as Post;
+					return { tags: ['react', 'testing'], slug } as Post;
 				}
 			});
 
@@ -165,9 +165,9 @@ describe('PostService', () => {
 			const getPostSpy = vi.spyOn(service, 'getPost');
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'post-1') {
-					return { tags: '', slug } as Post; // No tags
+					return { tags: [], slug } as Post; // No tags
 				} else {
-					return { tags: 'typescript', slug } as Post;
+					return { tags: ['typescript'], slug } as Post;
 				}
 			});
 

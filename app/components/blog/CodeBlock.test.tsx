@@ -84,7 +84,10 @@ describe('CodeBlock', () => {
 		vi.mocked(hljs.getLanguage).mockReturnValue(null);
 		render(<CodeBlock className='lang-ts'>type X = string;</CodeBlock>);
 		await waitFor(() => {
-			expect(hljs.registerLanguage).toHaveBeenCalledWith('ts', expect.any(Object));
+			expect(hljs.registerLanguage).toHaveBeenCalledWith(
+				'ts',
+				expect.any(Object)
+			);
 		});
 	});
 
@@ -106,7 +109,9 @@ describe('CodeBlock', () => {
 	});
 
 	it('forwards className to the code element', () => {
-		render(<CodeBlock className='lang-css'>{'body { color: red; }'}</CodeBlock>);
+		render(
+			<CodeBlock className='lang-css'>{'body { color: red; }'}</CodeBlock>
+		);
 		const code = document.querySelector('code');
 		expect(code).toHaveClass('lang-css');
 	});

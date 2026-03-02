@@ -20,7 +20,7 @@
 export function cleanMarkdown(markdown: string): string {
 	if (!markdown) return '';
 
-	let text = markdown
+	const text = markdown
 		// Remove markdown headings
 		.replace(/^#+\s+/gm, '')
 		// Remove markdown bold and italic

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 	},
 };
 
-export default function Projects() {
+export default function Blog() {
 	const jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'Blog',

@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import DOMPurify from 'dompurify';
 import Modal from '../global/Modal';
 import styles from './ProjectModal.module.scss';
 import { Project as ProjectType } from '@/utils/types';
@@ -43,7 +44,9 @@ export default function ProjectModal({
 					<p className={styles.projectModalSummary}>{project.summary}</p>
 					<div
 						className={styles.projectModalDescription}
-						dangerouslySetInnerHTML={{ __html: project.description }}
+						dangerouslySetInnerHTML={{
+							__html: DOMPurify.sanitize(project.description),
+						}}
 					/>
 				</div>
 			</div>

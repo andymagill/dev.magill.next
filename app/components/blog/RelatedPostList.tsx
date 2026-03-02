@@ -29,28 +29,13 @@ export default function RelatedPostList({
 
 	if (inputTags.length === 0) return null;
 
-	// postService may provide getPosts (real runtime) or only getSlugs/getPost (test mocks).
-	let posts: PostType[] = [];
-	if (typeof (postService as any).getPosts === 'function') {
-		posts = (postService as any).getPosts();
-	} else if (
-		typeof (postService as any).getSlugs === 'function' &&
-		typeof (postService as any).getPost === 'function'
-	) {
-		const rawSlugs: any = (postService as any).getSlugs();
-		const slugs: string[] = Array.isArray(rawSlugs) ? rawSlugs : [];
-		posts = slugs.map((s: string) => (postService as any).getPost(s));
-	} else {
-		posts = [];
-	}
+	// Fetch all posts and filter by tags
+	const allPosts: PostType[] = postService.getPosts();
 
-	const scored = posts
+	const scored = allPosts
 		.filter((p) => p.slug !== currentSlug)
 		.map((p) => {
-			const pTags = (p.tags || '')
-				.split(',')
-				.map((t) => t.trim().toLowerCase())
-				.filter(Boolean);
+			const pTags = (p.tags || []).map((t) => t.toLowerCase()).filter(Boolean);
 			const shared = pTags.filter((t) => inputTags.includes(t)).length;
 			return { post: p, score: shared };
 		})

@@ -25,6 +25,11 @@ const AnalyticsWrapper: React.FC<{ children: React.ReactNode }> = ({
 		}
 	}, []);
 
+	// Guard against undefined GTM_ID to prevent wasted network request
+	if (!GTM_ID) {
+		return <>{children}</>;
+	}
+
 	return (
 		<>
 			<Script

@@ -19,6 +19,9 @@ module.exports = [
 			ecmaVersion: 2024,
 			sourceType: 'module',
 		},
-		rules: {},
+		rules: {
+			'prefer-const': 'warn',
+			'no-var': 'warn',
+		},
 	},
 ];

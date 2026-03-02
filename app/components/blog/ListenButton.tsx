@@ -366,10 +366,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 				return;
 			}
 
-			// Strip markdown formatting from the content
-			const cleanedText = cleanMarkdown(text);
-
-			// Split text into chunks at sentence boundaries
+			// Split text into chunks at sentence boundaries (using memoized cleanedText from above)
 			const chunks = splitTextIntoChunks(cleanedText);
 			chunksRef.current = chunks;
 			setTotalChunks(chunks.length);
@@ -414,7 +411,7 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 			setErrorMessage('Failed to start speech. Please try again.');
 			resetState();
 		}
-	}, [text, splitTextIntoChunks, playNextChunk, resetState]);
+	}, [cleanedText, text, splitTextIntoChunks, playNextChunk, resetState]);
 
 	const handleStop = useCallback(() => {
 		try {

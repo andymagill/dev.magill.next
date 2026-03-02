@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
 			<div className={styles.wrapper}>
 				<Navigation />
 
-				<div className='{styles.copyright} ta-center fs-xs'>
+				<div className={`${styles.copyright} ta-center fs-xs`}>
 					<p>
 						Copyright © {new Date().getFullYear()}, {settings.title}. All other
 						copyrighted materials are property of their respective copyright

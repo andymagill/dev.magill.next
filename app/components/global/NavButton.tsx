@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -10,27 +10,18 @@ const NavButton: React.FC = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const pathname = usePathname();
 
-	useEffect(() => {
+	const handleCheckboxChange = useCallback(() => {
 		const header = document.getElementById('header');
-
-		const handleClick = () => {
-			if (inputRef.current && inputRef.current.checked) {
-				header?.style.setProperty('--header-space', '100px');
+		if (inputRef.current && header) {
+			if (inputRef.current.checked) {
+				header.style.setProperty('--header-space', '100px');
+			} else {
+				header.style.setProperty('--header-space', '');
 			}
-		};
-
-		if (header) {
-			header.addEventListener('click', handleClick);
 		}
-
-		return () => {
-			if (header) {
-				header.removeEventListener('click', handleClick);
-			}
-		};
 	}, []);
 
-	useEffect(() => {
+	const closeNavOnNavigation = useCallback(() => {
 		// Uncheck the input when the pathname changes
 		if (inputRef.current) {
 			inputRef.current.checked = false;
@@ -41,7 +32,12 @@ const NavButton: React.FC = () => {
 		if (header) {
 			header.style.setProperty('--header-space', '');
 		}
-	}, [pathname]);
+	}, []);
+
+	// Close navigation and reset header when route changes
+	useEffect(() => {
+		closeNavOnNavigation();
+	}, [pathname, closeNavOnNavigation]);
 
 	return (
 		<>
@@ -50,6 +46,7 @@ const NavButton: React.FC = () => {
 				type='checkbox'
 				id='navButton'
 				ref={inputRef}
+				onChange={handleCheckboxChange}
 			/>
 			<label className={styles.navButtonIcon} htmlFor='navButton'>
 				{/* TODO: change the mobile button to something more recognizable */}

@@ -33,8 +33,8 @@ export const metadata: Metadata = {
 		],
 	},
 	twitter: {
-		title: settings.title,
-		description: settings.description,
+		title: meta.title,
+		description: meta.description,
 		images: [
 			{
 				url: settings.siteUrl + settings.siteThumb,

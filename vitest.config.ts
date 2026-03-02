@@ -11,8 +11,11 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
+			'@': resolve(__dirname, '.'),
 			'@/app': resolve(__dirname, 'app'),
 			'@/utils': resolve(__dirname, 'utils'),
+			'@/types': resolve(__dirname, 'types'),
+			'@/content': resolve(__dirname, 'content'),
 		},
 	},
 });

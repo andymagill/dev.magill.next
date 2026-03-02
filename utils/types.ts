@@ -4,7 +4,7 @@ export interface Post {
 	description: string;
 	content: string;
 	image: string;
-	tags: string;
+	tags: string[];
 	slug: string;
 	url: string;
 	created: string;

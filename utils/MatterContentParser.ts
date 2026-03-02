@@ -18,10 +18,23 @@ export class MatterContentParser implements IContentParser {
 			.replace(/\r/g, '\n');
 
 		// Ensure required properties are present or provide defaults
+		// Normalize tags to always be an array
+		const tags = data.tags
+			? typeof data.tags === 'string'
+				? data.tags
+						.split(',')
+						.map((tag: string) => tag.trim())
+						.filter((tag: string) => tag.length > 0)
+				: Array.isArray(data.tags)
+					? data.tags
+					: []
+			: [];
+
 		const validatedData = {
 			title: data.title || 'Untitled',
 			created: data.created || new Date().toISOString(),
 			...data,
+			tags, // Override with the normalized array
 		};
 
 		return {
