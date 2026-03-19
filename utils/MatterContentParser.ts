@@ -30,10 +30,16 @@ export class MatterContentParser implements IContentParser {
 					: []
 			: [];
 
+		// Filter out undefined values to prevent RSC serialization errors
+		// when frontmatter has empty properties (e.g., lastUpdated:)
+		const filteredData = Object.fromEntries(
+			Object.entries(data).filter(([, value]) => value !== undefined)
+		);
+
 		const validatedData = {
-			title: data.title || 'Untitled',
-			created: data.created || new Date().toISOString(),
-			...data,
+			title: filteredData.title || 'Untitled',
+			created: filteredData.created || new Date().toISOString(),
+			...filteredData,
 			tags, // Override with the normalized array
 		};
 
