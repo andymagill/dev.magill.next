@@ -8,7 +8,6 @@
  */
 import React from 'react';
 import Link from 'next/link';
-import Markdown from 'markdown-to-jsx';
 import { notFound } from 'next/navigation';
 
 import { settings } from '@/utils/settings.mjs';
@@ -23,7 +22,7 @@ import ListenButton from '@/app/components/blog/ListenButton';
 import RelatedPosts from '@/app/components/blog/RelatedPosts';
 import RelatedPostList from '@/app/components/blog/RelatedPostList';
 import JsonLd from '@/app/components/global/JsonLd';
-import CodeBlock from '@/app/components/blog/CodeBlock';
+import MarkdownBody from '@/app/components/blog/MarkdownBody';
 import styles from './page.module.scss';
 
 /**
@@ -160,11 +159,7 @@ export default async function Post(props: PostProps) {
 			</Hero>
 
 			<article className={styles.post}>
-				<Markdown
-					options={{ forceBlock: true, overrides: { code: CodeBlock } }}
-				>
-					{post.content}
-				</Markdown>
+				<MarkdownBody content={post.content} />
 				<ShareButtons title={post.title} />
 			</article>
 

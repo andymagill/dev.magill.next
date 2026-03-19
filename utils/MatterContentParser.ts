@@ -17,7 +17,6 @@ export class MatterContentParser implements IContentParser {
 			.replace(/\r\n/g, '\n')
 			.replace(/\r/g, '\n');
 
-		// Ensure required properties are present or provide defaults
 		// Normalize tags to always be an array
 		const tags = data.tags
 			? typeof data.tags === 'string'
@@ -30,17 +29,16 @@ export class MatterContentParser implements IContentParser {
 					: []
 			: [];
 
-		// Filter out undefined values to prevent RSC serialization errors
-		// when frontmatter has empty properties (e.g., lastUpdated:)
-		const filteredData = Object.fromEntries(
-			Object.entries(data).filter(([, value]) => value !== undefined)
-		);
-
+		// Only include known, serializable properties to prevent RSC issues
+		// Do NOT spread unknown properties from gray-matter parser
 		const validatedData = {
-			title: filteredData.title || 'Untitled',
-			created: filteredData.created || new Date().toISOString(),
-			...filteredData,
-			tags, // Override with the normalized array
+			title: data.title || 'Untitled',
+			description: data.description || '',
+			image: data.image || '',
+			created: data.created || new Date().toISOString(),
+			lastUpdated: data.lastUpdated,
+			author: data.author,
+			tags,
 		};
 
 		return {
