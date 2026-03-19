@@ -146,9 +146,9 @@ export default function Home() {
 						<h2>Recent Rants </h2>
 						<p>Thoughts that I may one day wonder why I bothered writing. </p>
 						<PostList maxPosts={3} />
-						<p>
-							<Link href='/blog'>View All Blog Posts</Link>
-						</p>
+						<Link href='/blog' className={styles.viewAllButton}>
+							View All Blog Posts
+						</Link>
 					</div>
 				</section>
 
@@ -158,9 +158,9 @@ export default function Home() {
 						<h2>Featured Projects </h2>
 						<p>Some of my greatest hits that were pretty cool at some point</p>
 						<ProjectListContainer maxProjects={3} />
-						<p>
-							<Link href='/projects'>View All Projects</Link>
-						</p>
+						<Link href='/projects' className={styles.viewAllButton}>
+							View All Projects
+						</Link>
 					</div>
 				</section>
 			</div>

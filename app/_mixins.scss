@@ -1,0 +1,26 @@
+// Shared SCSS mixins for consistent component styling
+
+// Button mixin: inverted foreground/background with border and transparent hover state
+@mixin button {
+	display: inline-flex;
+	align-items: center;
+	background-color: var(--foreground);
+	color: var(--background);
+	border: 2px solid var(--foreground);
+	border-radius: 0.75em;
+	padding: 0.5em 1.5em;
+	font-size: 0.88rem;
+	font-family: inherit;
+	cursor: pointer;
+	text-decoration: none;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+	&:hover,
+	&:focus {
+		background-color: transparent;
+		color: var(--foreground);
+	}
+}

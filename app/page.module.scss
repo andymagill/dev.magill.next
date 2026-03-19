@@ -1,6 +1,8 @@
 // CSS Module for the main page layout and home intro section.
 // Styles are locally scoped to avoid conflicts and support modular design.
 
+@use './_mixins' as mixins;
+
 .main {
 	min-height: 0;
 }
@@ -80,15 +82,6 @@
 			text-align: center;
 		}
 	}
-	a {
-		color: inherit;
-		text-underline-offset: 0.1rem;
-		transition: text-underline-offset 0.25s;
-
-		&:hover {
-			text-underline-offset: 0.4rem;
-		}
-	}
 	:global(.postList) {
 		flex-direction: column;
 		align-items: flex-start;
@@ -120,19 +113,18 @@
 	}
 }
 
+// View All Button
+.viewAllButton {
+	@include mixins.button;
+	display: block;
+	width: fit-content;
+	margin: var(--gap) auto 0;
+}
+
 // Featured Projects
 .featuredProjects {
 	margin-top: 2vmax;
 
-	a {
-		color: inherit;
-		text-underline-offset: 0.1rem;
-		transition: text-underline-offset 0.25s;
-
-		&:hover {
-			text-underline-offset: 0.4rem;
-		}
-	}
 	.wrapper {
 		max-width: var(--inner-width);
 		margin: 0 auto;

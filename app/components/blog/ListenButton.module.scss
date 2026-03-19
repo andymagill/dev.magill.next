@@ -1,21 +1,12 @@
+@use '../../_mixins' as mixins;
+
 .listenButton {
-	display: inline-flex;
-	background-color: var(--background);
-	color: var(--foreground);
-	border: none;
-	border-radius: 0.75em;
-	padding: 0.5em 1.5em;
+	@include mixins.button;
+
 	margin-top: 1em;
-	font-size: 0.88rem;
-	cursor: pointer;
-	transition:
-		background-color 0.2s,
-		color 0.2s;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-.listenButton:hover,
-.listenButton:focus {
-	background-color: var(--foreground);
+.listenButton:hover {
+	border-color: var(--background);
 	color: var(--background);
 }
 .listenButton.processing {
