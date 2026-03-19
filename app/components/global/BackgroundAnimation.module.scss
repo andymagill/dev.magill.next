@@ -21,19 +21,21 @@
 	overflow: hidden;
 	pointer-events: none;
 
+	--radial-color: #e13bf766;
 	--radial-width: 100dvw;
 	--radial-height: 45dvh;
 	--radial-stop: 75%;
 
 	background: radial-gradient(
 		var(--radial-width, 100dvw) var(--radial-height, 45dvw) at 50% 0%,
-		#e13bf766 0%,
+		var(--radial-color, #e13bf766) 0%,
 		transparent var(--radial-stop, 75%)
 	);
 
 	animation: hue-spin 15s linear infinite;
 
 	@media (max-width: 768px) {
+		--radial-color: #e13bf733;
 		--radial-height: 60dvh;
 		--radial-stop: 100%;
 	}
