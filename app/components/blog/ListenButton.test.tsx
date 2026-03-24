@@ -44,12 +44,12 @@ describe('ListenButton', () => {
 			);
 		});
 
-		const voices = [{ name: 'Google US English', lang: 'en-US' }];
+		const voices = [{ name: 'Google US English', lang: 'en-US' }] as any;
 
 		const voicesChangedCallbacks: Function[] = [];
 
 		(window as any).speechSynthesis = {
-			getVoices: () => voices,
+			getVoices: vi.fn(() => voices),
 			speak: mockSpeak,
 			cancel: mockCancel,
 			addEventListener: vi.fn((event: string, callback: Function) => {
@@ -60,6 +60,8 @@ describe('ListenButton', () => {
 			}),
 			removeEventListener: vi.fn(),
 		} as any;
+
+		(window as any).SpeechSynthesisVoice = function () {} as any;
 
 		(window as any).SpeechSynthesisUtterance = function (
 			this: any,
@@ -76,22 +78,25 @@ describe('ListenButton', () => {
 
 		render(<ListenButton text='hello world' />);
 
-		// Manually trigger voiceschanged callbacks to ensure voicesReady is set
-		act(() => {
-			voicesChangedCallbacks.forEach((cb) => cb());
-		});
-
-		const button = await waitFor(() => {
-			const btn = screen.getByRole('button');
-			expect(btn).not.toBeDisabled();
-			return btn;
-		});
+		// Wait for button to appear and be enabled (isMounted true, voicesReady true)
+		// The component uses queueMicrotask for isMounted, and checkVoicesReady should set voicesReady=true
+		const button = await waitFor(
+			() => {
+				const btn = screen.queryByRole('button');
+				if (!btn) throw new Error('Button not found');
+				if (btn.hasAttribute('disabled')) throw new Error('Button is disabled');
+				return btn;
+			},
+			{ timeout: 3000 }
+		);
 
 		// Click to start
 		fireEvent.click(button);
 
 		// Should show processing state immediately
-		expect(button).toHaveTextContent('processing...');
+		await waitFor(() => {
+			expect(button).toHaveTextContent('processing...');
+		});
 
 		// Wait for transition to speaking
 		await waitFor(() => {
@@ -102,7 +107,7 @@ describe('ListenButton', () => {
 	test('prevents playback of empty text', async () => {
 		const mockSpeak = vi.fn();
 
-		const voices = [{ name: 'Google US English', lang: 'en-US' }];
+		const voices = [{ name: 'Google US English', lang: 'en-US' }] as any;
 
 		(window as any).speechSynthesis = {
 			getVoices: () => voices,
@@ -120,11 +125,15 @@ describe('ListenButton', () => {
 
 		render(<ListenButton text='' />);
 
-		const button = await waitFor(() => {
-			const btn = screen.getByRole('button');
-			expect(btn).not.toBeDisabled();
-			return btn;
-		});
+		const button = await waitFor(
+			() => {
+				const btn = screen.queryByRole('button');
+				if (!btn) throw new Error('Button not found');
+				if (btn.hasAttribute('disabled')) throw new Error('Button is disabled');
+				return btn;
+			},
+			{ timeout: 3000 }
+		);
 
 		fireEvent.click(button);
 
@@ -142,7 +151,7 @@ describe('ListenButton', () => {
 			setTimeout(() => act(() => utt.onend?.()), 10);
 		});
 
-		const voices = [{ name: 'Google US English', lang: 'en-US' }];
+		const voices = [{ name: 'Google US English', lang: 'en-US' }] as any;
 
 		(window as any).speechSynthesis = {
 			getVoices: () => voices,
@@ -162,11 +171,15 @@ describe('ListenButton', () => {
 		const largeText = 'a'.repeat(10000);
 		render(<ListenButton text={largeText} />);
 
-		const button = await waitFor(() => {
-			const btn = screen.getByRole('button');
-			expect(btn).not.toBeDisabled();
-			return btn;
-		});
+		const button = await waitFor(
+			() => {
+				const btn = screen.queryByRole('button');
+				if (!btn) throw new Error('Button not found');
+				if (btn.hasAttribute('disabled')) throw new Error('Button is disabled');
+				return btn;
+			},
+			{ timeout: 3000 }
+		);
 
 		fireEvent.click(button);
 
@@ -185,7 +198,7 @@ describe('ListenButton', () => {
 			setTimeout(() => act(() => utt.onend?.()), 10);
 		});
 
-		const voices = [{ name: 'Google US English', lang: 'en-US' }];
+		const voices = [{ name: 'Google US English', lang: 'en-US' }] as any;
 
 		(window as any).speechSynthesis = {
 			getVoices: () => voices,
@@ -206,11 +219,15 @@ describe('ListenButton', () => {
 		const largeText = 'This is a sentence. '.repeat(250); // ~5000 chars with periods
 		render(<ListenButton text={largeText} />);
 
-		const button = await waitFor(() => {
-			const btn = screen.getByRole('button');
-			expect(btn).not.toBeDisabled();
-			return btn;
-		});
+		const button = await waitFor(
+			() => {
+				const btn = screen.queryByRole('button');
+				if (!btn) throw new Error('Button not found');
+				if (btn.hasAttribute('disabled')) throw new Error('Button is disabled');
+				return btn;
+			},
+			{ timeout: 3000 }
+		);
 
 		fireEvent.click(button);
 

@@ -31,6 +31,9 @@ describe('ProjectService', () => {
 		// Reset all mocks between tests
 		vi.restoreAllMocks();
 
+		// Clear the ProjectService cache to ensure test isolation
+		(ProjectService as any)['cache']?.clear();
+
 		// Mock fs.readFile using spyOn instead of module mocking
 		vi.spyOn(fs, 'readFile').mockImplementation(async (path, options) => {
 			return JSON.stringify(mockProjectsData);
@@ -119,8 +122,11 @@ describe('ProjectService', () => {
 			// Setup mock to return invalid JSON
 			vi.spyOn(fs, 'readFile').mockResolvedValueOnce('{ invalid JSON }');
 
-			// Verify it throws a SyntaxError
-			await expect(ProjectService.loadProjects()).rejects.toThrow(SyntaxError);
+			// Verify it throws an error with JSON parse error message
+			// (The service wraps the SyntaxError in a custom Error with context)
+			await expect(ProjectService.loadProjects()).rejects.toThrow(
+				'Invalid JSON'
+			);
 		});
 
 		it('should log error to console when exception occurs', async () => {

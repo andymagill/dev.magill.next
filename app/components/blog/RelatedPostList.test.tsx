@@ -14,10 +14,10 @@ vi.mock('@/utils/PostService', () => ({
 
 describe('RelatedPostList', () => {
 	const posts = [
-		{ title: 'A', slug: 'a', tags: 'tag1, tag2', image: '/a.jpg' },
-		{ title: 'B', slug: 'b', tags: 'tag2, tag3', image: '/b.jpg' },
-		{ title: 'C', slug: 'c', tags: 'tag1', image: '/c.jpg' },
-		{ title: 'D', slug: 'd', tags: '', image: '/d.jpg' },
+		{ title: 'A', slug: 'a', tags: ['tag1', 'tag2'], image: '/a.jpg' },
+		{ title: 'B', slug: 'b', tags: ['tag2', 'tag3'], image: '/b.jpg' },
+		{ title: 'C', slug: 'c', tags: ['tag1'], image: '/c.jpg' },
+		{ title: 'D', slug: 'd', tags: [], image: '/d.jpg' },
 	];
 
 	beforeEach(() => {
@@ -48,7 +48,7 @@ describe('RelatedPostList', () => {
 
 	test('renders fallback image when post image is missing', () => {
 		const postsFallback = [
-			{ title: 'One', slug: 'one', tags: 'a', image: undefined },
+			{ title: 'One', slug: 'one', tags: ['a'], image: undefined },
 		];
 		vi.mocked(postService.getPosts).mockImplementation(
 			() => postsFallback as any

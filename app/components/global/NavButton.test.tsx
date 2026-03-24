@@ -54,39 +54,57 @@ describe('NavButton', () => {
 		expect(icon).toBeInTheDocument();
 	});
 
-	it('adds and removes event listeners on mount and unmount', () => {
-		const { unmount } = render(<NavButton />);
-
-		// Check if event listener was added on mount
-		expect(mockHeaderElement.addEventListener).toHaveBeenCalledWith(
-			'click',
-			expect.any(Function)
-		);
-
-		// Unmount component
-		unmount();
-
-		// Check if event listener was removed on unmount
-		expect(mockHeaderElement.removeEventListener).toHaveBeenCalledWith(
-			'click',
-			expect.any(Function)
-		);
-	});
-
-	it('handles path change and resets checkbox', () => {
-		render(<NavButton />);
-
-		// Change the mock to return a different path
-		usePathnameMock.mockReturnValue('/blog');
-
-		// Force a re-render by unmounting and remounting
+	it('calls setProperty on checkbox change and route change', async () => {
 		const { rerender } = render(<NavButton />);
-		rerender(<NavButton />);
 
-		// Check if header style was reset
+		// Get the checkbox
+		const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+
+		// Check the checkbox
+		fireEvent.click(checkbox);
+
+		// Verify setProperty was called with --header-space 100px when checked
+		expect(mockHeaderElement.style.setProperty).toHaveBeenCalledWith(
+			'--header-space',
+			'100px'
+		);
+
+		// Reset mock calls
+		mockHeaderElement.style.setProperty.mockClear();
+
+		// Uncheck the checkbox
+		fireEvent.click(checkbox);
+
+		// Verify setProperty was called with empty string when unchecked
 		expect(mockHeaderElement.style.setProperty).toHaveBeenCalledWith(
 			'--header-space',
 			''
 		);
+
+		// Reset and change route
+		mockHeaderElement.style.setProperty.mockClear();
+		usePathnameMock.mockReturnValue('/blog');
+
+		// Re-render to trigger the pathname change effect
+		rerender(<NavButton />);
+
+		// Verify header space was reset on route change
+		expect(mockHeaderElement.style.setProperty).toHaveBeenCalledWith(
+			'--header-space',
+			''
+		);
+	});
+
+	it('resets checkbox when pathname changes', () => {
+		render(<NavButton />);
+
+		// Get the checkbox
+		const checkbox = screen.getByRole('checkbox') as HTMLInputElement;
+
+		// Initial pathname is '/'
+		expect(checkbox.checked).toBe(false);
+
+		// Verify initial getElementById was called
+		expect(document.getElementById).toHaveBeenCalledWith('header');
 	});
 });

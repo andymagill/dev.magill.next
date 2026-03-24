@@ -79,7 +79,7 @@ const mockPost = {
 	description: 'Test Description',
 	content: 'Test Content',
 	image: '/images/test.jpg',
-	tags: 'tag1, tag2',
+	tags: ['tag1', 'tag2'],
 	slug: 'test-post',
 	url: 'http://localhost/post/test-post',
 	created: '2023-01-01',

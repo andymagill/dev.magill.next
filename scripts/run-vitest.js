@@ -5,10 +5,13 @@ const { spawn } = require('child_process');
 const FILTER = "The CJS build of Vite's Node API is deprecated";
 
 const args = process.argv.slice(2);
+// Default to --run flag (exit after tests) unless watching is explicitly requested
+const hasWatchFlag = args.includes('--watch') || args.includes('-w');
+const vitestArgs = hasWatchFlag ? args : ['--run', ...args];
 // Prefer local binary if available. Use a shell on Windows to avoid EINVAL
 // when spawning .cmd shims (spawn of .cmd can fail on some Node/Windows setups).
 const cmd = 'npx';
-const cp = spawn(cmd, ['vitest', ...args], {
+const cp = spawn(cmd, ['vitest', ...vitestArgs], {
 	stdio: ['inherit', 'pipe', 'pipe'],
 	shell: true,
 });
