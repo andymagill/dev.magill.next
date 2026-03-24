@@ -3,13 +3,13 @@
 
 @property --linear-0-angle {
 	syntax: '<angle>';
-	initial-value: 161.3deg;
+	initial-value: 45deg;
 	inherits: false;
 }
 
 @property --gradient-l0-c0 {
 	syntax: '<color>';
-	initial-value: #14ad2eff;
+	initial-value: #80460fff;
 	inherits: false;
 }
 
@@ -21,19 +21,19 @@
 
 @property --gradient-l0-c1 {
 	syntax: '<color>';
-	initial-value: #dd4648ff;
+	initial-value: #377023ff;
 	inherits: false;
 }
 
 @property --gradient-l0-p1 {
 	syntax: '<percentage>';
-	initial-value: 55.2%;
+	initial-value: 50%;
 	inherits: false;
 }
 
 @property --gradient-l0-c2 {
 	syntax: '<color>';
-	initial-value: #36647dff;
+	initial-value: #592a93ff;
 	inherits: false;
 }
 
@@ -45,39 +45,57 @@
 
 @keyframes gradient-animation {
 	0% {
-		--linear-0-angle: 161.3deg;
-		--gradient-l0-c0: #14ad2eff;
+		--linear-0-angle: 45deg;
+		--gradient-l0-c0: #80460fff;
 		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
-		--gradient-l0-c1: #dd4648ff;
-		--gradient-l0-p1: calc(55.2% + var(--gradient-c1-offset, 0%));
-		--gradient-l0-c2: #36647dff;
+		--gradient-l0-c1: #377023ff;
+		--gradient-l0-p1: calc(50% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #592a93ff;
 		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
-	33.3% {
-		--linear-0-angle: 138.7deg;
-		--gradient-l0-c0: #d97e1aff;
+	20% {
+		--linear-0-angle: 80.2deg;
+		--gradient-l0-c0: #730f80ff;
 		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
-		--gradient-l0-c1: #4d890fff;
-		--gradient-l0-p1: calc(40% + var(--gradient-c1-offset, 0%));
-		--gradient-l0-c2: #8629aaff;
+		--gradient-l0-c1: #7e4d15ff;
+		--gradient-l0-p1: calc(48% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #10756eff;
 		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
-	66.6% {
-		--linear-0-angle: 146.3deg;
-		--gradient-l0-c0: #bb603aff;
-		--gradient-l0-p0: calc(13.2% + var(--gradient-c0-offset, 0%));
-		--gradient-l0-c1: #520d73ff;
-		--gradient-l0-p1: calc(48.4% + var(--gradient-c1-offset, 0%));
-		--gradient-l0-c2: #2d7b0fff;
+	40% {
+		--linear-0-angle: 116.1deg;
+		--gradient-l0-c0: #084d77ff;
+		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #931a55ff;
+		--gradient-l0-p1: calc(52% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #435d22ff;
+		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
+	}
+	60% {
+		--linear-0-angle: 82.1deg;
+		--gradient-l0-c0: #0f6b1aff;
+		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #2d0c5fff;
+		--gradient-l0-p1: calc(48% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #7e3710ff;
+		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
+	}
+	80% {
+		--linear-0-angle: 57.5deg;
+		--gradient-l0-c0: #0f3f6bff;
+		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
+		--gradient-l0-c1: #7c0937ff;
+		--gradient-l0-p1: calc(52% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #41660aff;
 		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
 	100% {
-		--linear-0-angle: 161.3deg;
-		--gradient-l0-c0: #14ad2eff;
+		--linear-0-angle: 45deg;
+		--gradient-l0-c0: #80460fff;
 		--gradient-l0-p0: calc(0% + var(--gradient-c0-offset, 0%));
-		--gradient-l0-c1: #dd4648ff;
-		--gradient-l0-p1: calc(55.2% + var(--gradient-c1-offset, 0%));
-		--gradient-l0-c2: #36647dff;
+		--gradient-l0-c1: #41752fff;
+		--gradient-l0-p1: calc(50% + var(--gradient-c1-offset, 0%));
+		--gradient-l0-c2: #592a93ff;
 		--gradient-l0-p2: calc(100% + var(--gradient-c2-offset, 0%));
 	}
 }
@@ -97,7 +115,7 @@
 		var(--gradient-l0-c2) var(--gradient-l0-p2)
 	);
 
-	animation: gradient-animation 12s ease-in-out infinite;
+	animation: gradient-animation 20s ease-in-out infinite;
 }
 
 .particle {
