@@ -1,3 +1,5 @@
+@use 'mixins' as *;
+
 :root {
 	--background: #fefefe;
 	--background-transparent: rgba(254, 254, 254, 0.5);
@@ -92,9 +94,109 @@ pre {
 
 	font-size: 0.88rem;
 	line-height: 1.4;
-	color: #dfe5e5;
-	background-color: #2c2928;
-	scrollbar-color: #dfe5e5 #2c2928;
+	@include glass;
+}
+
+/* Light mode syntax highlighting (default) */
+pre {
+	color: #383a42;
+}
+.hljs-keyword,
+.hljs-built_in {
+	color: #a626a4;
+}
+.hljs-string,
+.hljs-attr {
+	color: #50a14f;
+}
+.hljs-comment {
+	color: #a0a1a7;
+	font-style: italic;
+}
+.hljs-number,
+.hljs-literal {
+	color: #986801;
+}
+.hljs-function .hljs-title,
+.hljs-title.hljs-function {
+	color: #4078f2;
+}
+.hljs-title,
+.hljs-class .hljs-title {
+	color: #e45649;
+}
+.hljs-type {
+	color: #e45649;
+}
+.hljs-variable,
+.hljs-property {
+	color: #383a42;
+}
+.hljs-tag {
+	color: #a626a4;
+}
+.hljs-name {
+	color: #a626a4;
+}
+.hljs-punctuation,
+.hljs-operator {
+	color: #383a42;
+}
+.hljs-meta {
+	color: #383a42;
+}
+
+/* Dark mode syntax highlighting */
+@media (prefers-color-scheme: dark),
+	(prefers-color-scheme: no-preference) and (environment-blending: dark),
+	(forced-colors: dark) {
+	pre {
+		color: #dfe5e5;
+	}
+	.hljs-keyword,
+	.hljs-built_in {
+		color: #569cd6;
+	}
+	.hljs-string,
+	.hljs-attr {
+		color: #ce9178;
+	}
+	.hljs-comment {
+		color: #6a9955;
+		font-style: italic;
+	}
+	.hljs-number,
+	.hljs-literal {
+		color: #b5cea8;
+	}
+	.hljs-function .hljs-title,
+	.hljs-title.hljs-function {
+		color: #dcdcaa;
+	}
+	.hljs-title,
+	.hljs-class .hljs-title {
+		color: #4ec9b0;
+	}
+	.hljs-type {
+		color: #4ec9b0;
+	}
+	.hljs-variable,
+	.hljs-property {
+		color: #9cdcfe;
+	}
+	.hljs-tag {
+		color: #569cd6;
+	}
+	.hljs-name {
+		color: #569cd6;
+	}
+	.hljs-punctuation,
+	.hljs-operator {
+		color: #d4d4d4;
+	}
+	.hljs-meta {
+		color: #9cdcfe;
+	}
 }
 
 code {
@@ -105,50 +207,4 @@ p code,
 li code {
 	background-color: var(--backgroundToo);
 	padding: 0 0.5em;
-}
-
-/* Syntax highlighting tokens (highlight.js) — VS Code Dark+ palette */
-.hljs-keyword,
-.hljs-built_in {
-	color: #569cd6;
-}
-.hljs-string,
-.hljs-attr {
-	color: #ce9178;
-}
-.hljs-comment {
-	color: #6a9955;
-	font-style: italic;
-}
-.hljs-number,
-.hljs-literal {
-	color: #b5cea8;
-}
-.hljs-function .hljs-title,
-.hljs-title.hljs-function {
-	color: #dcdcaa;
-}
-.hljs-title,
-.hljs-class .hljs-title {
-	color: #4ec9b0;
-}
-.hljs-type {
-	color: #4ec9b0;
-}
-.hljs-variable,
-.hljs-property {
-	color: #9cdcfe;
-}
-.hljs-tag {
-	color: #569cd6;
-}
-.hljs-name {
-	color: #569cd6;
-}
-.hljs-punctuation,
-.hljs-operator {
-	color: #d4d4d4;
-}
-.hljs-meta {
-	color: #9cdcfe;
 }

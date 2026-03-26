@@ -1,3 +1,5 @@
+@use '../../mixins' as *;
+
 .projectCard {
 	display: flex;
 	position: relative;
@@ -7,9 +9,7 @@
 	min-width: 260px;
 	padding: var(--gap);
 	border: 1px solid var(--line-color);
-	background-color: color-mix(in srgb, var(--backgroundToo) 48%, transparent);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
+	@include glass;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 	cursor: pointer;
 	transition:

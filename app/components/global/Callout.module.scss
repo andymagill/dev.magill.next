@@ -1,7 +1,7 @@
+@use '../../mixins' as *;
+
 .callout {
-	background-color: color-mix(in srgb, var(--backgroundToo) 48%, transparent);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
+	@include glass;
 	padding: 1em 1.5em;
 
 	h3 {

@@ -24,3 +24,10 @@
 		color: var(--foreground);
 	}
 }
+
+// Glass morphism mixin: frosted glass effect with backdrop blur
+@mixin glass {
+	background-color: color-mix(in srgb, var(--backgroundToo) 48%, transparent);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
