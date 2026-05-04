@@ -22,7 +22,7 @@
 		"@fortawesome/free-brands-svg-icons": "^7.2.0",
 		"@fortawesome/free-solid-svg-icons": "^7.2.0",
 		"@fortawesome/react-fontawesome": "^3.3.1",
-		"dompurify": "^3.4.1",
+		"dompurify": "^3.4.2",
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.11.1",
 		"markdown-to-jsx": "9.7.16",
@@ -47,7 +47,7 @@
 		"@vitejs/plugin-react": "^6.0.1",
 		"@vitest/coverage-v8": "^4.1.5",
 		"cross-env": "^10.1.0",
-		"eslint": "^10.2.1",
+		"eslint": "^10.3.0",
 		"eslint-config-next": "^16.2.4",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-import": "^2.32.0",
@@ -55,12 +55,12 @@
 		"eslint-plugin-react": "^7.37.5",
 		"eslint-plugin-react-hooks": "^7.1.1",
 		"husky": "^9.1.7",
-		"jsdom": "^29.1.0",
+		"jsdom": "^29.1.1",
 		"lint-staged": "^16.4.0",
 		"prettier": "^3.8.3",
 		"typescript": "^6.0.3",
 		"vite": "^8.0.10",
 		"vitest": "^4.1.5",
-		"wrangler": "^4.85.0"
+		"wrangler": "^4.87.0"
 	}
 }
