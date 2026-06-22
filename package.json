@@ -22,7 +22,7 @@
 		"@fortawesome/free-brands-svg-icons": "^7.2.0",
 		"@fortawesome/free-solid-svg-icons": "^7.2.0",
 		"@fortawesome/react-fontawesome": "^3.3.1",
-		"dompurify": "^3.4.10",
+		"dompurify": "^3.4.11",
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.11.1",
 		"markdown-to-jsx": "9.8.2",
@@ -40,12 +40,12 @@
 		"@testing-library/jest-dom": "^6.9.1",
 		"@testing-library/react": "^16.3.2",
 		"@types/dompurify": "^3.2.0",
-		"@types/node": "^25.9.3",
+		"@types/node": "^26.0.0",
 		"@types/react": "^19.2.17",
 		"@types/react-dom": "^19.2.3",
 		"@types/rss": "^0.0.32",
 		"@vitejs/plugin-react": "^6.0.2",
-		"@vitest/coverage-v8": "^4.1.8",
+		"@vitest/coverage-v8": "^4.1.9",
 		"cross-env": "^10.1.0",
 		"eslint": "^10.5.0",
 		"eslint-config-next": "^16.2.9",
@@ -56,11 +56,11 @@
 		"eslint-plugin-react-hooks": "^7.1.1",
 		"husky": "^9.1.7",
 		"jsdom": "^29.1.1",
-		"lint-staged": "^17.0.7",
+		"lint-staged": "^17.0.8",
 		"prettier": "^3.8.4",
 		"typescript": "^6.0.3",
 		"vite": "^8.0.16",
-		"vitest": "^4.1.8",
-		"wrangler": "^4.100.0"
+		"vitest": "^4.1.9",
+		"wrangler": "^4.103.0"
 	}
 }
