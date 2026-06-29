@@ -20,13 +20,13 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
 				</span>
 
 				<span className={`${styles.postDetails} postDetails`}>
+					<h3>{post.title}</h3>
 					<ul>
 						{/* TODO: Change tags into buttons linking to the blog */}
 						{tags.map((tag, index) => (
 							<li key={index}>{tag}</li>
 						))}
 					</ul>
-					<h3>{post.title}</h3>
 					<p>{post.description}</p>
 				</span>
 			</Link>
