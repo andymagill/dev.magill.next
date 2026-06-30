@@ -99,7 +99,7 @@ pre {
 
 /* Light mode syntax highlighting (default) */
 pre {
-	color: #383a42;
+	color: rgba(128, 128, 128, 0.2);
 }
 .hljs-keyword,
 .hljs-built_in {
@@ -205,6 +205,6 @@ code {
 
 p code,
 li code {
-	background-color: var(--backgroundToo);
+	background-color: rgba(128, 128, 128, 0.2);
 	padding: 0 0.5em;
 }
