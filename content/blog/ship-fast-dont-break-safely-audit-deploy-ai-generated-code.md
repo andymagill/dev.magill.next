@@ -233,13 +233,13 @@ jobs:
 
 This scan is just a tripwire. It does **not** understand your app, and it is not trying to. It looks for a few obvious red flags in the diff — unsafe HTML or code execution patterns, sloppy error handling, and accessibility-sensitive changes — then makes a person look at the change.
 
-That is the point: catch the easy misses before they merge. It is not a substitute for real review, and it definitely is not a way to pretend security can be reduced to a regex.
+That is the point: catch the easy misses before they merge. It is not a substitute for real review, or a reliable way to enforce security standards in an automated workflow.
 
 ---
 
 ## Closing thought
 
-The era of AI-assisted development isn't about working less; it's about working smarter. Treat your AI assistant like a brilliant but chronically overconfident junior developer, one whose work requires rigorous, structured oversight. By implementing a dedicated AI coding audit into your pipeline, you stop being a passive prompter and step back into the role of a true software architect. Embrace the unprecedented velocity these tools offer, but good developers should never compromise on quality.
+The era of AI-assisted development isn't about working less; it's about working smarter. Treat your AI assistant like a brilliant but chronically overconfident junior developer, one whose work requires rigorous, structured oversight. By implementing a dedicated AI coding audit into your pipeline, you stop being a passive prompter and step back into the role of a true software architect. Developers who take advantage of the unprecedented velocity of these tools will need to maintain rigourous oversight to maintain production-grade quality.
 
 ---
 
