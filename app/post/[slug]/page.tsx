@@ -161,6 +161,16 @@ export default async function Post(props: PostProps) {
 			<article className={styles.post}>
 				<MarkdownBody content={post.content} />
 				<ShareButtons title={post.title} />
+
+				{/* Filed Under Tags */}
+				<div className={styles.filedUnder}>
+					<label>Filed under:</label>
+					<ul>
+						{post.tags.map((tag, index) => (
+							<li key={index}>{tag}</li>
+						))}
+					</ul>
+				</div>
 			</article>
 
 			{/* Related posts (SSG + client reveal) */}
