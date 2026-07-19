@@ -1,8 +1,7 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "dev-magill-next"
+pages_build_output_dir = "out"
 
 [build]
 command = "pnpm run build"
 cwd = "."
-# Next.js exports static files to ./out directory
-# Cloudflare Pages automatically serves from the build output
