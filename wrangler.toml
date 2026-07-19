@@ -1,12 +1,8 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "dev-magill-next"
-type = "javascript"
-main = "out/index.js"
 
 [build]
 command = "pnpm run build"
 cwd = "."
-
-[env.production]
-# Cloudflare Pages automatically sets NODE_ENV=production
-# Static export output directory
+# Next.js exports static files to ./out directory
+# Cloudflare Pages automatically serves from the build output
