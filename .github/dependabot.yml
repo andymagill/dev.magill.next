@@ -13,3 +13,6 @@ updates:
       all-dependencies:
         patterns:
           - '*'
+    ignore:
+      - dependency-name: 'typescript'
+        versions: ['>=7.0.0', '<7.1.0']
