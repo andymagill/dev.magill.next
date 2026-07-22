@@ -16,3 +16,5 @@ updates:
     ignore:
       - dependency-name: 'typescript'
         versions: ['>=7.0.0', '<7.1.0']
+      - dependency-name: 'eslint'
+        versions: ['>=10.0.0']
