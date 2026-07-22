@@ -22,7 +22,7 @@
 		},
 		{
 			"title": "Atlas Premiere Health",
-			"summary": "Engineered a custom WordPress e-commerce platform with EMR/EHR integrations for a healthcare practice expanding into online pharmacy services.",
+			"summary": "Developed a custom WordPress e-commerce platform with EMR/EHR integrations for a healthcare practice expanding into online pharmacy services.",
 			"description": "Designed and built a custom e-commerce engine on WordPress to bridge an existing medical practice with online pharmacy operations. Architected data synchronization between legacy healthcare systems and modern e-commerce workflows, ensuring real-time inventory management, prescription routing, and patient record integration. Developed custom CMS capabilities for compliance-driven content management.",
 			"tags": ["WordPress", "Front-end", "PHP", "E-commerce", "Healthcare"],
 			"image": "/images/projects/atlaspremierhealth-1.jpg"
@@ -58,7 +58,7 @@
 		{
 			"title": "Alnylam Assist",
 			"summary": "This website represents the efforts by this Pharmaceutical company to ensure access for all patients to each of its four products.",
-			"description": "The site required robust HIPPA compliance to safely handle protected health information. Regular compliance review was necessary to adhere to FDA advertisement regulations and guidelines. As lead developer, I was responsible for custom theme and module developments, responsive design implementation, and content integration.",
+			"description": "The site required robust HIPAA compliance to safely handle protected health information. Regular compliance review was necessary to adhere to FDA advertisement regulations and guidelines. As lead developer, I was responsible for custom theme and module developments, responsive design implementation, and content integration.",
 			"tags": ["Drupal", "Front-end", "PHP"],
 			"image": "/images/projects/portfolio-assist.jpg"
 		},
