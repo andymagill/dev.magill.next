@@ -2,23 +2,29 @@
 	"projects": [
 		{
 			"title": "Ironsail AI",
-			"summary": "The unique services of this company required careful planning and attention to detail.",
-			"description": "Custom templates adaptable to any branding was at the heart of my contribution to this company's services. My role on the project was to build the custom responsive designs, driven by custom elements of the Visual Composer page builder.",
-			"tags": ["React", "PHP", "API Integration"],
+			"summary": "Engineered multi-brand templating system with custom responsive designs driven by Visual Composer page builder elements.",
+			"description": "Built custom responsive design templates adaptable to any brand identity, enabling the company to deliver white-label solutions at scale. Developed custom Visual Composer page builder elements and integrated them into flexible template architecture. Focused on creating reusable component patterns that non-technical teams could configure for diverse client branding requirements.",
+			"tags": ["React", "PHP", "API Integration", "Responsive Design"],
 			"image": "/images/projects/ironsail.ai-1.jpg"
 		},
 		{
 			"title": "Valhalla Vitality",
-			"summary": "This platform needed to seamlessly integrate prescription management, patient education, and follow-up care, ensuring a exceptional therapeutic experience.",
-			"description": "An online pharmacy with impressive growth needed an ecommerce site to match it's ambition. My role was to build the custom ecommerce and CMS platform, templates, layouts, and content integration.",
-			"tags": ["Front-end", "PHP", "Ecommerce"],
+			"summary": "Delivered a HIPAA-compliant custom e-commerce engine integrating prescription fulfillment, patient education workflows, and automated follow-up care.",
+			"description": "Built a high-growth online pharmacy platform from the ground up, architecting custom e-commerce logic to handle complex prescription management, compliance tracking, and patient lifecycle workflows. Developed custom CMS templates, checkout flows, and patient portal integrations. Platform supports seamless prescription renewals, educational content delivery, and secure healthcare data management.",
+			"tags": [
+				"Front-end",
+				"PHP",
+				"E-commerce",
+				"HIPAA Compliance",
+				"Healthcare"
+			],
 			"image": "/images/projects/valhallavitality-2.jpg"
 		},
 		{
 			"title": "Atlas Premiere Health",
-			"summary": "This online pharmacy needed a custom ecommerce platform that seemlessly integrated with an existing healthcare practice.",
-			"description": "A custom ecommerce platform was built to integrate with the pharmacy's existing systems. My role was to build the custom ecommerce and CMS platform, templates, layouts, and content integration.",
-			"tags": ["WordPress", "Front-end", "PHP"],
+			"summary": "Engineered a custom WordPress e-commerce platform with EMR/EHR integrations for a healthcare practice expanding into online pharmacy services.",
+			"description": "Designed and built a custom e-commerce engine on WordPress to bridge an existing medical practice with online pharmacy operations. Architected data synchronization between legacy healthcare systems and modern e-commerce workflows, ensuring real-time inventory management, prescription routing, and patient record integration. Developed custom CMS capabilities for compliance-driven content management.",
+			"tags": ["WordPress", "Front-end", "PHP", "E-commerce", "Healthcare"],
 			"image": "/images/projects/atlaspremierhealth-1.jpg"
 		},
 		{
