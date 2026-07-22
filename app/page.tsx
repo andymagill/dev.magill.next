@@ -13,7 +13,6 @@ import Callout from '@/app/components/global/Callout';
 import PostList from '@/app/components/blog/PostList';
 import ProjectListContainer from '@/app/components/projects/ProjectListContainer';
 import JsonLd from '@/app/components/global/JsonLd';
-
 import styles from './page.module.scss';
 
 // Define the metadata for the page
@@ -87,7 +86,7 @@ export default function Home() {
 					{/* Homepage Intro */}
 					<div className={`${styles.homeIntro} homeIntro`}>
 						<h1>
-							<strong>Hey there, I’m Andrew&nbsp;Magill.</strong> I’m a
+							<strong>Hey there, I’m Andrew&nbsp;Magill. </strong> I’m a
 							web&nbsp;engineer with{' '}
 							<Link href='//www.linkedin.com/in/andrew-magill'>
 								deep&nbsp;experience
@@ -99,13 +98,19 @@ export default function Home() {
 							.
 						</h1>{' '}
 						<p>
-							I’m currently looking for{' '}
-							<Link href='/blog'>new&nbsp;challenges</Link> and interesting{' '}
-							opportunities. I built{' '}
+							I built{' '}
 							<Link href='/post/lets-breakdown-my-website'>this website</Link>{' '}
-							<a href='//github.com/andymagill/dev.magill.next'>from scratch</a>{' '}
-							to showcase{' '}
-							<Link href='/projects'>some of my&nbsp;best&nbsp;work</Link>.{' '}
+							to showcase <Link href='/projects'>some of my&nbsp;work</Link>.{' '}
+							I&#39;m always looking for{' '}
+							<Link href='/blog'>new&nbsp;challenges</Link>, so let&#39;s{' '}
+							<a
+								href='https://calendar.google.com/calendar/appointments/schedules/AcZssZ1eVLAyEkJQ7H3o24pzhMevGobzhTexLeufmSBltUhQHxu49SAvt2Oog63LhckkwhbQYp8IiXOJ?gv=true'
+								target='_blank'
+								rel='noopener noreferrer'
+							>
+								connect and collaborate
+							</a>
+							.
 						</p>
 					</div>
 				</Hero>

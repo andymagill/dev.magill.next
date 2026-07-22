@@ -17,10 +17,17 @@
 	h1 {
 		font-size: inherit;
 	}
-	& > * {
+
+	p {
+		margin-top: 1.5rem;
+		margin-bottom: 0;
+	}
+
+	h1 + p {
 		display: inline;
 	}
 }
+
 .portraitContainer {
 	align-self: flex-start;
 	margin-left: auto;
@@ -46,7 +53,7 @@
 		text-align: center;
 	}
 	.wrapper {
-		padding: var(--gap);
+		padding: 1rem;
 		max-width: var(--inner-width);
 		margin: auto;
 	}
