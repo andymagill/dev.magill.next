@@ -15,11 +15,11 @@ AI-generated code fails because it is trying to sound plausible, not necessarily
 
 - use `try/catch` and without rethrowing errors
 - invent a method that doesn't exist
-- remomve attributes during a JSX refactor
-- import the wrong symbol from the wrong dependacy
-- simulate but not replicate secutiry best practices
+- remove attributes during a JSX refactor
+- import the wrong symbol from the wrong dependency
+- simulate but not replicate security best practices
 
-Coding agents will be tempted to provide solutions that look good at first glance. To avoid rubber stamping future headaches, we should confirm the model undertands the objective, the scenario, and the requirements.
+Coding agents will be tempted to provide solutions that look good at first glance. To avoid rubber stamping future headaches, we should confirm the model understands the objective, the scenario, and the requirements.
 
 The easiest way to think about it is this: review AI code the way you would review work from an eager junior developer — fast, useful, and occasionally wrong in predictable ways. Here is how we can spot the more common ways AI generated code can fail:
 
@@ -56,7 +56,7 @@ try {
 }
 ```
 
-Don't ask if the code handles the error. What we really need is an error that useful and gracefull.
+Don't ask if the code handles the error. What we really need is an error that useful and graceful.
 
 ---
 
@@ -156,7 +156,7 @@ Don't forget that [reviewing AI code](https://owasp.org/www-project-ai-testing-g
 
 ## Make the review executable
 
-Developers can't rely on an mental checklist to check every kind of AI coding mistake. Let's make our lives easier wuth a lightweight CI/CD scan to surface obvious problems to human eyes.
+Developers can't rely on a mental checklist to find every AI coding mistake. Let's make our lives easier with a lightweight CI/CD scan to surface obvious problems to human eyes.
 
 ```yaml
 name: ai-code-audit
@@ -195,7 +195,7 @@ That is the point: catch the easy misses before they merge. It is not a substitu
 
 ## Closing thought
 
-The era of AI-assisted development isn't about working less; it's about working smarter. Treat your AI assistant like a brilliant but chronically overconfident junior developer, one whose work requires rigorous, structured oversight. By implementing a dedicated AI coding audit into your pipeline, you stop being a passive prompter and step back into the role of a true software architect. Developers who take advantage of the unprecedented velocity of these tools will need to maintain rigourous oversight to maintain production-grade quality.
+The era of AI-assisted development isn't about working less; it's about working smarter. Treat your AI assistant like a brilliant but chronically overconfident junior developer, one whose work requires rigorous, structured oversight. By implementing a dedicated AI coding audit into your pipeline, you stop being a passive prompter and step back into the role of a true software architect. Developers who take advantage of the unprecedented velocity of these tools will need to maintain rigorous oversight to maintain production-grade quality.
 
 ---
 
