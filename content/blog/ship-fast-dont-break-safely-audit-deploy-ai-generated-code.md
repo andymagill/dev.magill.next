@@ -1,13 +1,13 @@
 ---
 title: Ship Fast, Don't Break - Safely Audit & Deploy AI-Generated Code
-description: Safely audit and deploy AI-generated code by reviewing for common pitfalls like error swallowing, hallucinated APIs, accessibility regressions, and security anti-patterns.
+description: Safely audit and deploy AI-generated code by reviewing for common pitfalls like error swallowing, hallucinated APIs, and security anti-patterns.
 image: /images/blog/shipwreck-don-kawahigashi.jpg
 tags: AI Coding, Code Review, Testing, Best Practices
 created: 1782797157
-lastUpdated:
+lastUpdated: 1784818519
 ---
 
-AI models are incredibly confident, even when they are entirely wrong, and their mistakes often look perfectly plausible at first glance. If you are blindly copying, pasting, and deploying, you aren't accelerating your workflow, you are just automating your future headaches. To safely harness the power of AI, you need a modernized code review process designed specifically to catch the unique logic gaps and structural flaws only a machine would make.
+AI coding agents can seem incredibly confident, even when they are entirely wrong, and their mistakes often look perfectly plausible at first glance. If you are blindly copying, pasting, and deploying, you aren't accelerating your workflow, you are just automating your future headaches. To safely harness the power of AI, we need a modernized code review process designed specifically to catch the unique logic gaps and structural flaws that a human typically does not make.
 
 ## Looks Great, Also Broken
 
@@ -19,10 +19,9 @@ AI-generated code fails because it is trying to sound plausible, not necessarily
 - import the wrong symbol from the wrong dependacy
 - simulate but not replicate secutiry best practices
 
-So the real question is no longer, "does this read well?"
-It is: **did the model actually understand the objective, the scenario, and the requirements?**
+Coding agents will be tempted to provide solutions that look good at first glance. To avoid rubber stamping future headaches, we should confirm the model undertands the objective, the scenario, and the requirements.
 
-The easiest way to think about it is this: review AI code the way you would review work from a sharp junior developer — fast, useful, and occasionally wrong in predictable ways. Here are some of the more common ways AI generated code can fail, and how to spot them:
+The easiest way to think about it is this: review AI code the way you would review work from an eager junior developer — fast, useful, and occasionally wrong in predictable ways. Here is how we can spot the more common ways AI generated code can fail:
 
 ---
 
@@ -57,14 +56,13 @@ try {
 }
 ```
 
-The real question is not "did the code handle the error?"
-It is "did it keep the failure visible and stop the bad state from spreading?"
+Don't ask if the code handles the error. What we really need is an error that useful and gracefull.
 
 ---
 
 ## 2) Hallucinated APIs
 
-This is one of the most common AI mistakes: a method that sounds right but does not exist in the version you actually installed.
+Here's one of the most common AI mistakes: a method that smells okay but does not exist in the version you actually installed.
 
 ```ts
 const result = await client.responses.createMessage({
@@ -73,7 +71,7 @@ const result = await client.responses.createMessage({
 });
 ```
 
-Maybe that API exists somewhere, or maybe it never existed at all.
+That could be a real, valid API call, or very wishfully thinking from our AI coding agent.
 
 ### What it looks like
 
@@ -87,47 +85,11 @@ Maybe that API exists somewhere, or maybe it never existed at all.
 - verify the symbol exists before trusting a generated call site
 - if the API is new to the project, look for a working example in the codebase first
 
-My rule is simple: **if AI introduces a new library call, verify it before anything else**.
+Anytime the AI wants to add a new library call, confirm it loads as expected before examining the usage.
 
 ---
 
-## 3) Accessibility regressions
-
-AI can refactor JSX nicely and still remove the thing a screen reader needed.
-
-```tsx
-<label htmlFor="email">Email</label>
-<input id="email" type="email" />
-```
-
-turning into:
-
-```tsx
-<input type='email' placeholder='Email' />
-```
-
-The UI still works. The accessibility is worse.
-
-### What it looks like
-
-- removed `label` / `htmlFor` pairings
-- dropped `aria-*` attributes
-- buttons turned into clickable `div`s
-- focus states lost during styling cleanup
-
-### Safer version
-
-```tsx
-<label htmlFor="email">Email</label>
-<input id="email" type="email" aria-describedby="email-help" />
-<p id="email-help">We'll never share this address.</p>
-```
-
-If AI touches a form, modal, or navigation component, I check for a11y regressions before I read anything else.
-
----
-
-## 4) Dependency drift
+## 3) Dependency drift
 
 AI often writes code for the package ecosystem it wishes you had.
 
@@ -135,7 +97,7 @@ AI often writes code for the package ecosystem it wishes you had.
 import { formatDate } from 'date-fns';
 ```
 
-That might be right. It might also be the wrong import path, wrong helper, or wrong versioned API for your project.
+Maybe this is right, maybe it's complete nonsense. It could be the wrong import, wrong library, wrong versions for the job. This one is tricky to detect automagically, since the correct answer might not be readily apparent in the file being updated.
 
 ### What it looks like
 
@@ -150,13 +112,13 @@ That might be right. It might also be the wrong import path, wrong helper, or wr
 - confirm the package version and naming conventions
 - check whether a local helper already exists and should be reused
 
-A lot of "AI productivity" is really just "AI created extra cleanup work."
+Stuff that may seem quick and easy could be tech-debt in disguise if we haven't steered the coding agent with documented code standards and conventions.
 
 ---
 
-## 5) Security anti-patterns
+## 4) Security anti-patterns
 
-AI is very willing to trade safety for convenience.
+AI is very willing to trade safety for convenience. We humble humans are "absolutely right" to question whether our AI has considered the broader security picture.
 
 ### What it looks like
 
@@ -171,7 +133,7 @@ const fn = new Function(code);
 fn();
 ```
 
-Those are the kinds of shortcuts that can turn a normal change into a security review.
+These kinds of changes could turn a trivial update into a full security review.
 
 ### What it looks like
 
@@ -188,15 +150,13 @@ Those are the kinds of shortcuts that can turn a normal change into a security r
 - route risky input through the narrowest possible interface
 - treat AI-generated security code as untrusted until you verify it
 
-OWASP's AI testing guidance is a good reminder that modern AI risk is not just model weirdness — it is application security.[^3]
+Don't forget that [reviewing AI code](https://owasp.org/www-project-ai-testing-guide/) is not just about watching for anti-patterns and maintaiability, we also need to prevent new risks to application security and the software supply chain.
 
 ---
 
 ## Make the review executable
 
-Teams should not rely on memory for this.
-
-Put a lightweight scan into CI so the obvious mistakes fail fast.
+Developers can't rely on an mental checklist to check every kind of AI coding mistake. Let's make our lives easier wuth a lightweight CI/CD scan to surface obvious problems to human eyes.
 
 ```yaml
 name: ai-code-audit
@@ -221,17 +181,13 @@ jobs:
         run: |
           git diff --unified=0 origin/${{ github.base_ref }}...HEAD > diff.txt
 
-          if grep -E "\b(innerHTML|eval\(|new Function\(|catch \(|try \{)" diff.txt >/dev/null; then
+          if grep -E "\b(innerHTML|eval\(|new Function\(|catch \(|try \{|console\.(log|debug)\(|SELECT|INSERT|UPDATE|DELETE)" diff.txt >/dev/null; then
             echo "Possible AI anti-pattern found in diff"
             exit 1
           fi
-
-          if grep -E "aria-|htmlFor|label" diff.txt >/dev/null; then
-            echo "Accessibility-sensitive change detected — require manual review"
-          fi
 ```
 
-This scan is just a tripwire. It does **not** understand your app, and it is not trying to. It looks for a few obvious red flags in the diff — unsafe HTML or code execution patterns, sloppy error handling, and accessibility-sensitive changes — then makes a person look at the change.
+This scan is just a tripwire. It does **not** understand your app, and it is not trying to. It looks for a few obvious red flags in the diff — unsafe HTML or code execution patterns, sloppy error handling with noisy logging, raw SQL queries, and accessibility-sensitive changes — then makes a person look at the change.
 
 That is the point: catch the easy misses before they merge. It is not a substitute for real review, or a reliable way to enforce security standards in an automated workflow.
 
@@ -249,11 +205,3 @@ The era of AI-assisted development isn't about working less; it's about working 
 - Uber cap coverage: [Uber caps employee AI spending after blowing through budget in four months](https://techcrunch.com/2026/06/02/uber-caps-employee-ai-spending-after-blowing-through-budget-in-four-months/)
 - Stack Overflow survey: [AI | 2025 Stack Overflow Developer Survey](https://survey.stackoverflow.co/2025/ai)
 - OWASP: [OWASP AI Testing Guide](https://owasp.org/www-project-ai-testing-guide/)
-
-[^1]: https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
-
-[^2]: https://techcrunch.com/2026/06/02/uber-caps-employee-ai-spending-after-blowing-through-budget-in-four-months/
-
-[^3]: https://owasp.org/www-project-ai-testing-guide/
-
-[^4]: https://survey.stackoverflow.co/2025/ai
