@@ -26,17 +26,17 @@
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.11.1",
 		"markdown-to-jsx": "9.9.0",
-		"next": "^16.2.11",
+		"next": "^16.2.12",
 		"next-sitemap": "^4.2.3",
 		"react": "^19.2.8",
 		"react-dom": "^19.2.8",
 		"rss": "^1.2.2",
-		"sass": "^1.101.3",
+		"sass": "^1.102.0",
 		"serve": "^14.2.6",
 		"typescript": "^6.0.0 || >=7.1.0"
 	},
 	"devDependencies": {
-		"@next/bundle-analyzer": "^16.2.11",
+		"@next/bundle-analyzer": "^16.2.12",
 		"@testing-library/dom": "^10.4.1",
 		"@testing-library/jest-dom": "^7.0.0",
 		"@testing-library/react": "^16.3.2",
@@ -45,11 +45,11 @@
 		"@types/react": "^19.2.17",
 		"@types/react-dom": "^19.2.3",
 		"@types/rss": "^0.0.32",
-		"@vitejs/plugin-react": "^6.0.3",
+		"@vitejs/plugin-react": "^6.0.4",
 		"@vitest/coverage-v8": "^4.1.10",
 		"cross-env": "^10.1.0",
 		"eslint": "9.39.5",
-		"eslint-config-next": "^16.2.11",
+		"eslint-config-next": "^16.2.12",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-import": "^2.32.0",
 		"eslint-plugin-jsx-a11y": "^6.10.2",
@@ -57,10 +57,10 @@
 		"eslint-plugin-react-hooks": "^7.1.1",
 		"husky": "^9.1.7",
 		"jsdom": "^29.1.1",
-		"lint-staged": "^17.1.0",
+		"lint-staged": "^17.2.0",
 		"prettier": "^3.9.6",
 		"vite": "^8.1.5",
 		"vitest": "^4.1.10",
-		"wrangler": "^4.113.0"
+		"wrangler": "^4.114.0"
 	}
 }
