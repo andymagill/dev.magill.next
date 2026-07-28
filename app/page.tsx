@@ -40,6 +40,9 @@ export const metadata: Metadata = {
 			},
 		],
 	},
+	other: {
+		'impact-site-verification': '05a6de63-a6b9-4eb5-a1b3-7e4f725252bf',
+	},
 };
 
 export default function Home() {
