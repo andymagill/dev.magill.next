@@ -5,6 +5,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import Script from 'next/script';
 import type { Metadata } from 'next';
 
 import { settings } from '@/utils/settings.mjs';
@@ -40,9 +41,6 @@ export const metadata: Metadata = {
 			},
 		],
 	},
-	other: {
-		'impact-site-verification': '05a6de63-a6b9-4eb5-a1b3-7e4f725252bf',
-	},
 };
 
 export default function Home() {
@@ -69,6 +67,13 @@ export default function Home() {
 
 	return (
 		<main className={`${styles.main} main`}>
+			<Script
+				id='impact-site-verification'
+				strategy='beforeInteractive'
+				dangerouslySetInnerHTML={{
+					__html: `(function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7530890-8f86-4a43-934c-cb0cd840392b1.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');`,
+				}}
+			/>
 			{/* JSON-LD structured data for SEO */}
 			<JsonLd data={jsonLd} />
 			<div className={`${styles.mainWrapper} mainWrapper`}>
