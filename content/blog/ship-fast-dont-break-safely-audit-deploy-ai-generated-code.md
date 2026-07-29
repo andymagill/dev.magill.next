@@ -19,7 +19,7 @@ AI-generated code fails because it is trying to sound plausible, not necessarily
 - import the wrong symbol from the wrong dependency
 - simulate but not replicate security best practices
 
-Coding agents will be tempted to provide solutions that look good at first glance. To avoid rubber stamping future headaches, we should confirm the model understands the objective, the scenario, and the requirements.
+Coding agents love to provide code changes that look good at a glance. To avoid rubber stamping future headaches, we should confirm the model understands the objective, the scenario, and the requirements.
 
 The easiest way to think about it is this: review AI code the way you would review work from an eager junior developer — fast, useful, and occasionally wrong in predictable ways. Here is how we can spot the more common ways AI generated code can fail:
 
@@ -33,7 +33,7 @@ AI loves to make failures disappear, and doesn't care how.
 try {
 	await saveDocument(payload);
 } catch (error) {
-	console.log('Ooppsie daisy!');
+	console.log('Oopsie daisy!');
 }
 ```
 
@@ -97,7 +97,7 @@ AI often writes code for the package ecosystem it wishes you had.
 import { formatDate } from 'date-fns';
 ```
 
-Maybe this is right, maybe it's complete nonsense. It could be the wrong import, wrong library, wrong versions for the job. This one is tricky to detect automagically, since the correct answer might not be readily apparent in the file being updated.
+Maybe this is right, maybe it's hallucinated nonsense. It could be the wrong import, wrong library, wrong versions for the job. This one is tricky to detect automagically, since the correct answer might not be readily apparent in the file being updated.
 
 ### What it looks like
 
@@ -189,13 +189,15 @@ jobs:
 
 This scan is just a tripwire. It does **not** understand your app, and it is not trying to. It looks for a few obvious red flags in the diff — unsafe HTML or code execution patterns, sloppy error handling with noisy logging, raw SQL queries, and accessibility-sensitive changes — then makes a person look at the change.
 
-That is the point: catch the easy misses before they merge. It is not a substitute for real review, or a reliable way to enforce security standards in an automated workflow.
+That is the point: catch the easy misses before they merge. But we should not pretend this is a substitute for real review, or a reliable way to enforce security standards in an automated workflow.
 
 ---
 
 ## Closing thought
 
-The era of AI-assisted development isn't about working less; it's about working smarter. Treat your AI assistant like a brilliant but chronically overconfident junior developer, one whose work requires rigorous, structured oversight. By implementing a dedicated AI coding audit into your pipeline, you stop being a passive prompter and step back into the role of a true software architect. Developers who take advantage of the unprecedented velocity of these tools will need to maintain rigorous oversight to maintain production-grade quality.
+The age of AI-coded software isn't about writing less code, it's about working smarter. Treat your AI assistant like a capable but frequently overconfident junior developer, whose work requires regular, structured oversight.
+
+Incorporating a dedicated coding audit into our CI/CD pipeline calls out obvious problems early, so we can focus on the core priority of the codebase. Developers who take advantage of the unprecedented capabilities of these tools will need to maintain rigorous oversight to maintain production-grade quality.
 
 ---
 
