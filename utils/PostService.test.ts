@@ -112,6 +112,16 @@ describe('PostService', () => {
 			const mockSlugs = ['post-1', 'post-2', 'post-3'];
 			repository.getAllPostSlugs.mockReturnValue(mockSlugs);
 
+			const now = Math.floor(Date.now() / 1000);
+			const getPostSpy = vi.spyOn(service, 'getPost');
+			getPostSpy.mockImplementation((slug) => {
+				return {
+					tags: ['test'],
+					slug,
+					created: String(now), // Published now
+				} as Post;
+			});
+
 			// Execute
 			const slugs = service.getSlugs();
 
@@ -126,15 +136,28 @@ describe('PostService', () => {
 			repository.getAllPostSlugs.mockReturnValue(mockSlugs);
 
 			// Mock getPost to return different tags for different posts
+			const now = Math.floor(Date.now() / 1000);
 			const getPostSpy = vi.spyOn(service, 'getPost');
 
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'post-1') {
-					return { tags: ['react', 'javascript'], slug } as Post;
+					return {
+						tags: ['react', 'javascript'],
+						slug,
+						created: String(now),
+					} as Post;
 				} else if (slug === 'post-2') {
-					return { tags: ['typescript', 'testing'], slug } as Post;
+					return {
+						tags: ['typescript', 'testing'],
+						slug,
+						created: String(now),
+					} as Post;
 				} else {
-					return { tags: ['react', 'testing'], slug } as Post;
+					return {
+						tags: ['react', 'testing'],
+						slug,
+						created: String(now),
+					} as Post;
 				}
 			});
 
@@ -143,7 +166,8 @@ describe('PostService', () => {
 
 			// Verify
 			expect(reactSlugs).toEqual(['post-1', 'post-3']);
-			expect(getPostSpy).toHaveBeenCalledTimes(3);
+			// getPost is called 3 times for publish filtering + 3 times for tag filtering = 6 times total
+			expect(getPostSpy).toHaveBeenCalledTimes(6);
 
 			// Reset and test another tag
 			getPostSpy.mockClear();
@@ -153,7 +177,8 @@ describe('PostService', () => {
 
 			// Verify
 			expect(typescriptSlugs).toEqual(['post-2']);
-			expect(getPostSpy).toHaveBeenCalledTimes(3);
+			// getPost is called 3 times for publish filtering + 3 times for tag filtering = 6 times total
+			expect(getPostSpy).toHaveBeenCalledTimes(6);
 		});
 
 		it('should handle posts with no tags', () => {
@@ -162,12 +187,21 @@ describe('PostService', () => {
 			repository.getAllPostSlugs.mockReturnValue(mockSlugs);
 
 			// Mock getPost to return a post with no tags
+			const now = Math.floor(Date.now() / 1000);
 			const getPostSpy = vi.spyOn(service, 'getPost');
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'post-1') {
-					return { tags: [], slug } as Post; // No tags
+					return {
+						tags: [],
+						slug,
+						created: String(now),
+					} as Post; // No tags
 				} else {
-					return { tags: ['typescript'], slug } as Post;
+					return {
+						tags: ['typescript'],
+						slug,
+						created: String(now),
+					} as Post;
 				}
 			});
 
@@ -244,6 +278,116 @@ describe('PostService', () => {
 			const matterParser = new MatterContentParser();
 
 			expect(() => new PostService(fileSystemRepo, matterParser)).not.toThrow();
+		});
+	});
+
+	describe('Publication date filtering', () => {
+		it('should filter out future-dated posts in getSlugs()', () => {
+			// Setup
+			const mockSlugs = ['published-post', 'future-post'];
+			repository.getAllPostSlugs.mockReturnValue(mockSlugs);
+
+			const now = Date.now();
+			const oneHourFromNow = Math.floor((now + 3600000) / 1000); // Unix timestamp in seconds
+			const oneHourAgo = Math.floor((now - 3600000) / 1000);
+
+			const getPostSpy = vi.spyOn(service, 'getPost');
+			getPostSpy.mockImplementation((slug) => {
+				if (slug === 'published-post') {
+					return {
+						...mockParsedContent,
+						slug,
+						created: String(oneHourAgo), // Published in the past
+					} as Post;
+				} else {
+					return {
+						...mockParsedContent,
+						slug,
+						created: String(oneHourFromNow), // Scheduled for the future
+					} as Post;
+				}
+			});
+
+			// Execute
+			const slugs = service.getSlugs();
+
+			// Verify - only the published post should be included
+			expect(slugs).toEqual(['published-post']);
+			expect(slugs).not.toContain('future-post');
+		});
+
+		it('should filter out future-dated posts when filtering by tag', () => {
+			// Setup
+			const mockSlugs = ['published-post', 'future-post', 'published-post-2'];
+			repository.getAllPostSlugs.mockReturnValue(mockSlugs);
+
+			const now = Date.now();
+			const oneHourFromNow = Math.floor((now + 3600000) / 1000);
+			const oneHourAgo = Math.floor((now - 3600000) / 1000);
+
+			const getPostSpy = vi.spyOn(service, 'getPost');
+			getPostSpy.mockImplementation((slug) => {
+				if (slug === 'published-post') {
+					return {
+						tags: ['react', 'javascript'],
+						slug,
+						created: String(oneHourAgo),
+					} as Post;
+				} else if (slug === 'future-post') {
+					return {
+						tags: ['react', 'javascript'],
+						slug,
+						created: String(oneHourFromNow),
+					} as Post;
+				} else {
+					return {
+						tags: ['typescript'],
+						slug,
+						created: String(oneHourAgo),
+					} as Post;
+				}
+			});
+
+			// Execute - filter by 'react' tag
+			const slugs = service.getSlugs('react');
+
+			// Verify - only the published post with 'react' tag should be included
+			expect(slugs).toEqual(['published-post']);
+			expect(slugs).not.toContain('future-post');
+		});
+
+		it('should include posts with created date equal to or earlier than now', () => {
+			// Setup
+			const mockSlugs = ['just-now-post', 'past-post'];
+			repository.getAllPostSlugs.mockReturnValue(mockSlugs);
+
+			const now = Math.floor(Date.now() / 1000); // Current Unix timestamp in seconds
+			const oneHourAgo = now - 3600;
+
+			const getPostSpy = vi.spyOn(service, 'getPost');
+			getPostSpy.mockImplementation((slug) => {
+				if (slug === 'just-now-post') {
+					return {
+						...mockParsedContent,
+						slug,
+						created: String(now), // Created exactly now
+					} as Post;
+				} else {
+					return {
+						...mockParsedContent,
+						slug,
+						created: String(oneHourAgo), // Created in the past
+					} as Post;
+				}
+			});
+
+			// Execute
+			const slugs = service.getSlugs();
+
+			// Verify - both posts should be included
+			expect(slugs).toContain('just-now-post');
+			expect(slugs).toContain('past-post');
+			expect(slugs.length).toBe(2);
 		});
 	});
 });

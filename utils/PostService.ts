@@ -14,6 +14,32 @@ export class PostService implements IPostService {
 		private parser: IContentParser
 	) {}
 
+	/**
+	 * Check if a post is published (created date is in the past or present)
+	 * @param post - The post to check
+	 * @returns true if the post should be published, false if it's scheduled for the future
+	 */
+	private isPublished(post: Post): boolean {
+		const created = post.created;
+
+		// Try to parse as Unix timestamp (number as string)
+		const timestamp = parseInt(created, 10);
+		if (!isNaN(timestamp) && timestamp > 0) {
+			// Assume it's a Unix timestamp in seconds if it's a valid positive number
+			const createdTime = timestamp * 1000; // Convert to milliseconds
+			return createdTime <= Date.now();
+		}
+
+		// Try to parse as ISO date string or other date formats
+		const createdDate = new Date(created);
+		if (!isNaN(createdDate.getTime())) {
+			return createdDate.getTime() <= Date.now();
+		}
+
+		// If we can't parse the date, assume it's published
+		return true;
+	}
+
 	getPost(slug: string): Post {
 		// Return cached post if available
 		if (this.postCache.has(slug)) {
@@ -43,15 +69,21 @@ export class PostService implements IPostService {
 	getSlugs(tag = ''): string[] {
 		const slugs = this.repository.getAllPostSlugs();
 
+		// Filter to only published posts
+		const publishedSlugs = slugs.filter((slug) => {
+			const post = this.getPost(slug);
+			return this.isPublished(post);
+		});
+
 		if (tag) {
 			const normalizedTag = tag.toLowerCase().trim();
-			return slugs.filter((slug) => {
+			return publishedSlugs.filter((slug) => {
 				const { tags } = this.getPost(slug);
 				return tags.some((t) => t.toLowerCase().trim() === normalizedTag);
 			});
 		}
 
-		return slugs;
+		return publishedSlugs;
 	}
 
 	getPosts(slugs?: string[]): Post[] {
