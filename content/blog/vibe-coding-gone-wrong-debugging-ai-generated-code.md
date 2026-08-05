@@ -4,7 +4,7 @@ description: A systematic approach to finding and fixing bugs in AI-generated co
 image: /images/blog/exterminator.jpg
 tags: ai-generated-code, bug-fixing, testing
 created: 1785445993
-lastUpdated:
+lastUpdated: 1785951683
 ---
 
 First step is admitting you have a problem. You were not watching your coding agent closely and now a pesky bug snuck into your project. Oh whatever shall we do? Don't just throw the error message back at the coding assistant over and over and expect a stable solution.
@@ -33,9 +33,9 @@ If we have done all the above correctly, we will be an expert on this particular
 
 ## Deploy the fix
 
-You and your intrepid coding agent should now have enough understanding to confidently identify suitable fixes. We can now incorporate those fixes one at a time until we see the expected behavior. Once that is in-place, we can use test cases to verify that our unit tests and regression tests pass successfully. Document how you untangled the bug nest for future developers and coding agents.
+You and your intrepid coding agent should now have enough understanding to confidently identify suitable fixes. We can now incorporate those fixes one at a time until we see the expected behavior. Once that is in-place, we can use test cases to verify that our unit tests and regression tests pass successfully. Document how you untangled the bug nest for future developers and coding agents. If you see a swarm of new bugs instead of a working solution, head back up to step 1 and try again.
 
-## TRelated Reading
+## Related Reading
 
 - [Minimal Reproducible Example (MRE)](https://stackoverflow.com/help/minimal-reproducible-example)
 - [Unit Testing Best Practices](https://dev.to/canro91/unit-testing-best-practices-organization-test-data-1o6o)
