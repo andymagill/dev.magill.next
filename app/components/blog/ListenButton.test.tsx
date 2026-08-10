@@ -117,7 +117,7 @@ describe('ListenButton', () => {
 			removeEventListener: vi.fn(),
 		} as any;
 
-		(window as any).SpeechSynthesisUtterance = function () {
+		(window as any).SpeechSynthesisUtterance = function (this: any) {
 			this.onstart = undefined;
 			this.onend = undefined;
 			this.onerror = undefined;
@@ -258,7 +258,7 @@ describe('ListenButton', () => {
 			removeEventListener: vi.fn(),
 		} as any;
 
-		(window as any).SpeechSynthesisUtterance = function () {
+		(window as any).SpeechSynthesisUtterance = function (this: any) {
 			this.onstart = undefined;
 		} as any;
 

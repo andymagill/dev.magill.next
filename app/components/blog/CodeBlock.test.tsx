@@ -10,7 +10,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 // Mock highlight.js core and language modules to keep tests fast and isolated
 vi.mock('highlight.js/lib/core', () => ({
 	default: {
-		getLanguage: vi.fn().mockReturnValue(null),
+		getLanguage: vi.fn().mockReturnValue(undefined),
 		registerLanguage: vi.fn(),
 		highlight: vi
 			.fn()
@@ -52,7 +52,7 @@ import hljs from 'highlight.js/lib/core';
 describe('CodeBlock', () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
-		vi.mocked(hljs.getLanguage).mockReturnValue(null);
+		vi.mocked(hljs.getLanguage).mockReturnValue(undefined);
 		vi.mocked(hljs.highlight).mockReturnValue({
 			value: '<span class="hljs-keyword">const</span>',
 		} as any);
@@ -81,7 +81,7 @@ describe('CodeBlock', () => {
 	});
 
 	it('registers the language when not already registered', async () => {
-		vi.mocked(hljs.getLanguage).mockReturnValue(null);
+		vi.mocked(hljs.getLanguage).mockReturnValue(undefined);
 		render(<CodeBlock className='lang-ts'>type X = string;</CodeBlock>);
 		await waitFor(() => {
 			expect(hljs.registerLanguage).toHaveBeenCalledWith(
