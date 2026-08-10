@@ -192,16 +192,28 @@ describe('PostService', () => {
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'post-1') {
 					return {
+						content: mockParsedContent.content,
+						title: mockParsedContent.data.title,
+						description: mockParsedContent.data.description,
+						image: mockParsedContent.data.image,
 						tags: [],
 						slug,
+						url: `${settings.siteUrl}/${slug}`,
 						created: String(now),
-					} as unknown as Post; // No tags
+						lastUpdated: mockParsedContent.data.lastUpdated,
+					} as Post; // No tags
 				} else {
 					return {
+						content: mockParsedContent.content,
+						title: mockParsedContent.data.title,
+						description: mockParsedContent.data.description,
+						image: mockParsedContent.data.image,
 						tags: ['typescript'],
 						slug,
+						url: `${settings.siteUrl}/${slug}`,
 						created: String(now),
-					} as unknown as Post;
+						lastUpdated: mockParsedContent.data.lastUpdated,
+					} as Post;
 				}
 			});
 
@@ -295,16 +307,28 @@ describe('PostService', () => {
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'published-post') {
 					return {
-						...mockParsedContent,
+						content: mockParsedContent.content,
+						title: mockParsedContent.data.title,
+						description: mockParsedContent.data.description,
+						image: mockParsedContent.data.image,
+						tags: mockParsedContent.data.tags,
 						slug,
+						url: `${settings.siteUrl}/${slug}`,
 						created: String(oneHourAgo), // Published in the past
-					} as unknown as Post;
+						lastUpdated: mockParsedContent.data.lastUpdated,
+					} as Post;
 				} else {
 					return {
-						...mockParsedContent,
+						content: mockParsedContent.content,
+						title: mockParsedContent.data.title,
+						description: mockParsedContent.data.description,
+						image: mockParsedContent.data.image,
+						tags: mockParsedContent.data.tags,
 						slug,
+						url: `${settings.siteUrl}/${slug}`,
 						created: String(oneHourFromNow), // Scheduled for the future
-					} as unknown as Post;
+						lastUpdated: mockParsedContent.data.lastUpdated,
+					} as Post;
 				}
 			});
 
@@ -368,15 +392,27 @@ describe('PostService', () => {
 			getPostSpy.mockImplementation((slug) => {
 				if (slug === 'just-now-post') {
 					return {
-						...mockParsedContent,
+						content: mockParsedContent.content,
+						title: mockParsedContent.data.title,
+						description: mockParsedContent.data.description,
+						image: mockParsedContent.data.image,
+						tags: mockParsedContent.data.tags,
 						slug,
+						url: `${settings.siteUrl}/${slug}`,
 						created: String(now), // Created exactly now
+						lastUpdated: mockParsedContent.data.lastUpdated,
 					} as Post;
 				} else {
 					return {
-						...mockParsedContent,
+						content: mockParsedContent.content,
+						title: mockParsedContent.data.title,
+						description: mockParsedContent.data.description,
+						image: mockParsedContent.data.image,
+						tags: mockParsedContent.data.tags,
 						slug,
+						url: `${settings.siteUrl}/${slug}`,
 						created: String(oneHourAgo), // Created in the past
+						lastUpdated: mockParsedContent.data.lastUpdated,
 					} as Post;
 				}
 			});
