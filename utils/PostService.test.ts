@@ -195,13 +195,13 @@ describe('PostService', () => {
 						tags: [],
 						slug,
 						created: String(now),
-					} as Post; // No tags
+					} as unknown as Post; // No tags
 				} else {
 					return {
 						tags: ['typescript'],
 						slug,
 						created: String(now),
-					} as Post;
+					} as unknown as Post;
 				}
 			});
 
@@ -298,13 +298,13 @@ describe('PostService', () => {
 						...mockParsedContent,
 						slug,
 						created: String(oneHourAgo), // Published in the past
-					} as Post;
+					} as unknown as Post;
 				} else {
 					return {
 						...mockParsedContent,
 						slug,
 						created: String(oneHourFromNow), // Scheduled for the future
-					} as Post;
+					} as unknown as Post;
 				}
 			});
 
