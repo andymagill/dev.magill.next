@@ -8,8 +8,8 @@ This project is a TypeScript/React/Next.JS portfolio and statically generated bl
 
 To install, follow these steps:
 
-1. Make sure you have Node.js version 14 or higher installed on your machine.
-2. Install pnpm if you haven't already: `npm install -g pnpm` (or see [pnpm installation guide](https://pnpm.io/installation))
+1. Make sure you have Node.js version 18 or higher installed on your machine.
+2. **Important**: This project requires pnpm 10.25.0. Install it with: `npm install -g pnpm@10.25.0`
 3. Clone the repository: `git clone https://github.com/andymagill/dev.magill.next.git`
 4. Install the project dependencies: `pnpm install`
 
