@@ -28,4 +28,27 @@ describe('ProjectCard', () => {
 		fireEvent.click(screen.getByText(/Test Project/i));
 		expect(handleClick).toHaveBeenCalled();
 	});
+
+	it('archive variant renders an image-only tile that still responds to click', () => {
+		const handleClick = vi.fn();
+		render(
+			<ProjectCard
+				title='Archived Project'
+				summary='hidden summary'
+				description='desc'
+				image='/img.jpg'
+				tags={[]}
+				onClick={handleClick}
+				variant='archive'
+			/>
+		);
+
+		expect(screen.queryByRole('heading')).toBeNull();
+		expect(screen.queryByText(/hidden summary/i)).toBeNull();
+		const img = screen.getByAltText(/Archived Project/i);
+		expect(img).toBeInTheDocument();
+
+		fireEvent.click(img);
+		expect(handleClick).toHaveBeenCalled();
+	});
 });

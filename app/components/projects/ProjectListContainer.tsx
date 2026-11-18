@@ -10,6 +10,7 @@ import { ProjectListContainerProps } from '@/utils/types';
 export default async function ProjectListContainer({
 	file = '',
 	maxProjects = 0,
+	variant = 'default',
 }: ProjectListContainerProps): Promise<ReactElement> {
 	// Fetch data and handle errors before constructing JSX
 	let projectsToRender = [] as any[];
@@ -29,7 +30,7 @@ export default async function ProjectListContainer({
 
 	return (
 		<Suspense fallback={<div>Loading projects...</div>}>
-			<ProjectList projects={projectsToRender} />
+			<ProjectList projects={projectsToRender} variant={variant} />
 		</Suspense>
 	);
 }

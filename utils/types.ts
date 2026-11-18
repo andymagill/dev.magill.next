@@ -29,10 +29,14 @@ export interface ProjectsData {
 	projects: Project[];
 }
 
+// Visual treatment for project cards: full card, or compact image-only archive tile
+export type ProjectCardVariant = 'default' | 'archive';
+
 // Improved props interface following Interface Segregation Principle
 export interface ProjectListContainerProps {
 	file?: string;
 	maxProjects?: number;
+	variant?: ProjectCardVariant;
 }
 
 // New interfaces for SOLID compliant post handling
