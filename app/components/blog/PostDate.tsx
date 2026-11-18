@@ -1,5 +1,3 @@
-import styles from './PostDate.module.scss';
-
 /**
  * PostDate Component
  *
@@ -84,17 +82,17 @@ export default function PostDate({ created, lastUpdated }: PostDateProps) {
 	}
 
 	return (
-		<div className={styles.dateContainer}>
+		<div className='mt-2 flex flex-col gap-2 text-center text-[0.8em] leading-none xs:flex-row xs:items-center xs:gap-4'>
 			{publishedDate && (
-				<span className={styles.dateLine}>
+				<span className='whitespace-nowrap'>
 					Published on <time dateTime={createdOrFallback}>{publishedDate}</time>
 				</span>
 			)}
 			{publishedDate && showUpdated && (
-				<span className={styles.separator}> • </span>
+				<span className='hidden xs:inline'> • </span>
 			)}
 			{showUpdated && (
-				<span className={styles.dateLine}>
+				<span className='whitespace-nowrap'>
 					Updated on <time dateTime={lastUpdated}>{updatedDate}</time>
 				</span>
 			)}

@@ -2,13 +2,6 @@
 
 .postIndex {
 	margin-top: var(--gutter);
-
-	:global(.postDetails) {
-		@media (min-width: 480px) {
-			padding-top: 0;
-			padding-bottom: 0;
-		}
-	}
 }
 
 .wrapper {

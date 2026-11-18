@@ -165,7 +165,7 @@ export default function Home() {
 						<p>
 							My thoughts on integrations, compliance, and engineering insights.
 						</p>
-						<PostList maxPosts={3} />
+						<PostList maxPosts={3} variant='compact' />
 						<Link href='/blog' className={styles.viewAllButton}>
 							View All Posts
 						</Link>
