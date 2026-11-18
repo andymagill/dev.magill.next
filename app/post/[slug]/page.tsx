@@ -23,7 +23,6 @@ import RelatedPosts from '@/app/components/blog/RelatedPosts';
 import RelatedPostList from '@/app/components/blog/RelatedPostList';
 import JsonLd from '@/app/components/global/JsonLd';
 import MarkdownBody from '@/app/components/blog/MarkdownBody';
-import styles from './page.module.scss';
 
 /**
  * Generates static paths for all blog posts at build time
@@ -144,13 +143,13 @@ export default async function Post(props: PostProps) {
 	};
 
 	return (
-		<main className={styles.main}>
+		<main>
 			{/* JSON-LD structured data for SEO */}
 			<JsonLd data={jsonLd} />
 			<Hero>
-				<h1 className={styles.title}>{post.title}</h1>
-				<p className={styles.description}>{post.description}</p>
-				<p className={styles.author}>
+				<h1 className='text-center'>{post.title}</h1>
+				<p className='text-center text-[1.11em]'>{post.description}</p>
+				<p className='text-[0.9em] whitespace-nowrap'>
 					by <Link href='/'>{displayAuthor}</Link>
 				</p>
 				<PostDate created={post.created} lastUpdated={post.lastUpdated} />
@@ -158,23 +157,31 @@ export default async function Post(props: PostProps) {
 				<ListenButton text={post.content} />
 			</Hero>
 
-			<article className={styles.post}>
+			{/* `.markdown` styles the generated post HTML (see app/styles/markdown.css) */}
+			<article className='markdown mx-auto my-4 max-w-blog p-gap leading-[1.75em]'>
 				<MarkdownBody content={post.content} />
 				<ShareButtons title={post.title} />
 
 				{/* Filed Under Tags */}
-				<div className={styles.filedUnder}>
-					<label>Filed under:</label>
-					<ul>
+				<div className='flex flex-wrap items-center justify-center gap-4'>
+					<label className='font-semibold whitespace-nowrap'>
+						Filed under:
+					</label>
+					<ul className='m-0 flex list-none flex-wrap justify-center gap-3 p-0'>
 						{post.tags.map((tag, index) => (
-							<li key={index}>{tag}</li>
+							<li
+								key={index}
+								className='rounded-[0.25rem] bg-[#80808033] px-2 py-[0.1rem] text-[0.9em]'
+							>
+								{tag}
+							</li>
 						))}
 					</ul>
 				</div>
 			</article>
 
 			{/* Related posts (SSG + client reveal) */}
-			<RelatedPosts className={styles.related}>
+			<RelatedPosts>
 				<RelatedPostList tags={post.tags.join(', ')} currentSlug={post.slug} />
 			</RelatedPosts>
 		</main>

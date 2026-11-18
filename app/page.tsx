@@ -14,7 +14,6 @@ import Callout from '@/app/components/global/Callout';
 import PostList from '@/app/components/blog/PostList';
 import ProjectListContainer from '@/app/components/projects/ProjectListContainer';
 import JsonLd from '@/app/components/global/JsonLd';
-import styles from './page.module.scss';
 
 // Define the metadata for the page
 export const metadata: Metadata = {
@@ -66,47 +65,47 @@ export default function Home() {
 	];
 
 	return (
-		<main className={`${styles.main} main`}>
+		<main className='min-h-0'>
 			{/* JSON-LD structured data for SEO */}
 			<JsonLd data={jsonLd} />
-			<div className={`${styles.mainWrapper} mainWrapper`}>
+			<div className='m-auto'>
 				<Hero layout='row'>
 					{/* Portrait */}
-					<div className={`${styles.portraitContainer} portraitContainer`}>
+					<div className='mx-auto max-w-[66%] self-start xs:w-[33%]'>
 						{/* TODO: Create slideshow of Portraits  */}
 						{/* TODO: Add intro video */}
 						<Image
 							src='/images/portrait-andrew-magill.jpg'
 							alt={settings.title}
-							className={`${styles.portrait} portrait`}
+							className='h-auto w-full border-[3px] border-always-white'
 							width={300}
 							height={300}
 						/>
 					</div>
 
 					{/* Homepage Intro */}
-					<div className={`${styles.homeIntro} homeIntro`}>
+					<div className='basis-[67%] text-[clamp(1.5rem,2.5vw,2rem)]'>
 						<h1>
 							<strong>Hey there! I’m Andrew&nbsp;Magill.</strong>
 							<br />
 							I&apos;m a Software Developer with deep experience converting
 							ambitious goals into scalable solutions.
 						</h1>{' '}
-						<p>
+						<p className='mt-6 mb-0 inline'>
 							15+ years of hands-on implementation experience delivering
 							exceptional outcomes across Ecommerce, Pharmaceutical Marketing,
 							and B2B healthcare.
 						</p>
-						<div className={styles.ctaRow}>
+						<div className='mt-6 flex flex-wrap gap-3'>
 							<a
 								href='https://calendar.google.com/calendar/appointments/schedules/AcZssZ1eVLAyEkJQ7H3o24pzhMevGobzhTexLeufmSBltUhQHxu49SAvt2Oog63LhckkwhbQYp8IiXOJ?gv=true'
 								target='_blank'
 								rel='noopener noreferrer'
-								className={styles.ctaPrimary}
+								className='btn'
 							>
 								Book some time
 							</a>
-							<Link href='/projects' className={styles.ctaSecondary}>
+							<Link href='/projects' className='btn btn-outline'>
 								See my work
 							</Link>
 						</div>
@@ -114,14 +113,14 @@ export default function Home() {
 				</Hero>
 
 				{/* Key Skills */}
-				<section className={`${styles.serviceList} serviceList`}>
-					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Core Capabilities</h2>
-						<p>
+				<section className='mt-[8vmin]'>
+					<div className='m-auto max-w-inner p-4'>
+						<h2 className='text-center'>Core Capabilities</h2>
+						<p className='text-center'>
 							Here’s how I help teams and stakeholders turn ambitious technical
 							requirements into production-ready systems.
 						</p>
-						<div className={`${styles.calloutContainer} calloutContainer`}>
+						<div className='mt-gap flex flex-col gap-gap xs:flex-row xs:*:grow xs:*:basis-0'>
 							<Callout
 								title='Engineering Architecture'
 								description='I align cross-functional teams and business stakeholders to scope, architect, and deliver bespoke technical solutions. '
@@ -144,29 +143,32 @@ export default function Home() {
 				</section>
 
 				{/* Featured Projects */}
-				<section className={`${styles.featuredProjects} featuredProjects`}>
-					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Featured Case Studies</h2>
-						<p>
+				<section className='mt-[8vmin]'>
+					<div className='mx-auto my-0 max-w-inner p-gap'>
+						<h2 className='text-center'>Featured Case Studies</h2>
+						<p className='text-center'>
 							A look at how I solve complex technical and operational challenges
 							in the wild.{' '}
 						</p>
 						<ProjectListContainer maxProjects={3} />
-						<Link href='/projects' className={styles.viewAllButton}>
+						<Link
+							href='/projects'
+							className='btn mx-auto mt-gap mb-0 block w-fit'
+						>
 							View All Projects
 						</Link>
 					</div>
 				</section>
 
 				{/* Recent Posts */}
-				<section className={`${styles.recentPosts} recentPosts`}>
-					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Recent Writing</h2>
-						<p>
+				<section className='mt-[8vmin]'>
+					<div className='mx-auto my-0 max-w-inner p-gap'>
+						<h2 className='text-center'>Recent Writing</h2>
+						<p className='text-center'>
 							My thoughts on integrations, compliance, and engineering insights.
 						</p>
 						<PostList maxPosts={3} variant='compact' />
-						<Link href='/blog' className={styles.viewAllButton}>
+						<Link href='/blog' className='btn mx-auto mt-gap mb-0 block w-fit'>
 							View All Posts
 						</Link>
 					</div>
