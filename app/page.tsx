@@ -70,7 +70,7 @@ export default function Home() {
 			{/* JSON-LD structured data for SEO */}
 			<JsonLd data={jsonLd} />
 			<div className={`${styles.mainWrapper} mainWrapper`}>
-				<Hero className='row'>
+				<Hero layout='row'>
 					{/* Portrait */}
 					<div className={`${styles.portraitContainer} portraitContainer`}>
 						{/* TODO: Create slideshow of Portraits  */}
