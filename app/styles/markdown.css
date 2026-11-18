@@ -1,0 +1,67 @@
+/*
+ * Prose styles for generated HTML that cannot carry utility classes.
+ *   .markdown         — blog post body (markdown-to-jsx output)
+ *   .markdown-compact — project modal description (sanitized HTML)
+ * Utilities still override these (components layer < utilities layer).
+ */
+@layer components {
+	/* Blog post body */
+	.markdown h2,
+	.markdown h3 {
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+	}
+	.markdown p {
+		margin: 1rem auto;
+	}
+	.markdown strong {
+		font-weight: 600;
+	}
+	.markdown ul,
+	.markdown ol {
+		list-style: revert;
+		padding-left: var(--gap);
+		margin-bottom: var(--gap);
+	}
+	.markdown img {
+		display: inline-block;
+		max-width: 100%;
+	}
+	.markdown img[width='320'] {
+		margin-left: calc(50% - 160px); /* centering hack on mobile */
+	}
+	@media (min-width: 480px) {
+		.markdown div > pre code {
+			margin-left: var(--gap);
+			margin-right: var(--gap);
+		}
+		.markdown img[src*='#left'] {
+			float: left;
+			margin-right: 2em;
+			max-width: 50%;
+		}
+		.markdown img[src*='#right'] {
+			float: right;
+			margin-left: 2em;
+			max-width: 50%;
+		}
+	}
+
+	/* Project modal description */
+	.markdown-compact {
+		line-height: 1.6;
+	}
+	.markdown-compact :is(h1, h2, h3, h4, h5, h6) {
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
+	}
+	.markdown-compact p {
+		margin-bottom: 1rem;
+	}
+	.markdown-compact ul,
+	.markdown-compact ol {
+		list-style: revert;
+		margin-left: 1.5rem;
+		margin-bottom: 1rem;
+	}
+}
