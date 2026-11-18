@@ -87,14 +87,15 @@ export default function Home() {
 					{/* Homepage Intro */}
 					<div className={`${styles.homeIntro} homeIntro`}>
 						<h1>
-							<strong>Hey! I’m Andrew&nbsp;Magill,</strong>
-							<br />a web engineer who builds complex systems from stakeholder
-							discovery to production&nbsp;launch.
+							<strong>Hey there! I’m Andrew&nbsp;Magill.</strong>
+							<br />
+							I&apos;m a Software Developer with deep experience converting
+							ambitious goals into scalable solutions.
 						</h1>{' '}
 						<p>
-							With 15+ years of hands-on implementation experience across
-							Ecommerce, Pharmaceutical Marketing, and B2B healthcare, I
-							untangle tricky requirements to deliver exceptional outcomes.
+							15+ years of hands-on implementation experience delivering
+							exceptional outcomes across Ecommerce, Pharmaceutical Marketing,
+							and B2B healthcare.
 						</p>
 						<div className={styles.ctaRow}>
 							<a
@@ -160,10 +161,9 @@ export default function Home() {
 				{/* Recent Posts */}
 				<section className={`${styles.recentPosts} recentPosts`}>
 					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Writing</h2>
+						<h2>Recent Writing</h2>
 						<p>
-							Notes on integrations, compliance, and shipping AI-assisted code
-							safely.
+							My thoughts on integrations, compliance, and engineering insights.
 						</p>
 						<PostList maxPosts={3} />
 						<Link href='/blog' className={styles.viewAllButton}>
