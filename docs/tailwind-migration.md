@@ -43,7 +43,7 @@ The theme tokens point at the CSS variables in `base.css` (`@theme inline`), so 
 3. **`className` props are for additive classes only**, never for overriding a child's own utilities (e.g. Header passing the mobile collapse to `Navigation`).
 4. **Children you don't own:** a few arbitrary descendant variants are fine (`[&_h1]:mb-4`). If you need more than that, it's prose.
 5. **Ancestor or sibling state:** use `group-*` / `peer-*`, named groups (`group/item`) when nested. Stagger with an inline CSS variable (`--index`, `--reveal-delay`) instead of `nth-child`.
-6. **Match existing values exactly:** use arbitrary values (`text-[0.88rem]`) rather than the nearest scale step. Named `text-*` sizes also set line-height. Always give a duration and easing with `transition-*`. If an arbitrary value repeats 3 or more times, promote it to a `@theme` token.
+6. **Match existing values exactly:** use arbitrary values (`text-[0.88rem]`) rather than the nearest scale step. Named `text-*` sizes also set line-height. Always give a duration and easing with `transition-*`. In v4, `translate-*`, `rotate-*` and `scale-*` set the individual `translate` / `rotate` / `scale` properties, so an arbitrary transition list must name those (`transition-[translate,box-shadow]`), not `transform`. If an arbitrary value repeats 3 or more times, promote it to a `@theme` token.
 7. **Filters compose in a fixed order** (`brightness` before `contrast`). When the order matters, use an arbitrary property: `[filter:contrast(0%)_brightness(2)]`.
 8. **Conditional classes use `clsx`.** Variants are written so they never conflict, so `tailwind-merge` isn't needed.
 9. **Tests** assert roles, text or hook classes (`header`, `navigation`), never generated or utility class names.

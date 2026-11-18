@@ -19,7 +19,7 @@ interface ProjectCardProps {
 // Variants never override each other, so no class-merging is needed.
 const styles = {
 	card: {
-		base: 'relative z-0 flex cursor-pointer flex-col shadow-[0_2px_5px_rgba(0,0,0,0.25)] transition-[transform,box-shadow] duration-200 ease-[ease] hover:shadow-[0_6px_12px_rgba(0,0,0,0.1)]',
+		base: 'relative z-0 flex cursor-pointer flex-col shadow-[0_2px_5px_rgba(0,0,0,0.25)] transition-[translate,box-shadow] duration-200 ease-[ease] hover:shadow-[0_6px_12px_rgba(0,0,0,0.1)]',
 		default:
 			'glass min-w-[260px] basis-[calc(33.333%-var(--gap))] border border-line p-gap hover:-translate-y-[5px] max-[800px]:basis-[calc(50%-1rem)] max-xs:basis-full',
 		archive: 'basis-[calc(50%-var(--gap))] sm:basis-[calc(16.67%-var(--gap))]',
