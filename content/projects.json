@@ -1,101 +1,116 @@
 {
 	"projects": [
 		{
-			"title": "Ironsail AI",
-			"summary": "Engineered multi-brand templating system with custom responsive designs driven by Visual Composer page builder elements.",
-			"description": "Built custom responsive design templates adaptable to any brand identity, enabling the company to deliver white-label solutions at scale. Developed custom Visual Composer page builder elements and integrated them into flexible template architecture. Focused on creating reusable component patterns that non-technical teams could configure for diverse client branding requirements.",
-			"tags": ["React", "PHP", "API Integration", "Responsive Design"],
-			"image": "/images/projects/ironsail.ai-1.jpg"
-		},
-		{
 			"title": "Valhalla Vitality",
-			"summary": "Delivered a HIPAA-compliant custom e-commerce engine integrating prescription fulfillment, patient education workflows, and automated follow-up care.",
+			"summary": "Turned a telehealth pharmacy's manual prescription and follow-up steps into automated, HIPAA-compliant workflows.",
 			"description": "Built a high-growth online pharmacy platform from the ground up, architecting custom e-commerce logic to handle complex prescription management, compliance tracking, and patient lifecycle workflows. Developed custom CMS templates, checkout flows, and patient portal integrations. Platform supports seamless prescription renewals, educational content delivery, and secure healthcare data management.",
+			"problem": "A fast-growing online pharmacy needed checkout, prescription management, and patient follow-up to work as one compliant flow. Off-the-shelf e-commerce couldn't model prescriptions, renewals, or compliance tracking.",
+			"solution": "Designed custom commerce logic that ties each order to prescription management and compliance tracking, then integrated the patient portal for renewals, education content, and automated follow-up care.",
+			"outcome": "Prescription renewals and follow-up care run as automated workflows instead of manual steps, while patient data stays inside a HIPAA-compliant boundary.",
+			"role": "Lead developer, delivering this alongside other brands in the Valhalla MSO platform suite.",
 			"tags": [
-				"Front-end",
-				"PHP",
-				"E-commerce",
-				"HIPAA Compliance",
-				"Healthcare"
+				"Workflow Automation",
+				"Healthcare Integrations",
+				"HIPAA",
+				"E-commerce"
 			],
 			"image": "/images/projects/valhallavitality-2.jpg"
 		},
 		{
 			"title": "Atlas Premiere Health",
-			"summary": "Developed a custom WordPress e-commerce platform with EMR/EHR integrations for a healthcare practice expanding into online pharmacy services.",
+			"summary": "Connected a medical practice's existing healthcare systems to a new online pharmacy storefront.",
 			"description": "Designed and built a custom e-commerce engine on WordPress to bridge an existing medical practice with online pharmacy operations. Architected data synchronization between legacy healthcare systems and modern e-commerce workflows, ensuring real-time inventory management, prescription routing, and patient record integration. Developed custom CMS capabilities for compliance-driven content management.",
-			"tags": ["WordPress", "Front-end", "PHP", "E-commerce", "Healthcare"],
+			"problem": "An established medical practice wanted to expand into online pharmacy sales without running a second, disconnected set of patient, prescription, and inventory records.",
+			"solution": "Architected a data-sync layer between the practice's EMR/EHR systems and a custom commerce engine, covering real-time inventory, prescription routing, and patient-record integration, plus compliance-driven content management.",
+			"outcome": "Online orders, inventory, and prescriptions stay in sync with the practice's existing systems, so staff work from one source of truth.",
+			"role": "Designed and built the commerce engine and integration layer.",
+			"tags": ["EHR Integration", "Data Sync", "Healthcare Commerce"],
 			"image": "/images/projects/atlaspremierhealth-1.jpg"
 		},
 		{
-			"title": "Medshift",
-			"summary": "This eCommerce site had ambitions goals to grow it's audience and revenue from sales of medical devices and supplies.",
-			"description": "This brand's ambitious email marketing campaign schedule needed to be operated by non-technical associates. My role was to build the custom email templates that would become the basis for the site's email marketing channel. ",
-			"tags": ["Marketing Automation", "HubSpot", "HTML"],
-			"image": "/images/projects/medshift-1.jpg"
-		},
-		{
-			"title": "Oxlumo",
-			"summary": "Both patient and HCP branded properties needed to effectively communicate all approved public information about the drug.",
-			"description": "As one of four products of Alnylam Pharmaceuticals, the importance of accurate, easily accessible drug information can’t be understated. I served as the lead developer, planning a shared system architecture, developed original functionality, design implementation and content integration.",
-			"tags": ["Drupal", "Front-end", "PHP"],
-			"image": "/images/projects/oxlumo-1.jpg"
-		},
-		{
-			"title": "Alnylam Pharmaceuticals",
-			"summary": "The flagship property of this publicly traded company is an essential part of this client's online presence.",
-			"description": "A wide range of objectives and content was accommodated by a custom front end and CMS integration. My role was at times lead developer for several major updates, and supporting a team of developers doing content integration and quality assurance fixes.",
-			"tags": ["Drupal", "Front-end", "PHP"],
-			"image": "/images/projects/alnylam-com.jpg"
-		},
-		{
-			"title": "Trudhesa",
-			"summary": "This site was the HCP marketing and engagement component of this product's online presence.",
-			"description": "Regular compliance reviews were necessary to adhere to FDA advertisement regulations and guidelines. As lead developer, I was responsible for custom theme and module developments, responsive design implementation, and content integration.",
-			"tags": ["Front-end", "PHP", "WordPress"],
-			"image": "/images/projects/portfolio-trudhesa-hcp-1.jpg"
-		},
-		{
-			"title": "Alnylam Assist",
-			"summary": "This website represents the efforts by this Pharmaceutical company to ensure access for all patients to each of its four products.",
-			"description": "The site required robust HIPAA compliance to safely handle protected health information. Regular compliance review was necessary to adhere to FDA advertisement regulations and guidelines. As lead developer, I was responsible for custom theme and module developments, responsive design implementation, and content integration.",
-			"tags": ["Drupal", "Front-end", "PHP"],
-			"image": "/images/projects/portfolio-assist.jpg"
-		},
-		{
-			"title": "Greater Than One",
-			"summary": "The site was intended to be an impactful showcase of the agency's most compelling work, diverse company culture, and collaborative mindset.",
-			"description": "As lead developer on our flagship agency website, I was responsible for all functionality, design implementation, UX, and content integration.",
-			"tags": ["Front-end", "WordPress"],
-			"image": "/images/projects/portfolio-gto.png"
-		},
-		{
-			"title": "Ascender Studios",
-			"summary": "This unique group of developers and designers needed a unique approach to its online presence.",
-			"description": "As a developer within the business, showcasing our most impressive work was a critical goal. A one-page-site design was used to display and animate the various content areas. My role was maintaining and developing the one-page design templates driven by CPTs and front-end layouts.",
-			"tags": ["Front-end", "WordPress"],
-			"image": "/images/projects/portfolio-ascender.png"
-		},
-		{
 			"title": "Spotify for Artists – Co.Lab.Events",
-			"summary": "This event promotion website represents Spotify's artist engagement operations.",
+			"summary": "Built invite-only RSVPs and audience export to marketing tools for Spotify's in-person artist events.",
 			"description": "Built on WordPress, this site was responsible for promoting real-world networking events for recording artists. At these events, a panel of industry professionals discuss strategies and tactics to succeed in the music business. The site needed to collect RSVP’s from invitees with a user-unique link, and export audiences into 3rd party marketing tools. As the sole developer on this project, I was responsible for all front-end code, custom WordPress theme, custom plugin, and back-end application logic.",
-			"tags": ["Front-end", "WordPress"],
+			"problem": "Spotify's artist engagement team ran invite-only networking events for recording artists. They needed RSVPs tied to specific invitees, and attendee lists in their marketing tools.",
+			"solution": "Built a unique-link invitation and RSVP system with a custom plugin, plus an audience export integration into third-party marketing tools.",
+			"outcome": "Each event got invitee-specific RSVPs, and attendee audiences flowed straight into Spotify's marketing stack for follow-up.",
+			"role": "Sole engineer: front end, custom plugin, back-end logic, and integrations.",
+			"tags": [
+				"Third-Party Integration",
+				"Self-Serve Tooling",
+				"Stakeholder Delivery"
+			],
 			"image": "/images/projects/portfolio-spotify.png"
 		},
 		{
+			"title": "Ironsail AI",
+			"summary": "Built a white-label templating system that lets non-technical teams launch new brands without engineering help.",
+			"description": "Built custom responsive design templates adaptable to any brand identity, enabling the company to deliver white-label solutions at scale. Developed custom Visual Composer page builder elements and integrated them into flexible template architecture. Focused on creating reusable component patterns that non-technical teams could configure for diverse client branding requirements.",
+			"tags": ["White-Label Platform", "Self-Serve Tooling", "React", "PHP"],
+			"image": "/images/projects/ironsail.ai-1.jpg"
+		},
+		{
 			"title": "American Ballet Theatre",
-			"summary": "An ambitious top to bottom rebuild of this historic organization's website and online presence.",
+			"summary": "Migrated decades of historical data from a legacy ASP.NET CMS into a rebuilt platform, intact.",
 			"description": "As a world-leading classical ballet company, this organization needed an online presence that matched its real-world significance. Its previous platform was a custom ASP.Net CMS, with dozens of data models and decades of historical data. This data needed to be migrated intact into a custom WordPress back-end and rendered into coherent pages for users. My role on the project was integration of custom post types to store the content, custom templates to query data and render it into markup, and front-end integration of layouts, design assets, and user interface.",
-			"tags": ["Front-end", "WordPress"],
+			"tags": ["Data Migration", "Legacy Modernization", "WordPress"],
 			"image": "/images/projects/portfolio-abt.png"
 		},
 		{
 			"title": "CVS Specialty Expedite",
-			"summary": "This brochure website was commissioned to promote the business's specialty medication \"Expedite\" service.",
+			"summary": "Fed patient sign-ups from a specialty-medication site directly into CRM through third-party APIs.",
 			"description": "The site’s brand-consistent design needed to reassure patients with unique health challenges. A custom PHP back-end handled submission of user data into 3rd party APIs to facilitate the company’s CRM efforts. My role was development of the PHP back-end with API integration, and responsive design implementation.",
-			"tags": ["Front-end", "PHP"],
+			"tags": ["CRM API Integration", "Healthcare", "PHP"],
 			"image": "/images/projects/portfolio-cvs.png"
+		},
+		{
+			"title": "Oxlumo",
+			"summary": "Led technical delivery of the patient and HCP sites for an FDA-regulated drug launch on a shared architecture.",
+			"description": "As one of four products of Alnylam Pharmaceuticals, the importance of accurate, easily accessible drug information can’t be understated. I served as the lead developer, planning a shared system architecture, developed original functionality, design implementation and content integration.",
+			"tags": ["Regulated Launch", "Shared Architecture", "Drupal"],
+			"image": "/images/projects/oxlumo-1.jpg"
+		},
+		{
+			"title": "Alnylam Assist",
+			"summary": "Led development of the patient-access site for all four Alnylam products, handling protected health information under HIPAA.",
+			"description": "The site required robust HIPAA compliance to safely handle protected health information. Regular compliance review was necessary to adhere to FDA advertisement regulations and guidelines. As lead developer, I was responsible for custom theme and module developments, responsive design implementation, and content integration.",
+			"tags": ["HIPAA", "PHI Handling", "Regulated Content", "Drupal"],
+			"image": "/images/projects/portfolio-assist.jpg"
+		},
+		{
+			"title": "Trudhesa",
+			"summary": "Led development of the HCP site for this product launch, built to pass recurring FDA advertising compliance reviews.",
+			"description": "Regular compliance reviews were necessary to adhere to FDA advertisement regulations and guidelines. As lead developer, I was responsible for custom theme and module developments, responsive design implementation, and content integration.",
+			"tags": ["Regulated Launch", "FDA Compliance", "WordPress"],
+			"image": "/images/projects/portfolio-trudhesa-hcp-1.jpg"
+		},
+		{
+			"title": "Alnylam Pharmaceuticals",
+			"summary": "Led major updates to a public company's flagship site and supported the developer team handling content integration and QA.",
+			"description": "A wide range of objectives and content was accommodated by a custom front end and CMS integration. My role was at times lead developer for several major updates, and supporting a team of developers doing content integration and quality assurance fixes.",
+			"tags": ["Team Leadership", "Enterprise CMS", "Drupal"],
+			"image": "/images/projects/alnylam-com.jpg"
+		},
+		{
+			"title": "Medshift",
+			"summary": "Built the email template system that let a medical-supply retailer's non-technical team run an ambitious campaign schedule on their own.",
+			"description": "This brand's ambitious email marketing campaign schedule needed to be operated by non-technical associates. My role was to build the custom email templates that would become the basis for the site's email marketing channel.",
+			"tags": ["Marketing Automation", "Self-Serve Tooling", "HubSpot"],
+			"image": "/images/projects/medshift-1.jpg"
+		},
+		{
+			"title": "Greater Than One",
+			"summary": "Owned the agency's flagship site end to end, from functionality and UX to design implementation, as the showcase for its client work and culture.",
+			"description": "As lead developer on our flagship agency website, I was responsible for all functionality, design implementation, UX, and content integration.",
+			"tags": ["End-to-End Ownership", "UX", "WordPress"],
+			"image": "/images/projects/portfolio-gto.png"
+		},
+		{
+			"title": "Ascender Studios",
+			"summary": "Built and maintained the studio's one-page showcase site, driven by custom content types and animated layouts.",
+			"description": "As a developer within the business, showcasing our most impressive work was a critical goal. A one-page-site design was used to display and animate the various content areas. My role was maintaining and developing the one-page design templates driven by CPTs and front-end layouts.",
+			"tags": ["Custom Content Types", "Interactive UI", "WordPress"],
+			"image": "/images/projects/portfolio-ascender.png"
 		}
 	]
 }

@@ -19,6 +19,16 @@ export default function ProjectModal({
 }: ProjectModalProps) {
 	if (!project) return null;
 
+	// Case-study framing, shown in place of the free-form description when present
+	const caseStudySections = [
+		{ label: 'Problem', text: project.problem },
+		{ label: 'Solution', text: project.solution },
+		{ label: 'Outcome', text: project.outcome },
+		{ label: 'My Role', text: project.role },
+	].filter((section): section is { label: string; text: string } =>
+		Boolean(section.text)
+	);
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} showHeader={false}>
 			<div className={styles.projectModalContent}>
@@ -42,12 +52,23 @@ export default function ProjectModal({
 						))}
 					</div>
 					<p className={styles.projectModalSummary}>{project.summary}</p>
-					<div
-						className={styles.projectModalDescription}
-						dangerouslySetInnerHTML={{
-							__html: DOMPurify.sanitize(project.description),
-						}}
-					/>
+					{caseStudySections.length > 0 ? (
+						<dl className={styles.projectModalCaseStudy}>
+							{caseStudySections.map(({ label, text }) => (
+								<div key={label}>
+									<dt>{label}</dt>
+									<dd>{text}</dd>
+								</div>
+							))}
+						</dl>
+					) : (
+						<div
+							className={styles.projectModalDescription}
+							dangerouslySetInnerHTML={{
+								__html: DOMPurify.sanitize(project.description),
+							}}
+						/>
+					)}
 				</div>
 			</div>
 		</Modal>
