@@ -3,10 +3,10 @@
 	color: var(--alwaysWhite);
 
 	h1 {
-		display: inline;
 		font-size: clamp(1.5rem, 2.5vw, 2rem);
+		margin-bottom: 1rem;
 	}
-	a {
+	p a {
 		color: inherit;
 
 		text-underline-offset: 0.2rem;

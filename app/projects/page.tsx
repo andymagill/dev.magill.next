@@ -11,8 +11,9 @@ import JsonLd from '@/app/components/global/JsonLd';
 import styles from './page.module.scss';
 
 const meta = {
-	title: 'Web Projects and Development Work - ' + settings.title,
-	description: 'A collection of projects and development work by Andrew Magill',
+	title: 'Projects & Case Studies - ' + settings.title,
+	description:
+		'Integration and implementation case studies by Andrew Magill: the problem, the approach, and the outcome.',
 	url: `${settings.siteUrl}/projects/`,
 	image: settings.siteThumb,
 };
@@ -59,10 +60,10 @@ export default function Projects() {
 
 			<div className={styles.wrapper}>
 				<Hero>
-					<h1>Web Projects and Development Work </h1>
+					<h1>Projects & Case Studies</h1>
 					<p>
-						Some of the bigger and better projects that I&apos;ve developed over
-						the years.
+						Client platforms framed by the business problem, the integration
+						approach, and the operational outcome.
 					</p>
 				</Hero>
 
@@ -78,7 +79,7 @@ export default function Projects() {
 					<div className={`${styles.wrapper} wrapper`}>
 						<h2 className='text-center mx-auto'>Project Archive</h2>
 						<p className='text-center mx-auto'>
-							Cool stuff I worked on &apos;back in the day&apos;.
+							Earlier marketing sites, brand launches, and design work.
 						</p>
 						<ProjectListContainer file='-archive' />
 					</div>

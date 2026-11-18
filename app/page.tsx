@@ -57,7 +57,7 @@ export default function Home() {
 			'@type': 'Person',
 			name: settings.author,
 			url: settings.siteUrl,
-			jobTitle: 'Web Engineer',
+			jobTitle: 'Web Solutions Engineer',
 			sameAs: [
 				'https://www.linkedin.com/in/andrew-magill',
 				'https://github.com/andymagill',
@@ -87,85 +87,87 @@ export default function Home() {
 					{/* Homepage Intro */}
 					<div className={`${styles.homeIntro} homeIntro`}>
 						<h1>
-							<strong>Hey there, I’m Andrew&nbsp;Magill. </strong> I’m a
-							web&nbsp;engineer with{' '}
-							<Link href='//www.linkedin.com/in/andrew-magill'>
-								deep&nbsp;experience
-							</Link>{' '}
-							building{' '}
-							<Link href='//github.com/andymagill'>
-								custom&nbsp;websites & applications
-							</Link>
-							.
+							<strong>Hey there! I’m Andrew&nbsp;Magill.</strong>
+							<br />
+							I&apos;m a Software Developer with deep experience converting
+							ambitious goals into scalable solutions.
 						</h1>{' '}
 						<p>
-							I built{' '}
-							<Link href='/post/lets-breakdown-my-website'>this website</Link>{' '}
-							to showcase <Link href='/projects'>some of my&nbsp;work</Link>.{' '}
-							I&#39;m always looking for{' '}
-							<Link href='/blog'>new&nbsp;challenges</Link>, so let&#39;s{' '}
+							15+ years of hands-on implementation experience delivering
+							exceptional outcomes across Ecommerce, Pharmaceutical Marketing,
+							and B2B healthcare.
+						</p>
+						<div className={styles.ctaRow}>
 							<a
 								href='https://calendar.google.com/calendar/appointments/schedules/AcZssZ1eVLAyEkJQ7H3o24pzhMevGobzhTexLeufmSBltUhQHxu49SAvt2Oog63LhckkwhbQYp8IiXOJ?gv=true'
 								target='_blank'
 								rel='noopener noreferrer'
+								className={styles.ctaPrimary}
 							>
-								connect and collaborate
+								Book some time
 							</a>
-							.
-						</p>
+							<Link href='/projects' className={styles.ctaSecondary}>
+								See my work
+							</Link>
+						</div>
 					</div>
 				</Hero>
 
 				{/* Key Skills */}
 				<section className={`${styles.serviceList} serviceList`}>
 					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Key Skills</h2>
+						<h2>Core Capabilities</h2>
 						<p>
-							Here are some of my key capabilities that deliver tangible results
-							for my clients and projects.{' '}
+							Here’s how I help teams and stakeholders turn ambitious technical
+							requirements into production-ready systems.
 						</p>
 						<div className={`${styles.calloutContainer} calloutContainer`}>
 							<Callout
-								title='Engineering Management'
-								description='I help teams execute engineering projects that address complex challenges and exceed expectations.'
+								title='Engineering Architecture'
+								description='I align cross-functional teams and business stakeholders to scope, architect, and deliver bespoke technical solutions. '
 								icon='/images/icon-project.svg'
 							/>
 
 							<Callout
-								title='Software Development'
-								description='I architect web applications that elegantly translate ambitious goals into scalable solutions.'
+								title='Enterprise Integration'
+								description='I build production-ready web platforms and complex third-party integrations that deliver outsized value. '
 								icon='/images/icon-engineering.svg'
 							/>
 
 							<Callout
-								title='Process Automation'
-								description='I implement tools that enable teams to focus on their core business and strategic objectives.'
+								title='Workflow Automation'
+								description='I eliminate manual bottlenecks by connecting systems and automating workflows so teams can focus on growth. '
 								icon='/images/icon-automation.svg'
 							/>
 						</div>
 					</div>
 				</section>
 
-				{/* Recent Posts */}
-				<section className={`${styles.recentPosts} recentPosts`}>
+				{/* Featured Projects */}
+				<section className={`${styles.featuredProjects} featuredProjects`}>
 					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Recent Rants </h2>
-						<p>Thoughts that I may one day wonder why I bothered writing. </p>
-						<PostList maxPosts={3} />
-						<Link href='/blog' className={styles.viewAllButton}>
-							View All Blog Posts
+						<h2>Featured Case Studies</h2>
+						<p>
+							A look at how I solve complex technical and operational challenges
+							in the wild.{' '}
+						</p>
+						<ProjectListContainer maxProjects={3} />
+						<Link href='/projects' className={styles.viewAllButton}>
+							View All Projects
 						</Link>
 					</div>
 				</section>
 
-				{/* Featured Projects */}
-				<section className={`${styles.featuredProjects} featuredProjects`}>
+				{/* Recent Posts */}
+				<section className={`${styles.recentPosts} recentPosts`}>
 					<div className={`${styles.wrapper} wrapper`}>
-						<h2>Featured Projects </h2>
-						<p>Some of my greatest hits that were pretty cool at some point</p>
-						<ProjectListContainer maxProjects={3} />
-						<Link href='/projects' className={styles.viewAllButton}>
-							View All Projects
+						<h2>Recent Writing</h2>
+						<p>
+							My thoughts on integrations, compliance, and engineering insights.
+						</p>
+						<PostList maxPosts={3} />
+						<Link href='/blog' className={styles.viewAllButton}>
+							View All Posts
 						</Link>
 					</div>
 				</section>

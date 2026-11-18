@@ -28,6 +28,30 @@
 	}
 }
 
+// Hero calls to action
+.ctaRow {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.5rem;
+}
+
+.ctaPrimary {
+	@include mixins.button;
+}
+
+.ctaSecondary {
+	@include mixins.button;
+	background-color: transparent;
+	color: var(--foreground);
+
+	&:hover,
+	&:focus {
+		background-color: var(--foreground);
+		color: var(--background);
+	}
+}
+
 .portraitContainer {
 	align-self: flex-start;
 	margin-left: auto;

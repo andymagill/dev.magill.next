@@ -18,6 +18,11 @@ export interface Project {
 	description: string;
 	image: string;
 	tags: string[];
+	// Optional case-study framing; rendered in the modal instead of `description` when present
+	problem?: string;
+	solution?: string;
+	outcome?: string;
+	role?: string;
 }
 
 export interface ProjectsData {

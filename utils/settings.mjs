@@ -2,9 +2,9 @@
  * App Settings
  */
 export const settings = {
-	title: 'Andrew Magill, Web Engineer',
+	title: 'Andrew Magill, Solutions & Forward-Deployed Engineer',
 	description:
-		"Andrew Magill's Web Development project portfolio and professional blog",
+		'Integration architecture, technical discovery, and implementation case studies from regulated B2B platforms.',
 	author: 'Andrew Magill',
 	siteUrl: process.env.__NEXT_PRIVATE_ORIGIN || 'https://magill.dev',
 	defaultImage: '/images/blog/clarissa-watson-pencil-unsplash.jpg',

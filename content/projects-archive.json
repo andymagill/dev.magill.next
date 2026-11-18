@@ -1,6 +1,13 @@
 {
 	"projects": [
 		{
+			"title": "Ascender Studios",
+			"summary": "Built and maintained the studio's one-page showcase site, driven by custom content types and animated layouts.",
+			"description": "As a developer within the business, showcasing our most impressive work was a critical goal. A one-page-site design was used to display and animate the various content areas. My role was maintaining and developing the one-page design templates driven by CPTs and front-end layouts.",
+			"tags": ["Custom Content Types", "Interactive UI", "WordPress"],
+			"image": "/images/projects/portfolio-ascender.png"
+		},
+		{
 			"title": "Park Avenue Institutional Advisors",
 			"summary": "This Drupal website and custom theme was built to represent the investment operations of Guardian Life Insurance.",
 			"description": "This website needed to serve as a professional and credible platform for the launch of this new subsidiary. An aerial and nautical theme was chosen to represent perspective and an adventurous spirit. The upload and organization of financial documents and disclosures was a primary requirement, as part of the business’s regulatory obligations. My role on the project was building custom Drupal templates with custom responsive layout and UI.",
