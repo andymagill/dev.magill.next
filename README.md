@@ -54,8 +54,8 @@ To install, follow these steps:
 - **ESLint:** A static code analysis tool used to flag suspicious code and enforce coding standards.
 - **Prettier:** A code formatter that automatically formats code to a consistent style.
 - **Vitest:** A fast unit testing framework for JavaScript applications.
-- **CSS Modules:** A CSS file in which all class names and animation names are scoped locally by default.
-- **SASS:** A CSS preprocessor that adds power and elegance to the basic language, used for more maintainable stylesheets.
+- **Tailwind CSS v4:** Utility-first styling; tokens, base styles and prose rules live in `app/globals.css` and `app/styles/`. See [docs/tailwind-migration.md](docs/tailwind-migration.md) for conventions.
+- **SASS (CSS Modules):** Kept only for the self-contained hero and background animation modules.
 - **Markdown:** Used for blog content and documentation, with [gray-matter](https://www.npmjs.com/package/gray-matter) for frontmatter parsing and [markdown-to-jsx](https://www.npmjs.com/package/markdown-to-jsx) for rendering Markdown as React components.
 - **RSS Feed:** The [`rss`](https://www.npmjs.com/package/rss) library is used to generate an RSS feed for blog posts, improving discoverability and syndication.
 - **next-sitemap:** Automatically generates a sitemap for SEO optimization.
