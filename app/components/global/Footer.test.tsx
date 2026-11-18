@@ -3,7 +3,6 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Footer from './Footer';
-import styles from './Footer.module.scss';
 
 // Mock the Navigation component
 vi.mock('./Navigation', () => ({
@@ -47,12 +46,9 @@ describe('Footer', () => {
 		expect(screen.getByText(/Andrew Magill \| Developer/)).toBeInTheDocument();
 	});
 
-	it('has correct styling', () => {
-		const { container } = render(<Footer />);
-		const footer = container.querySelector('footer');
-		expect(footer).toHaveClass(styles.footer);
-
-		const wrapper = container.querySelector('div');
-		expect(wrapper).toHaveClass(styles.wrapper);
+	it('renders inside the footer landmark', () => {
+		render(<Footer />);
+		const footer = screen.getByRole('contentinfo');
+		expect(footer).toContainElement(screen.getByTestId('navigation'));
 	});
 });

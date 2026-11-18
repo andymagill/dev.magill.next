@@ -1,18 +1,23 @@
 // app/components/blog/PostList.tsx
 
 import React from 'react';
-import { Post as PostType } from '@/utils/types';
+import clsx from 'clsx';
+import { Post as PostType, type PostListVariant } from '@/utils/types';
 import { FC } from 'react';
 import PostItem from './PostItem';
 import postService from '@/utils/PostService';
-import styles from './PostList.module.css';
 
 interface PostListProps {
 	tag?: string;
 	maxPosts?: number;
+	variant?: PostListVariant;
 }
 
-const PostList = ({ tag = '', maxPosts = 0 }: PostListProps) => {
+const PostList = ({
+	tag = '',
+	maxPosts = 0,
+	variant = 'default',
+}: PostListProps) => {
 	const slugs = postService.getSlugs(tag);
 	const postData: PostType[] = slugs.map((slug) => postService.getPost(slug));
 
@@ -25,9 +30,14 @@ const PostList = ({ tag = '', maxPosts = 0 }: PostListProps) => {
 	const limitedPosts = maxPosts ? sortedPosts.slice(0, maxPosts) : sortedPosts;
 
 	return (
-		<div className={`${styles.postList} postList`}>
+		<div
+			className={clsx(
+				'mt-gap flex flex-col gap-gap',
+				variant === 'compact' ? 'items-start xs:flex-row' : 'items-center'
+			)}
+		>
 			{limitedPosts.map((post) => (
-				<PostItem key={post.slug} post={post} />
+				<PostItem key={post.slug} post={post} variant={variant} />
 			))}
 		</div>
 	);

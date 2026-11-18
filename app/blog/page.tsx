@@ -8,7 +8,6 @@ import { settings } from '@/utils/settings.mjs';
 import Hero from '@/app/components/global/Hero';
 import PostList from '@/app/components/blog/PostList';
 import JsonLd from '@/app/components/global/JsonLd';
-import styles from './page.module.scss';
 
 const meta = {
 	title: 'Rants & Ramblings - ' + settings.title,
@@ -62,7 +61,7 @@ export default function Blog() {
 		},
 	};
 	return (
-		<main className={styles.main}>
+		<main>
 			{/* JSON-LD structured data for SEO */}
 			<JsonLd data={jsonLd} />
 
@@ -75,8 +74,8 @@ export default function Blog() {
 			</Hero>
 
 			{/* TODO: Make post index design consistent with homepage */}
-			<section className={styles.postIndex}>
-				<div className={styles.wrapper}>
+			<section className='mt-gutter'>
+				<div className='m-auto max-w-blog p-gap'>
 					<PostList />
 				</div>
 			</section>

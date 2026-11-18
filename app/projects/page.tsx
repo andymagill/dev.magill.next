@@ -8,7 +8,6 @@ import { settings } from '@/utils/settings.mjs';
 import Hero from '@/app/components/global/Hero';
 import ProjectListContainer from '@/app/components/projects/ProjectListContainer';
 import JsonLd from '@/app/components/global/JsonLd';
-import styles from './page.module.scss';
 
 const meta = {
 	title: 'Projects & Case Studies - ' + settings.title,
@@ -54,11 +53,11 @@ export default function Projects() {
 		url: meta.url,
 	};
 	return (
-		<main className={styles.main}>
+		<main>
 			{/* JSON-LD structured data for SEO */}
 			<JsonLd data={jsonLd} />
 
-			<div className={styles.wrapper}>
+			<div>
 				<Hero>
 					<h1>Projects & Case Studies</h1>
 					<p>
@@ -68,20 +67,20 @@ export default function Projects() {
 				</Hero>
 
 				{/* Projects */}
-				<section className={`${styles.allProjects} allProjects`}>
-					<div className={`${styles.wrapper} wrapper`}>
+				<section className='mt-gutter'>
+					<div className='p-gap'>
 						<ProjectListContainer />
 					</div>
 				</section>
 
 				{/* Archive */}
-				<section className={`${styles.archive} archive`}>
-					<div className={`${styles.wrapper} wrapper`}>
-						<h2 className='text-center mx-auto'>Project Archive</h2>
-						<p className='text-center mx-auto'>
+				<section className='mx-auto my-gutter pt-gutter'>
+					<div>
+						<h2 className='mx-auto text-center'>Project Archive</h2>
+						<p className='mx-auto mb-[calc(var(--gutter)*2)] text-center'>
 							Earlier marketing sites, brand launches, and design work.
 						</p>
-						<ProjectListContainer file='-archive' />
+						<ProjectListContainer file='-archive' variant='archive' />
 					</div>
 				</section>
 			</div>

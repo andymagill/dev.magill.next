@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import styles from './RelatedPosts.module.scss';
+import clsx from 'clsx';
 
 interface Props {
 	children: React.ReactNode;
@@ -46,15 +46,13 @@ export default function RelatedPosts({ children, className }: Props) {
 		return () => obs.disconnect();
 	}, []);
 
-	const wrapperClass = `${styles.container} ${className ?? ''}`.trim();
-
 	return (
 		<div
 			ref={ref}
-			className={wrapperClass}
+			className={clsx('group mx-auto my-4 max-w-blog p-gap', className)}
 			data-related-visible={visible ? '1' : '0'}
 		>
-			<h2 className={styles.heading}>Related Articles</h2>
+			<h2 className='mb-6 text-center text-[1.25rem]'>Related Articles</h2>
 			{children}
 		</div>
 	);

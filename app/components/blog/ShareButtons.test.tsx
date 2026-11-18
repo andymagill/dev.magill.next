@@ -1,16 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import ShareButtons from './ShareButtons';
-import styles from './ShareButtons.module.scss';
-
-// Force styles mock to ensure consistent class names in tests
-vi.mock('./ShareButtons.module.scss', () => ({
-	default: {
-		shareButtonList: 'shareButtonList-mock',
-		wrapper: 'wrapper-mock',
-		shareButton: 'shareButton-mock',
-	},
-}));
 
 // Don't mock useEffect - instead mock window.location before React is imported
 Object.defineProperty(window, 'location', {

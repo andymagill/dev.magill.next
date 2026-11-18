@@ -1,0 +1,65 @@
+/*
+ * Global stylesheet and Tailwind CSS entry point.
+ *
+ * Layer order (lowest → highest priority): theme, base, components, utilities.
+ * Anything written outside a layer (e.g. the remaining SCSS animation modules)
+ * beats every layer, so keep unlayered CSS limited to self-contained modules.
+ * See docs/tailwind-migration.md for the styling conventions.
+ */
+@import 'tailwindcss';
+@import './styles/base.css';
+@import './styles/highlight.css';
+@import './styles/markdown.css';
+@import './styles/components.css';
+
+/* Matches the site's existing dark-mode media query (not just prefers-color-scheme). */
+@custom-variant dark {
+	@media (prefers-color-scheme: dark),
+		(prefers-color-scheme: no-preference) and (environment-blending: dark),
+		(forced-colors: dark) {
+		@slot;
+	}
+}
+
+/*
+ * Design tokens. `inline` keeps the runtime CSS variables (defined in
+ * styles/base.css) as the source of truth, so dark mode keeps switching them.
+ */
+@theme inline {
+	--color-background: var(--background);
+	--color-background-too: var(--backgroundToo);
+	--color-foreground: var(--foreground);
+	--color-line: var(--line-color);
+	--color-always-white: var(--alwaysWhite);
+	--color-always-black: var(--alwaysBlack);
+
+	--spacing-gap: var(--gap);
+	--spacing-gutter: var(--gutter);
+
+	--container-inner: var(--inner-width);
+	--container-blog: var(--blog-width);
+}
+
+@theme {
+	/* 480px; sm (640px) and md (768px) are Tailwind defaults. */
+	--breakpoint-xs: 30rem;
+
+	--animate-pulse-soft: pulse-soft 1.5s ease-in-out infinite;
+
+	@keyframes pulse-soft {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.7;
+		}
+	}
+}
+
+/* Frosted-glass surface (formerly the `glass` SCSS mixin). */
+@utility glass {
+	background-color: color-mix(in srgb, var(--backgroundToo) 48%, transparent);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}

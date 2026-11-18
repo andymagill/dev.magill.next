@@ -29,10 +29,17 @@ export interface ProjectsData {
 	projects: Project[];
 }
 
+// Post list layout: full-width rows (blog index) or compact columns (home page)
+export type PostListVariant = 'default' | 'compact';
+
+// Visual treatment for project cards: full card, or compact image-only archive tile
+export type ProjectCardVariant = 'default' | 'archive';
+
 // Improved props interface following Interface Segregation Principle
 export interface ProjectListContainerProps {
 	file?: string;
 	maxProjects?: number;
+	variant?: ProjectCardVariant;
 }
 
 // New interfaces for SOLID compliant post handling

@@ -16,7 +16,7 @@ import {
 	faHourglass,
 } from '@fortawesome/free-solid-svg-icons';
 import { cleanMarkdown } from '../../../utils/cleanMarkdown';
-import styles from './ListenButton.module.scss';
+import clsx from 'clsx';
 
 interface ListenButtonProps {
 	text: string;
@@ -442,15 +442,17 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 	return (
 		<>
 			<button
-				className={`${
+				className={clsx(
+					'btn mt-[1em] hover:border-background hover:text-background',
 					speechState === 'speaking'
-						? `${styles.listenButton} ${styles.speaking}`
+						? 'bg-[#70b40a] text-white'
 						: speechState === 'processing'
-							? `${styles.listenButton} ${styles.processing}`
-							: showError
-								? `${styles.listenButton} ${styles.error}`
-								: styles.listenButton
-				} ${isReady || showError ? styles.buttonEnabled : styles.buttonDisabled}`}
+							? 'animate-pulse-soft bg-[#623db9] text-white'
+							: showError && 'border-2 border-white bg-[#e00938] text-white',
+					isReady || showError
+						? 'cursor-pointer opacity-100'
+						: 'cursor-not-allowed opacity-50'
+				)}
 				onClick={isActive ? handleStop : handleListen}
 				type='button'
 				aria-pressed={isActive}
@@ -472,7 +474,10 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 							: undefined
 				}
 			>
-				<span aria-hidden='true' className={styles.icon}>
+				<span
+					aria-hidden='true'
+					className='mr-[0.5em] inline-flex items-center'
+				>
 					<FontAwesomeIcon
 						icon={
 							speechState === 'speaking'
@@ -496,7 +501,10 @@ const ListenButton: React.FC<ListenButtonProps> = ({ text }) => {
 
 			{/* Error message display */}
 			{showError && errorMessage && (
-				<div role='alert' className={styles.errorMessage}>
+				<div
+					role='alert'
+					className='mt-[0.5em] rounded-[0.5em] bg-[rgba(206,9,51,0.1)] p-[0.5em] text-[0.8rem] text-always-black'
+				>
 					{errorMessage}
 				</div>
 			)}

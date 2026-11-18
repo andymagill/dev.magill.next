@@ -3,10 +3,15 @@
 import { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
-import styles from './ProjectList.module.scss';
-import { Project as ProjectType } from '@/utils/types';
+import { Project as ProjectType, type ProjectCardVariant } from '@/utils/types';
 
-export default function ProjectList({ projects }: { projects: ProjectType[] }) {
+export default function ProjectList({
+	projects,
+	variant = 'default',
+}: {
+	projects: ProjectType[];
+	variant?: ProjectCardVariant;
+}) {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedProject, setSelectedProject] = useState<ProjectType | null>(
 		null
@@ -22,12 +27,13 @@ export default function ProjectList({ projects }: { projects: ProjectType[] }) {
 	};
 
 	return (
-		<section className={`${styles.projectList} projectList`}>
-			<div className={`${styles.projectListInner} projectListInner`}>
+		<section className='mx-auto my-gap w-full'>
+			<div className='flex flex-wrap justify-center gap-gap'>
 				{projects.map((project, index) => (
 					<ProjectCard
 						key={index}
 						{...project}
+						variant={variant}
 						onClick={() => openProjectModal(project)}
 					/>
 				))}
