@@ -3,7 +3,6 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
-import styles from './Header.module.scss';
 
 // Mock the Navigation component
 vi.mock('./Navigation', () => ({
@@ -22,7 +21,6 @@ describe('Header', () => {
 		// Check if the header element exists with correct class
 		const header = screen.getByRole('banner');
 		expect(header).toHaveClass('header');
-		expect(header).toHaveClass(styles.header);
 
 		// Check if Navigation component is rendered
 		expect(screen.getByTestId('navigation')).toBeInTheDocument();

@@ -3,7 +3,6 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Navigation from './Navigation';
-import styles from './Navigation.module.scss';
 
 // Mock next/link
 vi.mock('next/link', () => {
@@ -66,6 +65,5 @@ describe('Navigation', () => {
 		const nav = container.querySelector('nav');
 
 		expect(nav).toHaveClass('navigation');
-		expect(nav).toHaveClass(styles.navigation);
 	});
 });

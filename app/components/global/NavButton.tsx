@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import styles from './NavButton.module.scss';
 
 const NavButton: React.FC = () => {
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -42,13 +41,16 @@ const NavButton: React.FC = () => {
 	return (
 		<>
 			<input
-				className={styles.navButton}
+				className='peer hidden'
 				type='checkbox'
 				id='navButton'
 				ref={inputRef}
 				onChange={handleCheckboxChange}
 			/>
-			<label className={styles.navButtonIcon} htmlFor='navButton'>
+			<label
+				className='my-[0.25em] inline-block size-11 cursor-pointer p-2 text-[2rem] leading-none sm:hidden [&_svg]:rotate-0 [&_svg]:text-always-white [&_svg]:transition-transform [&_svg]:duration-[250ms] peer-checked:[&_svg]:rotate-[270deg]'
+				htmlFor='navButton'
+			>
 				{/* TODO: change the mobile button to something more recognizable */}
 				<FontAwesomeIcon icon={faBars} />
 			</label>
