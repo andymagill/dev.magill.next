@@ -1,0 +1,84 @@
+{
+	"skills": [
+		{
+			"title": "AI & Agentic Tooling",
+			"items": [
+				"Claude",
+				"GitHub Copilot",
+				"OpenClaw",
+				"LLM Routing & Evals",
+				"OpenRouter",
+				"Groq",
+				"Cerebras",
+				"Vercel AI SDK"
+			]
+		},
+		{
+			"title": "Languages & Frameworks",
+			"items": [
+				"TypeScript",
+				"JavaScript (ES6+)",
+				"Node.js",
+				"React",
+				"Next.js",
+				"C#",
+				".NET",
+				"PHP"
+			]
+		},
+		{
+			"title": "Frontend & CMS",
+			"items": [
+				"Tailwind CSS",
+				"Sass",
+				"WordPress",
+				"Drupal",
+				"Headless CMS",
+				"Accessibility (WCAG)",
+				"SEO & AEO",
+				"i18n"
+			]
+		},
+		{
+			"title": "Cloud & Infrastructure",
+			"items": [
+				"AWS",
+				"Azure",
+				"Vercel",
+				"Cloudflare",
+				"Docker",
+				"CI/CD",
+				"GitHub Actions",
+				"Infrastructure as Code"
+			]
+		},
+		{
+			"title": "Data, APIs & Integration",
+			"items": [
+				"REST",
+				"GraphQL",
+				"Microservices",
+				"PostgreSQL",
+				"MySQL",
+				"Supabase Auth & RLS",
+				"Webhooks",
+				"CRM Integration",
+				"EHR Integration",
+				"Stripe",
+				"WebRTC / Real-time Sync"
+			]
+		},
+		{
+			"title": "Compliance & Observability",
+			"items": [
+				"HIPAA Compliance",
+				"FDA-Regulated Marketing",
+				"Healthcare IT",
+				"Security (OWASP)",
+				"Sentry",
+				"Vitest",
+				"Agile Delivery"
+			]
+		}
+	]
+}
