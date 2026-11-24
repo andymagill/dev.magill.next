@@ -14,21 +14,6 @@
 			]
 		},
 		{
-			"title": "APIs, Cloud & Architecture",
-			"items": [
-				"REST",
-				"GraphQL",
-				"Microservices",
-				"PostgreSQL",
-				"Supabase Auth & RLS",
-				"CI/CD",
-				"GitHub Actions",
-				"Docker",
-				"Vercel",
-				"Cloudflare"
-			]
-		},
-		{
 			"title": "Languages & Frameworks",
 			"items": [
 				"TypeScript",
@@ -42,19 +27,57 @@
 			]
 		},
 		{
-			"title": "Domain, Delivery & Systems",
+			"title": "Frontend & CMS",
+			"items": [
+				"Tailwind CSS",
+				"Sass",
+				"WordPress",
+				"Drupal",
+				"Headless CMS",
+				"Accessibility (WCAG)",
+				"SEO & Structured Data",
+				"i18n"
+			]
+		},
+		{
+			"title": "Cloud & Infrastructure",
+			"items": [
+				"AWS",
+				"Azure",
+				"Vercel",
+				"Cloudflare",
+				"Docker",
+				"CI/CD",
+				"GitHub Actions",
+				"Infrastructure as Code"
+			]
+		},
+		{
+			"title": "Data, APIs & Integration",
+			"items": [
+				"REST",
+				"GraphQL",
+				"Microservices",
+				"PostgreSQL",
+				"MySQL",
+				"Supabase Auth & RLS",
+				"Webhooks",
+				"CRM Integration",
+				"EHR Integration",
+				"Stripe",
+				"WebRTC / Real-time Sync"
+			]
+		},
+		{
+			"title": "Compliance, Quality & Delivery",
 			"items": [
 				"HIPAA Compliance",
+				"FDA-Regulated Marketing",
 				"Healthcare IT",
-				"SaaS",
+				"Security (OWASP)",
 				"Sentry",
-				"Git",
-				"Jira",
-				"Agile",
-				"Scrum",
-				"Kanban",
-				"WebRTC",
-				"Real-time Sync"
+				"Vitest",
+				"Agile Delivery"
 			]
 		}
 	]

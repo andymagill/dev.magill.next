@@ -155,7 +155,7 @@ export default function Home() {
 							The tools, frameworks, and platforms I use to build thoughtful
 							digital solutions.
 						</p>
-						<div className='mt-gap grid grid-cols-1 gap-gap md:grid-cols-2 lg:grid-cols-4'>
+						<div className='mt-gap grid grid-cols-1 gap-gap md:grid-cols-2 lg:grid-cols-3'>
 							{skills.map((category) => (
 								<SkillCard key={category.title} {...category} />
 							))}
