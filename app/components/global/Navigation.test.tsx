@@ -46,7 +46,7 @@ describe('Navigation', () => {
 
 		expect(allLinks[3]).toHaveAttribute(
 			'href',
-			'/docs/andrew-magill-developer-resume.pdf'
+			'/docs/andrew-magill-resume.pdf'
 		);
 		expect(allLinks[3]).toHaveTextContent('Resume');
 

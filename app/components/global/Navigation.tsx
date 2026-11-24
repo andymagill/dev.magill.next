@@ -31,10 +31,7 @@ const Navigation: React.FC<NavigationProps> = ({ className }) => {
 					</Link>
 				</li>
 				<li>
-					<a
-						href='/docs/andrew-magill-developer-resume.pdf'
-						className={linkClass}
-					>
+					<a href='/docs/andrew-magill-resume.pdf' className={linkClass}>
 						Resume
 					</a>
 				</li>
