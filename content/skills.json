@@ -1,0 +1,61 @@
+{
+	"skills": [
+		{
+			"title": "AI & Agentic Tooling",
+			"items": [
+				"Claude",
+				"GitHub Copilot",
+				"OpenClaw",
+				"LLM Routing & Evals",
+				"OpenRouter",
+				"Groq",
+				"Cerebras",
+				"Vercel AI SDK"
+			]
+		},
+		{
+			"title": "APIs, Cloud & Architecture",
+			"items": [
+				"REST",
+				"GraphQL",
+				"Microservices",
+				"PostgreSQL",
+				"Supabase Auth & RLS",
+				"CI/CD",
+				"GitHub Actions",
+				"Docker",
+				"Vercel",
+				"Cloudflare"
+			]
+		},
+		{
+			"title": "Languages & Frameworks",
+			"items": [
+				"TypeScript",
+				"JavaScript (ES6+)",
+				"Node.js",
+				"React",
+				"Next.js",
+				"C#",
+				".NET",
+				"PHP"
+			]
+		},
+		{
+			"title": "Domain, Delivery & Systems",
+			"items": [
+				"HIPAA Compliance",
+				"Healthcare IT",
+				"SaaS",
+				"Sentry",
+				"Git",
+				"Jira",
+				"Agile",
+				"Scrum",
+				"Kanban",
+				"WebRTC",
+				"Real-time Sync"
+			]
+		}
+	]
+}

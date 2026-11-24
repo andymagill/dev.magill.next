@@ -14,6 +14,11 @@ import Callout from '@/app/components/global/Callout';
 import PostList from '@/app/components/blog/PostList';
 import ProjectListContainer from '@/app/components/projects/ProjectListContainer';
 import JsonLd from '@/app/components/global/JsonLd';
+import SkillCard from '@/app/components/home/SkillCard';
+import skillsJson from '@/content/skills.json';
+import type { SkillsData } from '@/utils/types';
+
+const { skills } = skillsJson as SkillsData;
 
 // Define the metadata for the page
 export const metadata: Metadata = {
@@ -138,6 +143,22 @@ export default function Home() {
 								description='I eliminate manual bottlenecks by connecting systems and automating workflows so teams can focus on growth. '
 								icon='/images/icon-automation.svg'
 							/>
+						</div>
+					</div>
+				</section>
+
+				{/* Skills & Technologies */}
+				<section className='mt-[8vmin]'>
+					<div className='m-auto max-w-inner p-4'>
+						<h2 className='text-center'>Skills &amp; Technologies</h2>
+						<p className='text-center'>
+							The tools, frameworks, and platforms I use to build thoughtful
+							digital solutions.
+						</p>
+						<div className='mt-gap grid grid-cols-1 gap-gap md:grid-cols-2 lg:grid-cols-4'>
+							{skills.map((category) => (
+								<SkillCard key={category.title} {...category} />
+							))}
 						</div>
 					</div>
 				</section>

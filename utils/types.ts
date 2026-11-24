@@ -29,6 +29,16 @@ export interface ProjectsData {
 	projects: Project[];
 }
 
+// A homepage skills card: category name and its technologies
+export interface SkillCategory {
+	title: string;
+	items: string[];
+}
+
+export interface SkillsData {
+	skills: SkillCategory[];
+}
+
 // Post list layout: full-width rows (blog index) or compact columns (home page)
 export type PostListVariant = 'default' | 'compact';
 
